@@ -1,0 +1,677 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		97F60E01B19CAD0ACCD790A0 /* Pods_XTDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */; };
+		BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */; };
+		BC2AA7D127EC925E00078A7E /* emoji in Resources */ = {isa = PBXBuildFile; fileRef = BC2AA7D027EC925E00078A7E /* emoji */; };
+		BC2AA7D327EC95CF00078A7E /* EmojiAttributedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */; };
+		BC4CFDBC27ED5D18007C79CF /* xt_dynamic_list_0.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */; };
+		BC4CFDBD27ED5D18007C79CF /* xt_dynamic_list_1.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */; };
+		BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */; };
+		BC61922427EB1DED009A3335 /* UIColor_Prelude.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61922327EB1DED009A3335 /* UIColor_Prelude.swift */; };
+		BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61922627EB38DB009A3335 /* DynamicListViewController.swift */; };
+		BC61922927EB393E009A3335 /* LayoutFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61922827EB393E009A3335 /* LayoutFit.swift */; };
+		BC61923227EB3AF7009A3335 /* DynamicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */; };
+		BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923327EB3B3E009A3335 /* UIViewController+Lantern.swift */; };
+		BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */; };
+		BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */; };
+		BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923927EB3BE4009A3335 /* DynamicListCellNode.swift */; };
+		BC61923C27EB3C2F009A3335 /* DynamicListCellNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */; };
+		BC61923E27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923D27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift */; };
+		BC61924027EB3C98009A3335 /* XTOnlyImageCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923F27EB3C98009A3335 /* XTOnlyImageCollectionNode.swift */; };
+		BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924127EB3CEC009A3335 /* XTExtension.swift */; };
+		BC61924427EB3D53009A3335 /* DynamicHotCommentNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924327EB3D53009A3335 /* DynamicHotCommentNode.swift */; };
+		BC61924627EB3DCB009A3335 /* DynamicDigUsersCardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924527EB3DCB009A3335 /* DynamicDigUsersCardNode.swift */; };
+		BC61924827EB3E67009A3335 /* DynamicListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924727EB3E67009A3335 /* DynamicListModel.swift */; };
+		BC61924A27EB3E7D009A3335 /* DynamicListParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924927EB3E7D009A3335 /* DynamicListParam.swift */; };
+		BC61924C27EB402D009A3335 /* XTNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924B27EB402D009A3335 /* XTNetworkService.swift */; };
+		BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */; };
+		BC61925027EB432E009A3335 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924F27EB432E009A3335 /* DateUtil.swift */; };
+		BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0364F27EB11FF00D15E0F /* AppDelegate.swift */; };
+		BCA0365227EB11FF00D15E0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0365127EB11FF00D15E0F /* SceneDelegate.swift */; };
+		BCA0365427EB11FF00D15E0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0365327EB11FF00D15E0F /* ViewController.swift */; };
+		BCA0365727EB11FF00D15E0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA0365527EB11FF00D15E0F /* Main.storyboard */; };
+		BCA0365927EB120100D15E0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA0365827EB120100D15E0F /* Assets.xcassets */; };
+		BCA0365C27EB120100D15E0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA0365A27EB120100D15E0F /* LaunchScreen.storyboard */; };
+		BCA0366B27EB148D00D15E0F /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366627EB148D00D15E0F /* HomeTabBarController.swift */; };
+		BCA0366C27EB148D00D15E0F /* HomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366727EB148D00D15E0F /* HomeTabBarView.swift */; };
+		BCA0366D27EB148D00D15E0F /* UIViewController+DrIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366827EB148D00D15E0F /* UIViewController+DrIndex.swift */; };
+		BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366927EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift */; };
+		BCA0366F27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366A27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift */; };
+		BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0367027EB14D700D15E0F /* DrButton.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		42D8CDABC0D70F842995EF39 /* Pods-XTDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XTDemo.release.xcconfig"; path = "Target Support Files/Pods-XTDemo/Pods-XTDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5480E6AB756ACC806F2551C8 /* Pods-XTDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XTDemo.debug.xcconfig"; path = "Target Support Files/Pods-XTDemo/Pods-XTDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRegxViewController.swift; sourceTree = "<group>"; };
+		BC2AA7D027EC925E00078A7E /* emoji */ = {isa = PBXFileReference; lastKnownFileType = folder; path = emoji; sourceTree = "<group>"; };
+		BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAttributedProvider.swift; sourceTree = "<group>"; };
+		BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_0.json; sourceTree = "<group>"; };
+		BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_1.json; sourceTree = "<group>"; };
+		BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewController.swift; sourceTree = "<group>"; };
+		BC61922327EB1DED009A3335 /* UIColor_Prelude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor_Prelude.swift; sourceTree = "<group>"; };
+		BC61922627EB38DB009A3335 /* DynamicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListViewController.swift; sourceTree = "<group>"; };
+		BC61922827EB393E009A3335 /* LayoutFit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutFit.swift; sourceTree = "<group>"; };
+		BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListViewModel.swift; sourceTree = "<group>"; };
+		BC61923327EB3B3E009A3335 /* UIViewController+Lantern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Lantern.swift"; sourceTree = "<group>"; };
+		BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastProtocol.swift; sourceTree = "<group>"; };
+		BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListDataSource.swift; sourceTree = "<group>"; };
+		BC61923927EB3BE4009A3335 /* DynamicListCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNode.swift; sourceTree = "<group>"; };
+		BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNodeModel.swift; sourceTree = "<group>"; };
+		BC61923D27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNodeDataSource.swift; sourceTree = "<group>"; };
+		BC61923F27EB3C98009A3335 /* XTOnlyImageCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTOnlyImageCollectionNode.swift; sourceTree = "<group>"; };
+		BC61924127EB3CEC009A3335 /* XTExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTExtension.swift; sourceTree = "<group>"; };
+		BC61924327EB3D53009A3335 /* DynamicHotCommentNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHotCommentNode.swift; sourceTree = "<group>"; };
+		BC61924527EB3DCB009A3335 /* DynamicDigUsersCardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDigUsersCardNode.swift; sourceTree = "<group>"; };
+		BC61924727EB3E67009A3335 /* DynamicListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListModel.swift; sourceTree = "<group>"; };
+		BC61924927EB3E7D009A3335 /* DynamicListParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListParam.swift; sourceTree = "<group>"; };
+		BC61924B27EB402D009A3335 /* XTNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTNetworkService.swift; sourceTree = "<group>"; };
+		BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDK+XT_Ext.swift"; sourceTree = "<group>"; };
+		BC61924F27EB432E009A3335 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		BCA0364C27EB11FF00D15E0F /* XTDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA0364F27EB11FF00D15E0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BCA0365127EB11FF00D15E0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BCA0365327EB11FF00D15E0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BCA0365627EB11FF00D15E0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BCA0365827EB120100D15E0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BCA0365B27EB120100D15E0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BCA0365D27EB120100D15E0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCA0366627EB148D00D15E0F /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
+		BCA0366727EB148D00D15E0F /* HomeTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarView.swift; sourceTree = "<group>"; };
+		BCA0366827EB148D00D15E0F /* UIViewController+DrIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+DrIndex.swift"; sourceTree = "<group>"; };
+		BCA0366927EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarTransitionDelegate.swift; sourceTree = "<group>"; };
+		BCA0366A27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrAnimationTabScrollStyle.swift; sourceTree = "<group>"; };
+		BCA0367027EB14D700D15E0F /* DrButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrButton.swift; sourceTree = "<group>"; };
+		D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XTDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BCA0364927EB11FF00D15E0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97F60E01B19CAD0ACCD790A0 /* Pods_XTDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		004958200F9F9896B1B8D696 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC2AA7CB27EC8FE700078A7E /* RegxViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */,
+				BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */,
+			);
+			path = RegxViewControllers;
+			sourceTree = "<group>";
+		};
+		BC2AA7CF27EC920200078A7E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BC2AA7D027EC925E00078A7E /* emoji */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		BC4CFDBE27ED68DD007C79CF /* TextureDemo */ = {
+			isa = PBXGroup;
+			children = (
+				BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */,
+			);
+			path = TextureDemo;
+			sourceTree = "<group>";
+		};
+		BC61922227EB1DD2009A3335 /* Ext */ = {
+			isa = PBXGroup;
+			children = (
+				BCA0366827EB148D00D15E0F /* UIViewController+DrIndex.swift */,
+				BC61923327EB3B3E009A3335 /* UIViewController+Lantern.swift */,
+				BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */,
+				BC61922327EB1DED009A3335 /* UIColor_Prelude.swift */,
+				BC61922827EB393E009A3335 /* LayoutFit.swift */,
+				BC61924127EB3CEC009A3335 /* XTExtension.swift */,
+				BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */,
+				BC61924F27EB432E009A3335 /* DateUtil.swift */,
+			);
+			path = Ext;
+			sourceTree = "<group>";
+		};
+		BC61922527EB3847009A3335 /* DynamicModule */ = {
+			isa = PBXGroup;
+			children = (
+				BC61922A27EB3A32009A3335 /* ViewControllers */,
+				BC61922F27EB3A7E009A3335 /* ViewModels */,
+				BC61923027EB3ACC009A3335 /* DataSources */,
+				BC61922E27EB3A63009A3335 /* Views */,
+				BC61922D27EB3A56009A3335 /* Serivces */,
+				BC61922C27EB3A49009A3335 /* Models */,
+				BC61922B27EB3A40009A3335 /* Params */,
+			);
+			path = DynamicModule;
+			sourceTree = "<group>";
+		};
+		BC61922A27EB3A32009A3335 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BC61922627EB38DB009A3335 /* DynamicListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BC61922B27EB3A40009A3335 /* Params */ = {
+			isa = PBXGroup;
+			children = (
+				BC61924927EB3E7D009A3335 /* DynamicListParam.swift */,
+			);
+			path = Params;
+			sourceTree = "<group>";
+		};
+		BC61922C27EB3A49009A3335 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC61924727EB3E67009A3335 /* DynamicListModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BC61922D27EB3A56009A3335 /* Serivces */ = {
+			isa = PBXGroup;
+			children = (
+				BC61924B27EB402D009A3335 /* XTNetworkService.swift */,
+			);
+			path = Serivces;
+			sourceTree = "<group>";
+		};
+		BC61922E27EB3A63009A3335 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BC61923927EB3BE4009A3335 /* DynamicListCellNode.swift */,
+				BC61923F27EB3C98009A3335 /* XTOnlyImageCollectionNode.swift */,
+				BC61924327EB3D53009A3335 /* DynamicHotCommentNode.swift */,
+				BC61924527EB3DCB009A3335 /* DynamicDigUsersCardNode.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BC61922F27EB3A7E009A3335 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */,
+				BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BC61923027EB3ACC009A3335 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */,
+				BC61923D27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		BCA0364327EB11FF00D15E0F = {
+			isa = PBXGroup;
+			children = (
+				BCA0364E27EB11FF00D15E0F /* XTDemo */,
+				BCA0364D27EB11FF00D15E0F /* Products */,
+				D85D68BD54B0923BC9128BAC /* Pods */,
+				004958200F9F9896B1B8D696 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BCA0364D27EB11FF00D15E0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BCA0364C27EB11FF00D15E0F /* XTDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BCA0364E27EB11FF00D15E0F /* XTDemo */ = {
+			isa = PBXGroup;
+			children = (
+				BC61922227EB1DD2009A3335 /* Ext */,
+				BCA0366527EB146300D15E0F /* TabBar */,
+				BC61922527EB3847009A3335 /* DynamicModule */,
+				BC2AA7CB27EC8FE700078A7E /* RegxViewControllers */,
+				BC4CFDBE27ED68DD007C79CF /* TextureDemo */,
+				BCA0366327EB137E00D15E0F /* Supporting Files */,
+			);
+			path = XTDemo;
+			sourceTree = "<group>";
+		};
+		BCA0366327EB137E00D15E0F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */,
+				BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */,
+				BC2AA7CF27EC920200078A7E /* Sources */,
+				BCA0364F27EB11FF00D15E0F /* AppDelegate.swift */,
+				BCA0365127EB11FF00D15E0F /* SceneDelegate.swift */,
+				BCA0365327EB11FF00D15E0F /* ViewController.swift */,
+				BCA0365527EB11FF00D15E0F /* Main.storyboard */,
+				BCA0365D27EB120100D15E0F /* Info.plist */,
+				BCA0365827EB120100D15E0F /* Assets.xcassets */,
+				BCA0365A27EB120100D15E0F /* LaunchScreen.storyboard */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCA0366527EB146300D15E0F /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				BCA0366627EB148D00D15E0F /* HomeTabBarController.swift */,
+				BCA0366727EB148D00D15E0F /* HomeTabBarView.swift */,
+				BCA0366927EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift */,
+				BCA0366A27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift */,
+				BCA0367027EB14D700D15E0F /* DrButton.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		D85D68BD54B0923BC9128BAC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5480E6AB756ACC806F2551C8 /* Pods-XTDemo.debug.xcconfig */,
+				42D8CDABC0D70F842995EF39 /* Pods-XTDemo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BCA0364B27EB11FF00D15E0F /* XTDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCA0366027EB120100D15E0F /* Build configuration list for PBXNativeTarget "XTDemo" */;
+			buildPhases = (
+				3966465F3C2911AEF6AF699A /* [CP] Check Pods Manifest.lock */,
+				BCA0364827EB11FF00D15E0F /* Sources */,
+				BCA0364927EB11FF00D15E0F /* Frameworks */,
+				BCA0364A27EB11FF00D15E0F /* Resources */,
+				9EAE5D48C000EA967D6F5B3C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XTDemo;
+			productName = XTDemo;
+			productReference = BCA0364C27EB11FF00D15E0F /* XTDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BCA0364427EB11FF00D15E0F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					BCA0364B27EB11FF00D15E0F = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = BCA0364727EB11FF00D15E0F /* Build configuration list for PBXProject "XTDemo" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BCA0364327EB11FF00D15E0F;
+			productRefGroup = BCA0364D27EB11FF00D15E0F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BCA0364B27EB11FF00D15E0F /* XTDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BCA0364A27EB11FF00D15E0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA0365C27EB120100D15E0F /* LaunchScreen.storyboard in Resources */,
+				BC4CFDBD27ED5D18007C79CF /* xt_dynamic_list_1.json in Resources */,
+				BC4CFDBC27ED5D18007C79CF /* xt_dynamic_list_0.json in Resources */,
+				BC2AA7D127EC925E00078A7E /* emoji in Resources */,
+				BCA0365927EB120100D15E0F /* Assets.xcassets in Resources */,
+				BCA0365727EB11FF00D15E0F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3966465F3C2911AEF6AF699A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XTDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EAE5D48C000EA967D6F5B3C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XTDemo/Pods-XTDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XTDemo/Pods-XTDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XTDemo/Pods-XTDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BCA0364827EB11FF00D15E0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA0366C27EB148D00D15E0F /* HomeTabBarView.swift in Sources */,
+				BCA0366D27EB148D00D15E0F /* UIViewController+DrIndex.swift in Sources */,
+				BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */,
+				BC61924827EB3E67009A3335 /* DynamicListModel.swift in Sources */,
+				BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */,
+				BCA0365427EB11FF00D15E0F /* ViewController.swift in Sources */,
+				BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */,
+				BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */,
+				BC61923227EB3AF7009A3335 /* DynamicListViewModel.swift in Sources */,
+				BC61924C27EB402D009A3335 /* XTNetworkService.swift in Sources */,
+				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,
+				BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */,
+				BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */,
+				BC61925027EB432E009A3335 /* DateUtil.swift in Sources */,
+				BC61924627EB3DCB009A3335 /* DynamicDigUsersCardNode.swift in Sources */,
+				BC61922427EB1DED009A3335 /* UIColor_Prelude.swift in Sources */,
+				BC61922927EB393E009A3335 /* LayoutFit.swift in Sources */,
+				BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */,
+				BC61923E27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift in Sources */,
+				BC61923C27EB3C2F009A3335 /* DynamicListCellNodeModel.swift in Sources */,
+				BC61924027EB3C98009A3335 /* XTOnlyImageCollectionNode.swift in Sources */,
+				BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */,
+				BCA0366B27EB148D00D15E0F /* HomeTabBarController.swift in Sources */,
+				BCA0365227EB11FF00D15E0F /* SceneDelegate.swift in Sources */,
+				BC2AA7D327EC95CF00078A7E /* EmojiAttributedProvider.swift in Sources */,
+				BC61924427EB3D53009A3335 /* DynamicHotCommentNode.swift in Sources */,
+				BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */,
+				BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */,
+				BC61924A27EB3E7D009A3335 /* DynamicListParam.swift in Sources */,
+				BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */,
+				BCA0366F27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BCA0365527EB11FF00D15E0F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA0365627EB11FF00D15E0F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BCA0365A27EB120100D15E0F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA0365B27EB120100D15E0F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BCA0365E27EB120100D15E0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BCA0365F27EB120100D15E0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BCA0366127EB120100D15E0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5480E6AB756ACC806F2551C8 /* Pods-XTDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J437U9AE67;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XTDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "沸点";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "将掘友们分享的视频或照片加入到相册中吧";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kun.interface.XTDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		BCA0366227EB120100D15E0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42D8CDABC0D70F842995EF39 /* Pods-XTDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J437U9AE67;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XTDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "沸点";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "将掘友们分享的视频或照片加入到相册中吧";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kun.interface.XTDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BCA0364727EB11FF00D15E0F /* Build configuration list for PBXProject "XTDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA0365E27EB120100D15E0F /* Debug */,
+				BCA0365F27EB120100D15E0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCA0366027EB120100D15E0F /* Build configuration list for PBXNativeTarget "XTDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA0366127EB120100D15E0F /* Debug */,
+				BCA0366227EB120100D15E0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BCA0364427EB11FF00D15E0F /* Project object */;
+}
