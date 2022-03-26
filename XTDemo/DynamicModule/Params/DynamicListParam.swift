@@ -18,6 +18,7 @@ import Foundation
 enum SordType: Int {
     case hot = 200
     case new = 300
+    case topic = 400
 }
 
 enum IdType: Int {
@@ -30,9 +31,9 @@ struct DynamicListParam {
     let cursor: String
     let limit: Int
     let sortType: SordType
-    let idType: IdType
+    let idType: IdType?
 
-    init(cursor: String, limit: Int = 20, sortType: SordType = .hot, idType: IdType = .recommend) {
+    init(cursor: String, limit: Int = 20, sortType: SordType = .hot, idType: IdType? = .recommend) {
         self.cursor = cursor
         self.limit = limit
         self.sortType = sortType
@@ -40,6 +41,11 @@ struct DynamicListParam {
     }
 
     func toJsonDict() -> [String: Any] {
-        return ["cursor": cursor, "limit": limit, "sort_type": sortType.rawValue, "id_type": idType.rawValue]
+        if let idType = idType {
+            return ["cursor": cursor, "limit": limit, "sort_type": sortType.rawValue, "id_type": idType.rawValue]
+        } else {
+            return ["cursor": cursor, "limit": limit, "sort_type": sortType.rawValue]
+        }
+        
     }
 }
