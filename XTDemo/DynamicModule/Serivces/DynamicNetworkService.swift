@@ -19,20 +19,8 @@ import RxSwift
 
 typealias JJNetworkParam = [String: Any]
 
-private let kDynamicProvider = MoyaProvider<XTNetworkService>()
 
-private let provider = MoyaProvider<MultiTarget>()
-
-public extension TargetType {
-
-    func request() -> Single<Response> {
-        return provider.rx.request(.target(self))
-    }
-}
-
-
-
-enum XTNetworkService {
+enum DynamicNetworkService {
     case list(param: JJNetworkParam)
     case topicListRecommend
 }
@@ -40,7 +28,7 @@ enum XTNetworkService {
 private let jjBaseUrl = "https://api.juejin.cn"
 
 
-extension XTNetworkService: TargetType {
+extension DynamicNetworkService: TargetType {
 
     var headers: [String : String]? {
         var tokenHeader: [String: String] = [:]

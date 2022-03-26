@@ -75,7 +75,8 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
         loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
             return DynamicListParam(cursor: cursor)
         }.flatMap { param -> Single<XTListResultModel> in
-            return kDynamicProvider.rx.request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
+            return DynamicNetworkService.list(param: param.toJsonDict()).request().map(XTListResultModel.self)
+            //request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
         }.subscribe(onNext: { [weak self] model in
             self?.refreshDataSubject.onNext(model)
             self?.endRefreshDataSubject.onNext(())
@@ -92,7 +93,8 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
         loadDataAction.filter { $0 != "0" }.map { cursor -> DynamicListParam in
             return DynamicListParam(cursor: cursor)
         }.flatMap { param -> Single<XTListResultModel> in
-            return kDynamicProvider.rx.request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
+            return DynamicNetworkService.list(param: param.toJsonDict()).request().map(XTListResultModel.self)
+            //kDynamicProvider.rx.request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
         }.subscribe(onNext: { [weak self] model in
             // FIXED: - 数据完整性校验,在 dataSource 中, loadDataSubject 不能保证数据的正确
             // if let cursor = try? self?.loadDataSubject.value(), cursor == "0" { return }

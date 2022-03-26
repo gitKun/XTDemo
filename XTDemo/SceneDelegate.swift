@@ -26,13 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow.init(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
 
-        //let rootVC = HomeTabBarController()
+        let rootVC = HomeTabBarController()
         //let rootVC = UINavigationController(rootViewController: SimpleRegxViewController())
-        let rootVC = UINavigationController(rootViewController: TextureDemoViewController())
+        //let rootVC = UINavigationController(rootViewController: TextureDemoViewController())
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
-
-        UIWindow.setupLayoutFitInfo()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

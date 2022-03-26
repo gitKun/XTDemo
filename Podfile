@@ -26,6 +26,9 @@ target 'XTDemo' do
 
   # 网络层 '15.0.0'
   pod 'Moya/RxSwift'
+  
+  # 缓存数据 '6.0.0'
+  pod 'Cache'
 
   # 下拉刷新
   pod 'MJRefresh'
@@ -35,5 +38,6 @@ target 'XTDemo' do
 
   # 1.1.2
   pod 'Lantern'
+
 
 end
