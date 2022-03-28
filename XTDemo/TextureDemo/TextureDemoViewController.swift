@@ -15,12 +15,18 @@
 
 import Foundation
 import AsyncDisplayKit
+import RxSwift
+import Moya
 
 class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
 // MARK: - 成员变量
 
     private var modelList: [DynamicListModel] = []
+
+    private let disposeBag = DisposeBag()
+
+    private let testNetWork = PublishSubject<Void>()
 
 // MARK: - 生命周期 & override
 
@@ -29,10 +35,10 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
         node.backgroundColor = .white
         super.init(node: node)
 
-        self.node.addSubnode(self.tableNode)
-        self.node.layoutSpecBlock = { [unowned self] node, constrainedSize in
-            return ASInsetLayoutSpec(insets: .zero, child: self.tableNode)
-        }
+//        self.node.addSubnode(self.tableNode)
+//        self.node.layoutSpecBlock = { [unowned self] node, constrainedSize in
+//            return ASInsetLayoutSpec(insets: .zero, child: self.tableNode)
+//        }
     }
 
     required init?(coder: NSCoder) {
@@ -49,6 +55,11 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        testNetWork.onNext(())
+        super.touchesBegan(touches, with: event)
     }
 
 // MARK: - UI 属性
@@ -87,8 +98,33 @@ extension TextureDemoViewController {
             } catch {
                 print(error.localizedDescription)
             }
-            
         }
+
+        testNetWork.asObserver().subscribe(onNext: { [weak self]  _ in
+            //self?.testDecoderTopicList()
+            self?.testQueryNetwork()
+        }).disposed(by: disposeBag)
+    }
+
+    func testDecoderTopicList() {
+        guard let dataUrl = Bundle.main.url(forResource: "xt_topic_recommend_list", withExtension: "json") else { return }
+        do {
+            let jsonData = try Data(contentsOf: dataUrl)
+            let jsonDict = (try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)) as? [String: Any]
+            print(jsonDict ?? [:])
+            let wrappedModel = try JSONDecoder().decode(TopicListModel.self, from: jsonData)
+            print(wrappedModel)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
+    func testQueryNetwork() {
+        DynamicNetworkService.topicListRecommend.memoryCacheIn(seconds: 60 * 3).requeset().map(TopicListModel.self).subscribe(onSuccess: { wrappedModel in
+            print(wrappedModel.data?.count ?? 0)
+        }, onFailure: { error in
+            print(error)
+        }).disposed(by: self.disposeBag)
     }
 }
 

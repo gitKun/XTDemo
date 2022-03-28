@@ -25,10 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow.init(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+        UIWindow.setupLayoutFitInfo()
 
-        let rootVC = HomeTabBarController()
+        //let rootVC = HomeTabBarController()
         //let rootVC = UINavigationController(rootViewController: SimpleRegxViewController())
-        //let rootVC = UINavigationController(rootViewController: TextureDemoViewController())
+        let rootVC = UINavigationController(rootViewController: TextureDemoViewController())
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
     }
