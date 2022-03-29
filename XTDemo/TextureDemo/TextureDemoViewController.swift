@@ -22,7 +22,7 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
 // MARK: - 成员变量
 
-    private var modelList: [DynamicListModel] = []
+    private var modelList: [DynamicDisplayType] = []
 
     private let disposeBag = DisposeBag()
 
@@ -36,10 +36,10 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
         node.backgroundColor = .white
         super.init(node: node)
 
-//        self.node.addSubnode(self.tableNode)
-//        self.node.layoutSpecBlock = { [unowned self] node, constrainedSize in
-//            return ASInsetLayoutSpec(insets: .zero, child: self.tableNode)
-//        }
+        self.node.addSubnode(self.tableNode)
+        self.node.layoutSpecBlock = { [unowned self] node, constrainedSize in
+            return ASInsetLayoutSpec(insets: .zero, child: self.tableNode)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -87,25 +87,7 @@ extension TextureDemoViewController {
 extension TextureDemoViewController {
 
     func bindViewModel() {
-        DispatchQueue.global(qos: .default).async {
-            guard let dataUrl = Bundle.main.url(forResource: "xt_dynamic_list_0", withExtension: "json") else { return }
-            do {
-                let jsonData = try Data(contentsOf: dataUrl)
-                let wrappedModel = try JSONDecoder().decode(XTListResultModel.self, from: jsonData)
-                self.modelList = (wrappedModel.data ?? [])
-                DispatchQueue.main.async {
-                    self.tableNode.reloadData()
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-
-        testSubject.asObserver().subscribe(onNext: { [weak self]  _ in
-            // self?.testDecoderTopicList()
-            // self?.testQueryNetwork()
-            self?.testZipLocalDatasourc()
-        }).disposed(by: disposeBag)
+        testZipLocalDatasourc()
     }
 
     func testDecoderTopicList() {
@@ -197,23 +179,15 @@ extension TextureDemoViewController {
             return .just(resultArray)
         }
 
-        showSubject.subscribe(onNext: { list in
-            debugPrint(list)
+        showSubject.subscribe(onNext: { [weak self] list in
+            self?.modelList = list
+            self?.tableNode.reloadData()
         }, onError: { error in
             if let _ = error as? TestError {
                 print("TestError! ____#")
             }
             print(error)
         }).disposed(by: disposeBag)
-
-//        showSubject.subscribe(onSuccess: { displayList in
-//            debugPrint(displayList)
-//        }, onFailure: { error in
-//            if let testError = error as? TestError {
-//                print(testError)
-//            }
-//            print(error)
-//        }).disposed(by: disposeBag)
     }
 }
 
@@ -243,10 +217,19 @@ extension TextureDemoViewController: ASTableDataSource {
 
     // 有个 block 版本的, 异步返回 cellNode 时使用, 非 block 版本默认在主线程创建 cellNode
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let cellNode = DynamicListCellNode()
-        cellNode.configure(with: modelList[indexPath.row])
-        cellNode.delegate = self
-        return cellNode
+        let model = modelList[indexPath.row]
+
+        switch model {
+        case .dynamic(let dynModel):
+            let cellNode = DynamicListCellNode()
+            cellNode.configure(with: dynModel)
+            cellNode.delegate = self
+            return cellNode
+        case .topicList(let topic):
+            let cellNoed = ASTextCellNode.init(attributes: [:], insets: .all(8))
+            cellNoed.textNode.attributedText = NSAttributedString(string: "TopicList Cell", attributes: [.foregroundColor: UIColor.red, .font: UIFont.systemFont(ofSize: 20, weight: .heavy)])
+            return cellNoed
+        }
     }
 }
 
