@@ -33,6 +33,12 @@ struct TopicListModel: Codable {
         errMsg = try values.decodeIfPresent(String.self, forKey: .errMsg)
         errNo = try values.decode(Int.self, forKey: .errNo)
     }
+
+    init() {
+        self.data = nil
+        self.errMsg = "No data!"
+        self.errNo = 0
+    }
 }
 
 struct TopicModel: Codable {

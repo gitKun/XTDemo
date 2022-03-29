@@ -72,12 +72,27 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
             return cursor
         }
 
-        loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
+        let dynamycNewData = loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
             return DynamicListParam(cursor: cursor)
         }.flatMap { param -> Single<XTListResultModel> in
+            // request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
             return DynamicNetworkService.list(param: param.toJsonDict()).request().map(XTListResultModel.self)
-            //request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
-        }.subscribe(onNext: { [weak self] model in
+        }
+
+        let topicListData = topicListSubject.flatMap { _ -> Single<TopicListModel> in
+            return DynamicNetworkService.topicListRecommend.memoryCacheIn().request().map(TopicListModel.self)
+        }
+
+        let newData = Observable.zip(dynamycNewData, topicListData).flatMap { (dynamicWrapped, topicListWrapped) -> Observable<Void> in
+
+            if let dynicmyc = dynamicWrapped.data {
+                
+            }
+
+            return .just(())
+        }
+
+        /*.subscribe(onNext: { [weak self] model in
             self?.refreshDataSubject.onNext(model)
             self?.endRefreshDataSubject.onNext(())
             // 清空当前请求的状态
@@ -89,6 +104,7 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
                 print(error)
             }
         }).disposed(by: self.disposeBag)
+         */
 
         loadDataAction.filter { $0 != "0" }.map { cursor -> DynamicListParam in
             return DynamicListParam(cursor: cursor)
@@ -111,10 +127,12 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
         }).disposed(by: self.disposeBag)
     }
 
+    // 增加数据请求
+    private let topicListSubject = PublishSubject<Void>()
     private let loadDataSubject: BehaviorSubject<String?> = BehaviorSubject(value: nil)
     func viewDidLoad() {
         // 进入界面就要刷新数据
-        loadDataSubject.onNext("0")
+        loadFirstPageData()
     }
 
     // private let startRefreshDataSubject = PublishSubject<Void>()
@@ -122,7 +140,7 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
     func refreshDate() {
         // nil 状态表示 没有在刷新,也没有在加载更多. 可以刷新数据
         guard let value = try? loadDataSubject.value() else {
-            loadDataSubject.onNext("0")
+            loadFirstPageData()
             // startRefreshDataSubject.onNext(())
             return
         }
@@ -132,7 +150,7 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
         } else {
             // 正在加载更多数据, 结束加载更多的状态, 请求的数据不做使用
             hasMoreDataSubject.onNext(true)
-            loadDataSubject.onNext("0")
+            loadFirstPageData()
         }
     }
 
@@ -179,6 +197,11 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
 // MARK: - 数据处理
 
 fileprivate extension DynamicListViewModel {
+
+    func loadFirstPageData() {
+        topicListSubject.onNext(())
+        loadDataSubject.onNext("0")
+    }
 
     func handleMoyaError(_ error: MoyaError, fromNewData: Bool) {
         // 清空请求的状态

@@ -26,7 +26,8 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
     private let disposeBag = DisposeBag()
 
-    private let testNetWork = PublishSubject<Void>()
+    private let testSubject = PublishSubject<Void>()
+    private var shouldShowError = false
 
 // MARK: - 生命周期 & override
 
@@ -58,7 +59,7 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        testNetWork.onNext(())
+        testSubject.onNext(())
         super.touchesBegan(touches, with: event)
     }
 
@@ -100,9 +101,10 @@ extension TextureDemoViewController {
             }
         }
 
-        testNetWork.asObserver().subscribe(onNext: { [weak self]  _ in
-            //self?.testDecoderTopicList()
-            self?.testQueryNetwork()
+        testSubject.asObserver().subscribe(onNext: { [weak self]  _ in
+            // self?.testDecoderTopicList()
+            // self?.testQueryNetwork()
+            self?.testZipLocalDatasourc()
         }).disposed(by: disposeBag)
     }
 
@@ -120,13 +122,108 @@ extension TextureDemoViewController {
     }
 
     func testQueryNetwork() {
-        DynamicNetworkService.topicListRecommend.memoryCacheIn(seconds: 60 * 3).requeset().map(TopicListModel.self).subscribe(onSuccess: { wrappedModel in
-            print(wrappedModel.data?.count ?? 0)
-        }, onFailure: { error in
+        DynamicNetworkService.topicListRecommend
+            //.memoryCacheIn(seconds: 60 * 3)
+            .onStorage(TopicListModel.self, onDisk: { listModel in
+                print(listModel)
+            })
+            .request()
+            .map(TopicListModel.self)
+            .subscribe(onSuccess: { wrappedModel in
+                print(wrappedModel.data?.count ?? 0)
+            }, onFailure: { error in
+                print(error)
+            }).disposed(by: self.disposeBag)
+    }
+
+    func testZipLocalDatasourc() {
+
+        let dynamicSubject = Single<XTListResultModel>.create { single in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                if let dynamicFileUrl = Bundle.main.url(forResource: "xt_dynamic_list_0", withExtension: "json") {
+                    do {
+                        let jsonData = try Data(contentsOf: dynamicFileUrl)
+                        let wrappedModel = try JSONDecoder().decode(XTListResultModel.self, from: jsonData)
+                        single(.success(wrappedModel))
+                        //single(.failure(TestError.justFailure))
+                    } catch let error {
+                        single(.failure(error))
+                    }
+                } else {
+                    single(.failure(TestError.jsonData("Dynamic file url error!")))
+                }
+            }
+
+            return Disposables.create {
+                print("Read dynamic file dispose! ____#")
+            }
+        }.asSignal(onErrorJustReturn: .init()).asObservable()
+
+
+        let topicSubject = Observable<TopicListModel>.create { obser in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                if let topicFileUrl = Bundle.main.url(forResource: "xt_topic_recommend_list", withExtension: "json") {
+                    do {
+                        let jsonData = try Data(contentsOf: topicFileUrl)
+                        let wrappedModel = try JSONDecoder().decode(TopicListModel.self, from: jsonData)
+                        obser.onNext(wrappedModel)
+                    } catch let error {
+                        obser.onError(error)
+                    }
+                } else {
+                    obser.onError(TestError.jsonData("TopicList file url error!"))
+                }
+            }
+
+            return Disposables.create {
+                print("Read topicList file dispose! ____#")
+            }
+        }.asSignal(onErrorJustReturn: .init()).asObservable()
+
+        let showSubject = Observable.zip(dynamicSubject, topicSubject).flatMap { (dynamicWrapped, topicWrapped) -> Observable<[DynamicDisplayType]> in
+
+            var resultArray: [DynamicDisplayType] = []
+            if let data = dynamicWrapped.data {
+                resultArray.append(contentsOf: data.map { .dynamic($0) })
+            }
+
+            if let topicList = topicWrapped.data {
+                if resultArray.count > 3 {
+                    resultArray.insert(.topicList(topicList), at: 3)
+                } else {
+                    resultArray.append(.topicList(topicList))
+                }
+            }
+            return .just(resultArray)
+        }
+
+        showSubject.subscribe(onNext: { list in
+            debugPrint(list)
+        }, onError: { error in
+            if let _ = error as? TestError {
+                print("TestError! ____#")
+            }
             print(error)
-        }).disposed(by: self.disposeBag)
+        }).disposed(by: disposeBag)
+
+//        showSubject.subscribe(onSuccess: { displayList in
+//            debugPrint(displayList)
+//        }, onFailure: { error in
+//            if let testError = error as? TestError {
+//                print(testError)
+//            }
+//            print(error)
+//        }).disposed(by: disposeBag)
     }
 }
+
+fileprivate enum TestError: Swift.Error {
+    case jsonData(String)
+    case dynamicListNoData(String)
+    case topicList(String)
+    case justFailure
+}
+
 
 // MARK: - ASTableDelegate
 

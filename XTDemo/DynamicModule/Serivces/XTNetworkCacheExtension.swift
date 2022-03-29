@@ -41,7 +41,7 @@ public typealias CacheTimeTargetTuple = (cacheTime: TimeInterval, target: Target
 
 extension PrimitiveSequence where Trait == SingleTrait, Element == CacheTimeTargetTuple {
 
-    public func requeset() -> Single<Response> {
+    public func request() -> Single<Response> {
         flatMap { tuple -> Single<Response> in
             let target = tuple.target
 
@@ -105,7 +105,7 @@ public extension TargetType {
     }
 
     /// 使用时间缓存策略, 内存中有数据就不请求网络
-    func memoryCacheIn(seconds: TimeInterval = 180) -> PrimitiveSequence<SingleTrait, CacheTimeTargetTuple> {
+    func memoryCacheIn(_ seconds: TimeInterval = 180) -> PrimitiveSequence<SingleTrait, CacheTimeTargetTuple> {
         return Single.just((seconds, self))
     }
 

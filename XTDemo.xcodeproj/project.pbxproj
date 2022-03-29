@@ -39,6 +39,7 @@
 		BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */; };
 		BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */; };
 		BC61925027EB432E009A3335 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924F27EB432E009A3335 /* DateUtil.swift */; };
+		BC898FBA27F32E34002A69FC /* DynamicDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */; };
 		BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0364F27EB11FF00D15E0F /* AppDelegate.swift */; };
 		BCA0365227EB11FF00D15E0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0365127EB11FF00D15E0F /* SceneDelegate.swift */; };
 		BCA0365427EB11FF00D15E0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0365327EB11FF00D15E0F /* ViewController.swift */; };
@@ -87,6 +88,7 @@
 		BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicNetworkService.swift; sourceTree = "<group>"; };
 		BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDK+XT_Ext.swift"; sourceTree = "<group>"; };
 		BC61924F27EB432E009A3335 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDisplayModel.swift; sourceTree = "<group>"; };
 		BCA0364C27EB11FF00D15E0F /* XTDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCA0364F27EB11FF00D15E0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCA0365127EB11FF00D15E0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				BC61924727EB3E67009A3335 /* DynamicListModel.swift */,
 				BC14171C27F07CE400B83D45 /* TopicListModel.swift */,
+				BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */,
 				BC14171327EEC85E00B83D45 /* TextureDemoViewDataSource.swift in Sources */,
 				BCA0366B27EB148D00D15E0F /* HomeTabBarController.swift in Sources */,
+				BC898FBA27F32E34002A69FC /* DynamicDisplayModel.swift in Sources */,
 				BCA0365227EB11FF00D15E0F /* SceneDelegate.swift in Sources */,
 				BC2AA7D327EC95CF00078A7E /* EmojiAttributedProvider.swift in Sources */,
 				BC61924427EB3D53009A3335 /* DynamicHotCommentNode.swift in Sources */,

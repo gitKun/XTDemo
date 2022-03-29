@@ -23,7 +23,7 @@ struct XTListResultModel: Codable {
     let data : [DynamicListModel]?
     let errMsg : String?
     let errNo : Int?
-    let hasMore : Bool?
+    let hasMore : Bool
 
     enum CodingKeys: String, CodingKey {
         case count = "count"
@@ -41,7 +41,16 @@ struct XTListResultModel: Codable {
         data = try values.decodeIfPresent([DynamicListModel].self, forKey: .data)
         errMsg = try values.decodeIfPresent(String.self, forKey: .errMsg)
         errNo = try values.decodeIfPresent(Int.self, forKey: .errNo)
-        hasMore = try values.decodeIfPresent(Bool.self, forKey: .hasMore)
+        hasMore = (try? values.decodeIfPresent(Bool.self, forKey: .hasMore)) ?? false
+    }
+
+    init() {
+        self.count = 0
+        self.cursor = nil
+        self.data = nil
+        self.errMsg = "No data!"
+        self.errNo = 404
+        self.hasMore = false
     }
 }
 
