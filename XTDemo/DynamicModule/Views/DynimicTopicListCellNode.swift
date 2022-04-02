@@ -18,12 +18,14 @@ import UIKit
 import AsyncDisplayKit
 import Kingfisher
 
-final class RecommendListCellNode: ASCellNode {
+final class DynimicTopicListCellNode: ASCellNode {
 
 // MARK: - 生命周期
 
     override init() {
         super.init()
+
+        let node = ASDisplayNode()
         
     }
 

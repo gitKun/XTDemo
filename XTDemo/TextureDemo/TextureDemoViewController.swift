@@ -139,43 +139,62 @@ extension TextureDemoViewController {
             return Disposables.create {
                 print("Read dynamic file dispose! ____#")
             }
-        }.asSignal(onErrorJustReturn: .init()).asObservable()
+        }.asObservable()
+
+        let dynamicResult = dynamicSubject.flatMap { model -> Observable<Result<XTListResultModel, Error>> in
+            return .just(Result.success(model))
+        }.catch { .just(.failure($0)) }
 
 
-        let topicSubject = Observable<TopicListModel>.create { obser in
+        let topicSubject = Single<TopicListModel>.create { sig in
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 if let topicFileUrl = Bundle.main.url(forResource: "xt_topic_recommend_list", withExtension: "json") {
                     do {
                         let jsonData = try Data(contentsOf: topicFileUrl)
                         let wrappedModel = try JSONDecoder().decode(TopicListModel.self, from: jsonData)
-                        obser.onNext(wrappedModel)
+                        sig(.success(wrappedModel))
                     } catch let error {
-                        obser.onError(error)
+                        sig(.failure(error))
                     }
                 } else {
-                    obser.onError(TestError.jsonData("TopicList file url error!"))
+                    sig(.failure(TestError.jsonData("TopicList file url error!")))
                 }
             }
 
             return Disposables.create {
                 print("Read topicList file dispose! ____#")
             }
-        }.asSignal(onErrorJustReturn: .init()).asObservable()
+        }
 
-        let showSubject = Observable.zip(dynamicSubject, topicSubject).flatMap { (dynamicWrapped, topicWrapped) -> Observable<[DynamicDisplayType]> in
+        let topicResult = topicSubject.flatMap { wrappedModel -> Single<Result<TopicListModel, Error>> in
+            return .just(.success(wrappedModel))
+        }.catch { .just(.failure($0)) }
+
+        let showSubject = Observable.zip(dynamicResult, topicResult.asObservable()).flatMap { (dynamicResult, topicResult) -> Observable<[DynamicDisplayType]> in
 
             var resultArray: [DynamicDisplayType] = []
-            if let data = dynamicWrapped.data {
-                resultArray.append(contentsOf: data.map { .dynamic($0) })
+            switch dynamicResult {
+            case .success(let wrappedModel):
+                if let list = wrappedModel.data {
+                    resultArray.append(contentsOf: list.map { .dynamic($0) })
+                }
+            case .failure(let error):
+                print("\(error)")
             }
 
-            if let topicList = topicWrapped.data {
-                if resultArray.count > 3 {
-                    resultArray.insert(.topicList(topicList), at: 3)
-                } else {
-                    resultArray.append(.topicList(topicList))
+            switch topicResult {
+            case .success(let wrappedModel):
+                if let list = wrappedModel.data, !list.isEmpty {
+                    if resultArray.count > 3 {
+                        resultArray.insert(.topicList(list), at: 3)
+                    } else {
+                        resultArray.append(.topicList(list))
+                    }
                 }
+            case .failure(let error):
+                print(error)
             }
+
             return .just(resultArray)
         }
 

@@ -67,29 +67,59 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
     }
 
     private func initializedSubject() {
-        let loadDataAction = self.loadDataSubject.filter { $0 != nil }.map { string -> String in
+        let loadDataAction = self.loadDataSubject.compactMap { $0 }
+        /*.filter { $0 != nil }.map { string -> String in
             guard let cursor = string else { fatalError("") }
             return cursor
-        }
+        }*/
 
         let dynamycNewData = loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
             return DynamicListParam(cursor: cursor)
         }.flatMap { param -> Single<XTListResultModel> in
             // request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
             return DynamicNetworkService.list(param: param.toJsonDict()).request().map(XTListResultModel.self)
-        }
+        }.flatMap { model -> Single<Result<XTListResultModel, Error>> in
+            return .just(.success(model))
+        }.catch { .just(.failure($0)) }
 
         let topicListData = topicListSubject.flatMap { _ -> Single<TopicListModel> in
             return DynamicNetworkService.topicListRecommend.memoryCacheIn().request().map(TopicListModel.self)
-        }
+        }.flatMap { model -> Single<Result<TopicListModel, Error>> in
+            return .just(.success(model))
+        }.catch {  .just(.failure($0)) }
 
-        let newData = Observable.zip(dynamycNewData, topicListData).flatMap { (dynamicWrapped, topicListWrapped) -> Observable<Void> in
-
-            if let dynicmyc = dynamicWrapped.data {
-                
+        let newData = Observable.zip(dynamycNewData, topicListData).flatMap { (dynamicWrapped, topicListWrapped) -> Observable<DynamicDisplayModel> in
+            var displayModel = DynamicDisplayModel()
+            var showList = [DynamicDisplayType]()
+            switch dynamicWrapped {
+            case .success(let wrapped):
+                displayModel = DynamicDisplayModel.init(from: wrapped)
+                if let list = wrapped.data {
+                    showList.append(contentsOf: list.map { .dynamic($0) })
+                }
+            case .failure(let error):
+                // TODO: - 处理错误, 推荐使用 publish -> error 处理
+                print(error)
             }
+    
+            switch topicListWrapped {
+            case .success(let wrapped):
+                if let list = wrapped.data, !list.isEmpty {
+                    (showList.count > 2 ? { showList.insert(.topicList(list), at: 2) } : { showList.append(.topicList(list)) })()
+                    
+                    /*if showList.count > 2 {
+                        
+                    } else {
+                        
+                    }*/
+                }
+            case .failure(let error):
+                // TODO: - 处理 error
+                print(error)
+            }
+            displayModel.updateDisplayModels(from: showList)
 
-            return .just(())
+            return .just(displayModel)
         }
 
         /*.subscribe(onNext: { [weak self] model in
