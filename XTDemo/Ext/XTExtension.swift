@@ -81,6 +81,8 @@ extension UIColor {
         /// 点赞人数
         static let digCount: UIColor = .hex(0xC2C8D1)
 
+        static let unreadBg: UIColor = .hex(0x606060)
+
     }
 }
 

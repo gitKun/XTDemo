@@ -11,12 +11,15 @@
 		BC14171327EEC85E00B83D45 /* TextureDemoViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */; };
 		BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */; };
 		BC14171727EECE5400B83D45 /* xt_topic_recommend_list.json in Resources */ = {isa = PBXBuildFile; fileRef = BC14171627EECE5400B83D45 /* xt_topic_recommend_list.json */; };
-		BC14171927EECF3A00B83D45 /* DynimicTopicListCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171827EECF3A00B83D45 /* DynimicTopicListCellNode.swift */; };
+		BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171827EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift */; };
 		BC14171B27EF645D00B83D45 /* XTNetworkCacheExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171A27EF645D00B83D45 /* XTNetworkCacheExtension.swift */; };
 		BC14171D27F07CE400B83D45 /* TopicListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171C27F07CE400B83D45 /* TopicListModel.swift */; };
 		BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */; };
 		BC2AA7D127EC925E00078A7E /* emoji in Resources */ = {isa = PBXBuildFile; fileRef = BC2AA7D027EC925E00078A7E /* emoji */; };
 		BC2AA7D327EC95CF00078A7E /* EmojiAttributedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */; };
+		BC36048427FAAADE003395E3 /* UIView+DrCornenr.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */; };
+		BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048527FAB9F1003395E3 /* DrCornerView.swift */; };
+		BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */; };
 		BC4CFDBC27ED5D18007C79CF /* xt_dynamic_list_0.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */; };
 		BC4CFDBD27ED5D18007C79CF /* xt_dynamic_list_1.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */; };
 		BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */; };
@@ -61,12 +64,15 @@
 		BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewDataSource.swift; sourceTree = "<group>"; };
 		BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewModel.swift; sourceTree = "<group>"; };
 		BC14171627EECE5400B83D45 /* xt_topic_recommend_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_topic_recommend_list.json; sourceTree = "<group>"; };
-		BC14171827EECF3A00B83D45 /* DynimicTopicListCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynimicTopicListCellNode.swift; sourceTree = "<group>"; };
+		BC14171827EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopicWrapperCellNode.swift; sourceTree = "<group>"; };
 		BC14171A27EF645D00B83D45 /* XTNetworkCacheExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTNetworkCacheExtension.swift; sourceTree = "<group>"; };
 		BC14171C27F07CE400B83D45 /* TopicListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListModel.swift; sourceTree = "<group>"; };
 		BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRegxViewController.swift; sourceTree = "<group>"; };
 		BC2AA7D027EC925E00078A7E /* emoji */ = {isa = PBXFileReference; lastKnownFileType = folder; path = emoji; sourceTree = "<group>"; };
 		BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAttributedProvider.swift; sourceTree = "<group>"; };
+		BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DrCornenr.swift"; sourceTree = "<group>"; };
+		BC36048527FAB9F1003395E3 /* DrCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrCornerView.swift; sourceTree = "<group>"; };
+		BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopicCollectionNode.swift; sourceTree = "<group>"; };
 		BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_0.json; sourceTree = "<group>"; };
 		BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_1.json; sourceTree = "<group>"; };
 		BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +167,7 @@
 			children = (
 				BCA0366827EB148D00D15E0F /* UIViewController+DrIndex.swift */,
 				BC61923327EB3B3E009A3335 /* UIViewController+Lantern.swift */,
+				BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */,
 				BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */,
 				BC61922327EB1DED009A3335 /* UIColor_Prelude.swift */,
 				BC61922827EB393E009A3335 /* LayoutFit.swift */,
@@ -227,7 +234,9 @@
 				BC61923F27EB3C98009A3335 /* XTOnlyImageCollectionNode.swift */,
 				BC61924327EB3D53009A3335 /* DynamicHotCommentNode.swift */,
 				BC61924527EB3DCB009A3335 /* DynamicDigUsersCardNode.swift */,
-				BC14171827EECF3A00B83D45 /* DynimicTopicListCellNode.swift */,
+				BC14171827EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift */,
+				BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */,
+				BC36048527FAB9F1003395E3 /* DrCornerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -439,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */,
 				BCA0366C27EB148D00D15E0F /* HomeTabBarView.swift in Sources */,
 				BCA0366D27EB148D00D15E0F /* UIViewController+DrIndex.swift in Sources */,
 				BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */,
@@ -450,17 +460,19 @@
 				BC61923227EB3AF7009A3335 /* DynamicListViewModel.swift in Sources */,
 				BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */,
 				BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */,
-				BC14171927EECF3A00B83D45 /* DynimicTopicListCellNode.swift in Sources */,
+				BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */,
 				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,
 				BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */,
 				BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */,
 				BC61925027EB432E009A3335 /* DateUtil.swift in Sources */,
+				BC36048427FAAADE003395E3 /* UIView+DrCornenr.swift in Sources */,
 				BC61924627EB3DCB009A3335 /* DynamicDigUsersCardNode.swift in Sources */,
 				BC61922427EB1DED009A3335 /* UIColor_Prelude.swift in Sources */,
 				BC61922927EB393E009A3335 /* LayoutFit.swift in Sources */,
 				BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */,
 				BC61923E27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift in Sources */,
 				BC61923C27EB3C2F009A3335 /* DynamicListCellNodeModel.swift in Sources */,
+				BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */,
 				BC61924027EB3C98009A3335 /* XTOnlyImageCollectionNode.swift in Sources */,
 				BC14171D27F07CE400B83D45 /* TopicListModel.swift in Sources */,
 				BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */,

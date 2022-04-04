@@ -121,7 +121,7 @@ extension TextureDemoViewController {
     func testZipLocalDatasourc() {
 
         let dynamicSubject = Single<XTListResultModel>.create { single in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 if let dynamicFileUrl = Bundle.main.url(forResource: "xt_dynamic_list_0", withExtension: "json") {
                     do {
                         let jsonData = try Data(contentsOf: dynamicFileUrl)
@@ -147,7 +147,7 @@ extension TextureDemoViewController {
 
 
         let topicSubject = Single<TopicListModel>.create { sig in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                 if let topicFileUrl = Bundle.main.url(forResource: "xt_topic_recommend_list", withExtension: "json") {
                     do {
                         let jsonData = try Data(contentsOf: topicFileUrl)
@@ -185,11 +185,12 @@ extension TextureDemoViewController {
             switch topicResult {
             case .success(let wrappedModel):
                 if let list = wrappedModel.data, !list.isEmpty {
-                    if resultArray.count > 3 {
-                        resultArray.insert(.topicList(list), at: 3)
-                    } else {
-                        resultArray.append(.topicList(list))
-                    }
+                    resultArray.insert(.topicList(list), at: 0)
+//                    if resultArray.count > 3 {
+//                        resultArray.insert(.topicList(list), at: 3)
+//                    } else {
+//                        resultArray.append(.topicList(list))
+//                    }
                 }
             case .failure(let error):
                 print(error)
@@ -245,8 +246,8 @@ extension TextureDemoViewController: ASTableDataSource {
             cellNode.delegate = self
             return cellNode
         case .topicList(let topic):
-            let cellNoed = ASTextCellNode.init(attributes: [:], insets: .all(8))
-            cellNoed.textNode.attributedText = NSAttributedString(string: "TopicList Cell", attributes: [.foregroundColor: UIColor.red, .font: UIFont.systemFont(ofSize: 20, weight: .heavy)])
+            let cellNoed = DynamicTopicWrapperCellNode()
+            cellNoed.configure(with: topic)
             return cellNoed
         }
     }

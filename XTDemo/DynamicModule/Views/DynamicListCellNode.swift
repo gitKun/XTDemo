@@ -30,6 +30,14 @@ protocol DynamicListCellNodeDelegate {
     // TODO: - 需要点击头像, 分享 的时间传递
 }
 
+
+/**
+ * 可优化点:
+ *      1. 把 3 行显示的文本和 展开/隐藏 按钮,封装为一个控件, 内部重写 `override func layout()` 来提升新能.
+ *      2. addSubnode 的判断!
+ */
+
+
 final class DynamicListCellNode: ASCellNode {
 
 // MARK: - 属性

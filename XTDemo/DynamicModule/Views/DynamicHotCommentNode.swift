@@ -72,7 +72,7 @@ extension DynamicHotCommentNode {
         if let count = model.commentInfo?.diggCount, count > 0 {
             likeCountNode.isHidden = false
 
-            let attr: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.XiTu.main1, .font: UIFont.systemFont(ofSize: 14, weight: .regular)]
+            let attr: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.XiTu.main1, .font: UIFont.systemFont(ofSize: 12, weight: .regular)]
             likeCountNode.attributedText = NSAttributedString(string: "\(count)人赞", attributes: attr)
         } else {
             likeCountNode.isHidden = true
