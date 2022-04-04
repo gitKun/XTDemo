@@ -14,16 +14,15 @@
 */
 
 import Foundation
-import CommonCrypto
 import RxSwift
 import Moya
 import Cache
-import Accelerate
+import CommonCrypto
 
 /// 实际发送网络请求的 provider
 private let xtProvider = MoyaProvider<MultiTarget>()
 
-
+/// memory 缓存的单例
 let kMemoryStroage: MemoryStorage<String, Any> = .init(config: MemoryConfig())
 
 
@@ -32,7 +31,7 @@ let kMemoryStroage: MemoryStorage<String, Any> = .init(config: MemoryConfig())
 /// Node: - 会涉及到 provider 的重新创建, 待定方法, 暂无实现!
 ///
 /// - Parameter plugins: plugin 数组
-public func changePlugins(_ plugins: [Moya.PluginType]) {}
+fileprivate func changePlugins(_ plugins: [Moya.PluginType]) {}
 
 
 // MARK: - 在内存中缓存
@@ -105,7 +104,7 @@ public extension TargetType {
     }
 
     /// 使用时间缓存策略, 内存中有数据就不请求网络
-    func memoryCacheIn(_ seconds: TimeInterval = 180) -> PrimitiveSequence<SingleTrait, CacheTimeTargetTuple> {
+    func memoryCacheIn(_ seconds: TimeInterval = 180) -> Single<CacheTimeTargetTuple> {
         return Single.just((seconds, self))
     }
 

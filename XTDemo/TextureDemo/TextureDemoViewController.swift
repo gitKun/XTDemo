@@ -173,6 +173,15 @@ extension TextureDemoViewController {
         let showSubject = Observable.zip(dynamicResult, topicResult.asObservable()).flatMap { (dynamicResult, topicResult) -> Observable<[DynamicDisplayType]> in
 
             var resultArray: [DynamicDisplayType] = []
+            switch topicResult {
+            case .success(let wrappedModel):
+                if let list = wrappedModel.data, !list.isEmpty {
+                    resultArray.append(.topicList(list))
+                }
+            case .failure(let error):
+                print(error)
+            }
+
             switch dynamicResult {
             case .success(let wrappedModel):
                 if let list = wrappedModel.data {
@@ -180,20 +189,6 @@ extension TextureDemoViewController {
                 }
             case .failure(let error):
                 print("\(error)")
-            }
-
-            switch topicResult {
-            case .success(let wrappedModel):
-                if let list = wrappedModel.data, !list.isEmpty {
-                    resultArray.insert(.topicList(list), at: 0)
-//                    if resultArray.count > 3 {
-//                        resultArray.insert(.topicList(list), at: 3)
-//                    } else {
-//                        resultArray.append(.topicList(list))
-//                    }
-                }
-            case .failure(let error):
-                print(error)
             }
 
             return .just(resultArray)
