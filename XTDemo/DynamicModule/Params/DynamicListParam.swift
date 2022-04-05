@@ -49,3 +49,11 @@ struct DynamicListParam {
         
     }
 }
+
+extension DynamicListParam {
+
+    static var hotDymamicParam: DynamicListParam {
+        // FIXED: - Demo 展示效果, 仅需要 3 条数据
+        return DynamicListParam(cursor: "0", limit: 3, sortType: .topic, idType: nil)
+    }
+}

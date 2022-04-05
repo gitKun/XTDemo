@@ -17,11 +17,24 @@ import Foundation
 import RxSwift
 import Moya
 
+
+//fileprivate enum DynamicListError: Error {
+//
+//    /// 无网络
+//    case reachability
+//
+//    /// 服务器返回空数据
+//    case dataEmpty
+//
+//    /// 人为创建的的空数据
+//    case ignoreData
+//}
+
 protocol DynamicListViewModelInputs {
 
     func viewDidLoad()
     func refreshDate()
-    func moreData(with cursor: String)
+    func moreData(with cursor: String, needHot: Bool)
 
     // FIXED: - 以下 view 层接口需要根据产品的逻辑而定. 例如: 是否要处理一部分埋点之类的额外操作
     /// 查看详情
@@ -56,62 +69,76 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
     private let disposeBag = DisposeBag()
 
     init() {
-
         self.refreshData = self.refreshDataSubject.asObserver()
         self.moreData = self.moreDataSubject.asObserver()
         self.endRefresh = self.endRefreshDataSubject.asObserver()
         self.hasMoreData = self.hasMoreDataSubject.asObserver()
         self.showError = self.loadDataErrorSubject.asObserver()
 
-        self.initializedSubject()
+        self.initializedDataSubject()
     }
 
-    private func initializedSubject() {
-        let loadDataAction = self.loadDataSubject.compactMap { $0 }
+    private func initializedDataSubject() {
+        let loadDataAction = loadDataSubject.compactMap { $0 }
 
-        let dynamycNewData = loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
-            return DynamicListParam(cursor: cursor)
-        }.flatMap { param -> Single<XTListResultModel> in
-            // request(.list(param: param.toJsonDict())).map(XTListResultModel.self)
-            return DynamicNetworkService.list(param: param.toJsonDict()).request().map(XTListResultModel.self)
-        }.flatMap { model -> Single<Result<XTListResultModel, Error>> in
-            return .just(.success(model))
-        }.catch { .just(.failure($0)) }
+        initializedNewDateSubject(with: loadDataAction)
+        initializedMoreDataSubject(with: loadDataAction)
+    }
 
-        let topicListData = topicListSubject.flatMap { _ -> Single<TopicListModel> in
-            return DynamicNetworkService.topicListRecommend.memoryCacheIn().request().map(TopicListModel.self)
-        }.flatMap { model -> Single<Result<TopicListModel, Error>> in
-            return .just(.success(model))
-        }.catch {  .just(.failure($0)) }
+    private func initializedNewDateSubject(with loadDataAction: Observable<String>) {
+        let dynamycData = loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
+            DynamicListParam(cursor: cursor)
+        }.flatMap { param -> Observable<Result<XTListResultModel, Error>> in
+            let result = DynamicNetworkService.list(param: param.toJsonDict())
+                .request()
+                .map(XTListResultModel.self)
+                .flatMap{ model -> Single<Result<XTListResultModel, Error>> in
+                    return .just(.success(model))
+                } .catch { error in
+                    return .just(.failure(error))
+                }
 
-        Observable.zip(dynamycNewData, topicListData).flatMap { (dynamicWrapped, topicListWrapped) -> Observable<Result<DynamicDisplayModel, Error>> in
+            return result.asObservable()
+        }
+
+        let topicListData = topicListSubject.flatMap { _ -> Observable<Result<TopicListModel, Error>> in
+            let result = DynamicNetworkService.topicListRecommend
+                .memoryCacheIn()
+                .request()
+                .map(TopicListModel.self)
+                .flatMap { model -> Single<Result<TopicListModel, Error>> in
+                    .just(.success(model))
+                }.catch {
+                    .just(.failure($0))
+                }
+
+            return result.asObservable()
+        }
+
+        let newDataSubject = Observable.zip(dynamycData, topicListData).map { (dynamicWrapped, topicListWrapped) -> Result<DynamicDisplayModel, Error> in
             var displayModel = DynamicDisplayModel()
-            var showList = [DynamicDisplayType]()
+
+            switch dynamicWrapped {
+            case .success(let wrapped):
+                displayModel = DynamicDisplayModel.init(from: wrapped)
+            case .failure(let error):
+                return .failure(error)
+            }
 
             switch topicListWrapped {
             case .success(let wrapped):
                 if let list = wrapped.data, !list.isEmpty {
-                    showList.append(.topicList(list))
-                    /*(showList.count > 2 ? { showList.insert(.topicList(list), at: 2) } : { showList.append(.topicList(list)) })()*/
+                    displayModel.displayModels.insert(.topicList(list), at: 0)
                 }
             case .failure(let error):
                 // FIXED: - 请求或者解析数据失败, 不作任何处理, 界面不展示
                 print(error)
             }
 
-            switch dynamicWrapped {
-            case .success(let wrapped):
-                displayModel = DynamicDisplayModel.init(from: wrapped)
-                if let list = wrapped.data {
-                    showList.append(contentsOf: list.map { .dynamic($0) })
-                }
-            case .failure(let error):
-                return .just(.failure(error))
-            }
+            return .success(displayModel)
+        }
 
-            displayModel.updateDisplayModels(from: showList)
-            return .just(.success(displayModel))
-        }.subscribe(onNext: { [weak self] wrappedRes in
+        newDataSubject.subscribe(onNext: { [weak self] wrappedRes in
             switch wrappedRes {
             case .success(let model):
                 self?.refreshDataSubject.onNext(model)
@@ -125,33 +152,82 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
                     print(error)
                 }
             }
-        }).disposed(by: self.disposeBag)
+        }).disposed(by: disposeBag)
+    }
 
-        loadDataAction.filter { $0 != "0" }.map { cursor -> DynamicListParam in
-            return DynamicListParam(cursor: cursor)
-        }.flatMap { param -> Single<XTListResultModel> in
-            return DynamicNetworkService.list(param: param.toJsonDict()).request().map(XTListResultModel.self)
-        }.flatMap { wrapped -> Observable<DynamicDisplayModel> in
-            var displayModel = DynamicDisplayModel.init(from: wrapped)
-            if let list = wrapped.data {
-                let showList: [DynamicDisplayType] = list.map { .dynamic($0) }
-                displayModel.updateDisplayModels(from: showList)
-            }
-            return .just(displayModel)
-        }.subscribe(onNext: { [weak self] model in
-            // FIXED: - 数据完整性校验,在 dataSource 中, loadDataSubject 不能保证数据的正确
-            // if let cursor = try? self?.loadDataSubject.value(), cursor == "0" { return }
-            self?.moreDataSubject.onNext(model)
-            self?.hasMoreDataSubject.onNext(model.hasMore)
-            // 清空当前请求的状态
-            self?.loadDataSubject.onNext(nil)
-        }, onError: { error in
-            if let error = error as? MoyaError {
-                self.handleMoyaError(error, fromNewData: false)
+    private func initializedMoreDataSubject(with loadDataAction: Observable<String>) {
+        let dynamycData = loadDataAction.filter { $0 != "0" }.map { cursor -> DynamicListParam in
+            DynamicListParam(cursor: cursor)
+        }.flatMap { param -> Observable<Result<XTListResultModel, Error>> in
+            let result = DynamicNetworkService.list(param: param.toJsonDict())
+                .request()
+                .map(XTListResultModel.self)
+                .map { model -> Result<XTListResultModel, Error> in
+                        .success(model)
+                }.catch { .just(.failure($0)) }
+            
+            return result.asObservable()
+        }
+
+        let hotData = needHotDynamicSubject.flatMap { needSend -> Observable<Result<XTListResultModel, Error>> in
+            if needSend {
+                let param = DynamicListParam.hotDymamicParam
+                let result = DynamicNetworkService.hot(param: param.toJsonDict())
+                    .memoryCacheIn()
+                    .request()
+                    .map(XTListResultModel.self)
+                    .map { model -> Result<XTListResultModel, Error> in
+                        .success(model)
+                    }.catch { .just(.failure($0)) }
+
+                return result.asObservable()
             } else {
-                print(error)
+                return .just(.failure(MoyaError.requestMapping("xxxx")))
             }
-        }).disposed(by: self.disposeBag)
+       }
+
+        let moreData = Observable.zip(dynamycData, hotData).map { listResult, hotResult -> Result<DynamicDisplayModel, Error> in
+
+            var displayModel = DynamicDisplayModel()
+            switch listResult {
+            case .success(let wrapped):
+                displayModel = DynamicDisplayModel.init(from: wrapped)
+            case .failure(let error):
+                return .failure(error)
+            }
+
+            switch hotResult {
+            case .success(let wrapped):
+                if let list = wrapped.data, !list.isEmpty {
+                    var displayList = displayModel.displayModels
+                    (displayList.count > 2 ? { displayList.insert(.hotList(list), at: 2) } : { displayList.append(.hotList(list)) } )()
+                    displayModel.displayModels = displayList
+                }
+            case .failure(_):
+                // FIXED: - 不作任何事情
+                break
+            }
+
+            return .success(displayModel)
+        }
+
+        moreData.subscribe(onNext: { [weak self] result in
+            switch result {
+            case .success(let model):
+                // FIXED: - 数据完整性校验,在 dataSource 中, loadDataSubject 不能保证数据的正确
+                // if let cursor = try? self?.loadDataSubject.value(), cursor == "0" { return }
+                self?.moreDataSubject.onNext(model)
+                self?.hasMoreDataSubject.onNext(model.hasMore)
+                // 清空当前请求的状态
+                self?.loadDataSubject.onNext(nil)
+            case .failure(let error):
+                if let error = error as? MoyaError {
+                    self?.handleMoyaError(error, fromNewData: false)
+                } else {
+                    print(error)
+                }
+            }
+        }).disposed(by: disposeBag)
     }
 
     // 增加数据请求
@@ -181,14 +257,14 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
         }
     }
 
-    // private let startMoreDataSubject = PublishSubject<Void>()
     private let hasMoreDataSubject = BehaviorSubject(value: false)
     private let hiddenMoreDataSubect: BehaviorSubject<Void> = .init(value: ())
-    func moreData(with cursor: String) {
+    private let needHotDynamicSubject = PublishSubject<Bool>()
+    func moreData(with cursor: String, needHot: Bool) {
         // nil 状态表示 没有在刷新,也没有在加载更多. 可以加载数据
         guard let value = try? loadDataSubject.value() else {
             loadDataSubject.onNext(cursor)
-            // startMoreDataSubject.onNext(())
+            needHotDynamicSubject.onNext(needHot)
             return
         }
 
@@ -197,6 +273,7 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
             hasMoreDataSubject.onNext(true)
         } else {
             loadDataSubject.onNext(cursor)
+            needHotDynamicSubject.onNext(needHot)
         }
     }
 

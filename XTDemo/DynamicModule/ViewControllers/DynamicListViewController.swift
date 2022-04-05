@@ -84,7 +84,7 @@ extension DynamicListViewController {
         }
 
         self.mjFooter.refreshingBlock = { [unowned self] in
-            self.viewModel.input.moreData(with: self.dataSource.nextCursor)
+            self.viewModel.input.moreData(with: self.dataSource.nextCursor, needHot: self.dataSource.needHotDynamic)
         }
     }
 }

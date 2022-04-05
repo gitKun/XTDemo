@@ -29,6 +29,10 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
         return wrappedModel?.cursor ?? "0"
     }
 
+    var needHotDynamic: Bool {
+        return (10..<30).contains(commendList.count)
+    }
+
     func newData(from wrapped: DynamicDisplayModel) {
         wrappedModel = wrapped
         commendList.removeAll()
@@ -78,6 +82,10 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
             let cellNoed = DynamicTopicWrapperCellNode()
             cellNoed.configure(with: topic)
             return cellNoed
+        case .hotList(let list):
+            let cellNode = DynamicListCellNode()
+            cellNode.configure(with: list[0])
+            return cellNode
         }
     }
 }

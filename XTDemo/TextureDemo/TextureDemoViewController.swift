@@ -244,6 +244,11 @@ extension TextureDemoViewController: ASTableDataSource {
             let cellNoed = DynamicTopicWrapperCellNode()
             cellNoed.configure(with: topic)
             return cellNoed
+        case .hotList(let list):
+            let cellNode = DynamicListCellNode()
+            cellNode.configure(with: list[0])
+            cellNode.delegate = self
+            return cellNode
         }
     }
 }

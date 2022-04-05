@@ -23,6 +23,7 @@ typealias JJNetworkParam = [String: Any]
 enum DynamicNetworkService {
     case list(param: JJNetworkParam)
     case topicListRecommend
+    case hot(param: JJNetworkParam)
 }
 
 private let jjBaseUrl = "https://api.juejin.cn"
@@ -51,6 +52,8 @@ extension DynamicNetworkService: TargetType {
             return "/recommend_api/v1/short_msg/hot"
         case .topicListRecommend:
             return "/tag_api/v1/topic/list_by_follow_rec"
+        case .hot(_):
+            return "/recommend_api/v1/short_msg/hot"
         }
     }
 
@@ -59,6 +62,8 @@ extension DynamicNetworkService: TargetType {
         case .list(_):
             return Method.post
         case .topicListRecommend:
+            return Method.post
+        case .hot(_):
             return Method.post
         }
     }
@@ -69,6 +74,8 @@ extension DynamicNetworkService: TargetType {
             return .requestParameters(parameters: param, encoding: JSONEncoding.default)
         case .topicListRecommend:
             return .requestParameters(parameters: [:], encoding: JSONEncoding.default)
+        case .hot(let param):
+            return .requestParameters(parameters: param, encoding: JSONEncoding.default)
         }
     }
 

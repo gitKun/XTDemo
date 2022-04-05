@@ -18,6 +18,7 @@ import Foundation
 enum DynamicDisplayType {
     case dynamic(DynamicListModel)
     case topicList([TopicModel])
+    case hotList([DynamicListModel])
 }
 
 
@@ -28,6 +29,8 @@ extension DynamicDisplayType: CustomDebugStringConvertible {
             return dynamicListModel.msgId ?? "DynamicListModel"
         case .topicList(let array):
             return "TopicModel count: \(array.count)"
+        case .hotList(let list):
+            return "Hot dynamic count: \(list.count)"
         }
     }
 }
@@ -50,13 +53,14 @@ struct DynamicDisplayModel {
         self.hasMore = wrapped.hasMore
 
         self.dynamicsCount = wrapped.data?.count ?? 0
+
+        if let list = wrapped.data {
+            let showList: [DynamicDisplayType] = list.map { .dynamic($0) }
+            self.displayModels = showList
+        }
     }
 
     init() {}
-
-    mutating func updateDisplayModels(from list: [DynamicDisplayType]) {
-        self.displayModels = list
-    }
 
     var cursorInfoSting: String {
         guard let cursor = cursor else { return "" }
