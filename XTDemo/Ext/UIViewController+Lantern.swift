@@ -1,45 +1,45 @@
 //
 /*
-* ****************************************************************
-*
-* 文件名称 : UIViewController+Lantern
-* 作   者 : Created by 坤
-* 创建时间 : 2022/3/23 7:25 PM
-* 文件描述 : 
-* 注意事项 : 
-* 版权声明 : 
-* 修改历史 : 2022/3/23 初始版本
-*
-* ****************************************************************
-*/
+ * ****************************************************************
+ *
+ * 文件名称 : UIViewController+Lantern
+ * 作   者 : Created by 坤
+ * 创建时间 : 2022/3/23 7:25 PM
+ * 文件描述 :
+ * 注意事项 :
+ * 版权声明 :
+ * 修改历史 : 2022/3/23 初始版本
+ *
+ * ****************************************************************
+ */
 
 import Foundation
-import Kingfisher
 import Photos
 import Lantern
+import Nuke
+
 
 extension UIViewController {
-  func topPresentedViewController() -> UIViewController {
-    var topVC = self
-    while let presentVC = topVC.presentedViewController {
-      topVC  = presentVC
-    }
-    return topVC
-  }
-}
-
-private class XTAnimatedImageView: AnimatedImageView {
-    
-    public var imageDidChangedHandler: (() -> ())?
-
-    public override var image: UIImage? {
-        didSet {
-            imageDidChangedHandler?()
+    func topPresentedViewController() -> UIViewController {
+        var topVC = self
+        while let presentVC = topVC.presentedViewController {
+            topVC  = presentVC
         }
+        return topVC
     }
 }
 
-
+//private class XTAnimatedImageView: AnimatedImageView {
+//
+//    public var imageDidChangedHandler: (() -> ())?
+//
+//    public override var image: UIImage? {
+//        didSet {
+//            imageDidChangedHandler?()
+//        }
+//    }
+//}
+//
 //private class XTPhotoBrowserCell: LanternImageCell {
 //
 //    required init(frame: CGRect) {
@@ -63,51 +63,51 @@ private class XTAnimatedImageView: AnimatedImageView {
 /// 跳出相册
 extension UIViewController {
 
-  func showXTPhotoBrowser(from sourceView: UIView, imagesUrl: [URL], selsctIndex: Int) {
+    func showXTPhotoBrowser(from sourceView: UIView, imagesUrl: [URL], selsctIndex: Int) {
 
-    guard !imagesUrl.isEmpty else { return }
-    let orgImageUrlArray = imagesUrl
-    let imageView = sourceView
-    let browser = Lantern()
-    browser.numberOfItems = {
-      orgImageUrlArray.count
-    }
-
-      /*
-       browser.cellClassAtIndex = { _ in
-       return LanternImageCell.self
-       }
-       */
-
-    browser.reloadCellAtIndex = { context in
-        guard let lanternCell = context.cell as? LanternImageCell else { return }
-
-        let url = orgImageUrlArray[context.index]
-        lanternCell.imageView.kf.setImage(with: url, placeholder: nil)
-
-        // 添加长按事件
-        lanternCell.longPressedAction = { cell, /*logGest*/ _ in
-            cell.lantern?.showSaveActionSheet(cell: cell, from: cell.lantern)
+        guard !imagesUrl.isEmpty else { return }
+        let orgImageUrlArray = imagesUrl
+        let imageView = sourceView
+        let browser = Lantern()
+        browser.numberOfItems = {
+            orgImageUrlArray.count
         }
-    }
 
-    // Zoom动画
-      browser.transitionAnimator = LanternSmoothZoomAnimator(transitionViewAndFrame: { (index, destinationView) -> LanternSmoothZoomAnimator.TransitionViewAndFrame? in
-          guard let imageViewArray = imageView.superview?.subviews,
-                index < imageViewArray.count,
-                let imgView = imageViewArray[index] as? UIImageView else {
-                    return nil
-                }
-          let image = imgView.image
-          let transitionView = UIImageView(image: image)
-          transitionView.contentMode = imageView.contentMode
-          transitionView.clipsToBounds = true
-          let thumbnailFrame = imgView.convert(imgView.bounds, to: destinationView)
-          return (transitionView, thumbnailFrame)
-      })
-      browser.pageIndex = selsctIndex
-      browser.show()
-  }
+        /*
+         browser.cellClassAtIndex = { _ in
+         return LanternImageCell.self
+         }
+         */
+
+        browser.reloadCellAtIndex = { context in
+            guard let lanternCell = context.cell as? LanternImageCell else { return }
+
+            let url = orgImageUrlArray[context.index]
+            Nuke.loadImage(with: url, into: lanternCell.imageView)
+
+            // 添加长按事件
+            lanternCell.longPressedAction = { cell, /*logGest*/ _ in
+                cell.lantern?.showSaveActionSheet(cell: cell, from: cell.lantern)
+            }
+        }
+
+        // Zoom动画
+        browser.transitionAnimator = LanternSmoothZoomAnimator(transitionViewAndFrame: { (index, destinationView) -> LanternSmoothZoomAnimator.TransitionViewAndFrame? in
+            guard let imageViewArray = imageView.superview?.subviews,
+                  index < imageViewArray.count,
+                  let imgView = imageViewArray[index] as? UIImageView else {
+                return nil
+            }
+            let image = imgView.image
+            let transitionView = UIImageView(image: image)
+            transitionView.contentMode = imageView.contentMode
+            transitionView.clipsToBounds = true
+            let thumbnailFrame = imgView.convert(imgView.bounds, to: destinationView)
+            return (transitionView, thumbnailFrame)
+        })
+        browser.pageIndex = selsctIndex
+        browser.show()
+    }
 
     func showSaveActionSheet(cell: LanternImageCell, from: UIViewController?) {
         guard let image = cell.imageView.image else {
@@ -131,14 +131,8 @@ extension UIViewController {
 
     func saveImage(image: UIImage) {
 
-        var data = image.kf.data(format: .GIF)
-        if data == nil {
-            data = image.kf.data(format: .PNG)
-        } else if data == nil {
-            data = image.kf.data(format: .JPEG)
-        } else if data == nil {
-            data = image.kf.data(format: .unknown)
-        }
+        let encoder = ImageEncoders.Default(compressionQuality: 1.0)
+        let data = encoder.encode(image)
 
         guard let saveData = data else {
             self.toast.showCenter(message: "图片解码失败!")
@@ -148,7 +142,7 @@ extension UIViewController {
         PHPhotoLibrary.shared().performChanges({
             let request = PHAssetCreationRequest.forAsset()
             request.addResource(with: .photo, data: saveData, options: nil)
-        },completionHandler: { success, error in
+        }, completionHandler: { success, error in
             DispatchQueue.main.async {
                 if success {
                     self.toast.showCenter(message: "保存成功")

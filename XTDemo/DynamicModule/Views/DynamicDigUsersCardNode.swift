@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 import AsyncDisplayKit
-import Kingfisher
+
 
 final class DynamicDigUsersCardNode: ASControlNode {
 
@@ -69,7 +69,7 @@ final class DynamicDigUsersCardNode: ASControlNode {
             if let imgUrl = showModels[idx].avatarLarge, let url = URL(string: imgUrl) {
                 let imgNode = nodeList[idx]
                 imgNode.isHidden = false
-                imgNode.kf.setImage(with: url, placeholder: nil, failureImage: nil, options: .jjListAvatarOptions(with: 30), progressBlock: nil)
+                imgNode.setImage(with: .jjListAvatarImageRequest(with: url, width: 30))
             }
         }
     }

@@ -17,7 +17,6 @@ import Foundation
 import Foundation
 import UIKit
 import AsyncDisplayKit
-import Kingfisher
 
 final class DynamicTopicCollectionNode: ASCellNode {
 
@@ -123,7 +122,7 @@ extension DynamicTopicCollectionNode {
         }
 
         if let iconUrl = model.topicInfo?.icon, let url = URL(string: iconUrl) {
-            iconNode.kf.setImage(with: url)
+            iconNode.setImage(with: .jjListImageRequest(with: url, size: CGSize(width: 60, height: 60)))
         } else {
             iconNode.backgroundColor = .randomWithoutAlpha
         }

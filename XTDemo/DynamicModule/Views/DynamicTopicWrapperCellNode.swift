@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 import AsyncDisplayKit
-import Kingfisher
 
 final class DynamicTopicWrapperCellNode: ASCellNode {
 

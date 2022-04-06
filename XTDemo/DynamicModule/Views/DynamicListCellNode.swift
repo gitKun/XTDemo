@@ -17,7 +17,6 @@ import UIKit
 import Foundation
 import AsyncDisplayKit
 import RxSwift
-import Kingfisher
 
 
 /// cell node subnode 事件处理
@@ -351,11 +350,7 @@ extension DynamicListCellNode {
     func bindViewModel() {
 
         viewModel.output.avatarUrl.subscribe(onNext: { [weak self] url in
-            if  let url = url, let imgNode = self?.avatarNode {
-                imgNode.kf.setImage(with: url, placeholder: nil, options: Array.jjListAvatarOptions(with: 40))
-            } else {
-                self?.avatarNode.backgroundColor = .randomWithoutAlpha
-            }
+            self?.avatarNode.setImage(with: .jjListAvatarImageRequest(with: url, width: 40))
         }).disposed(by: disposeBag)
 
         viewModel.output.nickname.subscribe(onNext: { [weak self] attrString in

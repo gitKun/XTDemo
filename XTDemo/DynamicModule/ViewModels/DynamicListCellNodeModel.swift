@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 import RxSwift
-import Kingfisher
 
 
 protocol DynamicListCellNodeModelInputs {

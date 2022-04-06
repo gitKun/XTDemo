@@ -20,6 +20,8 @@
 		BC36048427FAAADE003395E3 /* UIView+DrCornenr.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */; };
 		BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048527FAB9F1003395E3 /* DrCornerView.swift */; };
 		BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */; };
+		BC36049A27FF2790003395E3 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = BC36049927FF2790003395E3 /* Nuke */; };
+		BC36049C27FF285E003395E3 /* ASDK+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */; };
 		BC4CFDBC27ED5D18007C79CF /* xt_dynamic_list_0.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */; };
 		BC4CFDBD27ED5D18007C79CF /* xt_dynamic_list_1.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */; };
 		BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */; };
@@ -73,6 +75,7 @@
 		BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DrCornenr.swift"; sourceTree = "<group>"; };
 		BC36048527FAB9F1003395E3 /* DrCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrCornerView.swift; sourceTree = "<group>"; };
 		BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopicCollectionNode.swift; sourceTree = "<group>"; };
+		BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDK+Nuke.swift"; sourceTree = "<group>"; };
 		BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_0.json; sourceTree = "<group>"; };
 		BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_1.json; sourceTree = "<group>"; };
 		BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97F60E01B19CAD0ACCD790A0 /* Pods_XTDemo.framework in Frameworks */,
+				BC36049A27FF2790003395E3 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +177,7 @@
 				BC61922827EB393E009A3335 /* LayoutFit.swift */,
 				BC61924127EB3CEC009A3335 /* XTExtension.swift */,
 				BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */,
+				BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */,
 				BC61924F27EB432E009A3335 /* DateUtil.swift */,
 			);
 			path = Ext;
@@ -347,6 +352,9 @@
 			dependencies = (
 			);
 			name = XTDemo;
+			packageProductDependencies = (
+				BC36049927FF2790003395E3 /* Nuke */,
+			);
 			productName = XTDemo;
 			productReference = BCA0364C27EB11FF00D15E0F /* XTDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -375,6 +383,9 @@
 				Base,
 			);
 			mainGroup = BCA0364327EB11FF00D15E0F;
+			packageReferences = (
+				BC36049827FF2790003395E3 /* XCRemoteSwiftPackageReference "Nuke" */,
+			);
 			productRefGroup = BCA0364D27EB11FF00D15E0F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -451,6 +462,7 @@
 				BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */,
 				BCA0366C27EB148D00D15E0F /* HomeTabBarView.swift in Sources */,
 				BCA0366D27EB148D00D15E0F /* UIViewController+DrIndex.swift in Sources */,
+				BC36049C27FF285E003395E3 /* ASDK+Nuke.swift in Sources */,
 				BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */,
 				BC61924827EB3E67009A3335 /* DynamicListModel.swift in Sources */,
 				BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */,
@@ -565,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -621,7 +633,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -650,7 +662,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -682,7 +694,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -718,6 +730,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BC36049827FF2790003395E3 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BC36049927FF2790003395E3 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC36049827FF2790003395E3 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCA0364427EB11FF00D15E0F /* Project object */;
 }

@@ -227,7 +227,7 @@ extension TextureDemoViewController: ASTableDataSource {
     func numberOfSections(in tableNode: ASTableNode) -> Int { 1 }
 
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        modelList.count// == 0 ? 0 : 1
+        modelList.count// == 0 ? 0 : 2
     }
 
     // 有个 block 版本的, 异步返回 cellNode 时使用, 非 block 版本默认在主线程创建 cellNode

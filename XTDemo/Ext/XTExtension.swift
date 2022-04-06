@@ -15,7 +15,6 @@
 
 import Foundation
 import UIKit
-import Kingfisher
 
 extension String {
 
@@ -30,31 +29,6 @@ extension String {
 
         let decodedString = String(decoding: decodedData, as: UTF8.self)
         return decodedString
-    }
-}
-
-extension Array where Element == KingfisherOptionsInfoItem {
-
-    /// default size: (111, 111)
-    static func jjListImageOptions(with size: CGSize) -> KingfisherOptionsInfo {
-        let downsamplingProcessor = DownsamplingImageProcessor(size: size)
-        return [
-            .backgroundDecode,
-            .cacheOriginalImage,
-            .processor(downsamplingProcessor),
-            .scaleFactor(UIScreen.main.scale)
-        ]
-    }
-
-    /// default width: 40
-    static func jjListAvatarOptions(with targetWithd: CGFloat) -> KingfisherOptionsInfo {
-        let cornerProcessor = RoundCornerImageProcessor(cornerRadius: targetWithd / 2, targetSize: CGSize(width: targetWithd, height: targetWithd), roundingCorners: .all)
-        return [
-            .backgroundDecode,
-            .cacheOriginalImage,
-            .processor(cornerProcessor),
-            .scaleFactor(UIScreen.main.scale)
-        ]
     }
 }
 

@@ -1,9 +1,10 @@
 PODS:
   - Alamofire (5.5.0)
   - Cache (6.0.0)
-  - Kingfisher (7.2.0)
   - Lantern (1.1.2)
   - MJRefresh (3.7.5)
+  - Moya/Combine (15.0.0):
+    - Moya/Core
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
@@ -55,9 +56,9 @@ PODS:
 
 DEPENDENCIES:
   - Cache
-  - Kingfisher
   - Lantern
   - MJRefresh
+  - Moya/Combine
   - Moya/RxSwift
   - RxCocoa
   - SnapKit
@@ -68,7 +69,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Cache
-    - Kingfisher
     - Lantern
     - MJRefresh
     - Moya
@@ -85,7 +85,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
-  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
   Lantern: ed012be9a7c989ff5b94c080129a4734b45304b6
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
@@ -99,6 +98,6 @@ SPEC CHECKSUMS:
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 28510520b9d523147baf7e4c2c3b980f8fb82e99
+PODFILE CHECKSUM: e28e0e20961ef4d735752532985ce2d5422c17d7
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
