@@ -1,6 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 
-platform :ios, '13.0'
+platform :ios, '13.1'
 use_frameworks!
 inhibit_all_warnings!
 
@@ -26,6 +26,9 @@ target 'XTDemo' do
 
   # 网络层 '15.0.0'
   pod 'Moya/RxSwift'
+
+  # '15.0.0'
+  pod 'Moya/Combine'
   
   # 缓存数据 '6.0.0'
   pod 'Cache'

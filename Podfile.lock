@@ -4,6 +4,8 @@ PODS:
   - Kingfisher (7.2.0)
   - Lantern (1.1.2)
   - MJRefresh (3.7.5)
+  - Moya/Combine (15.0.0):
+    - Moya/Core
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
@@ -58,6 +60,7 @@ DEPENDENCIES:
   - Kingfisher
   - Lantern
   - MJRefresh
+  - Moya/Combine
   - Moya/RxSwift
   - RxCocoa
   - SnapKit
@@ -99,6 +102,6 @@ SPEC CHECKSUMS:
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 28510520b9d523147baf7e4c2c3b980f8fb82e99
+PODFILE CHECKSUM: bc980c114692195133cb8a30abd65919e6dac7b0
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
