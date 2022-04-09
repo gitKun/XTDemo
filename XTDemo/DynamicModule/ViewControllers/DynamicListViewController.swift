@@ -112,15 +112,13 @@ extension DynamicListViewController {
             self?.mjFooter.isHidden = false
         }).disposed(by: disposeBag)
 
-        viewModel.output.hasMoreData.subscribe(onNext: { [weak self] hasMore in
+        viewModel.output.hasMoreData.subscribe(on: MainScheduler.instance).subscribe(onNext: { [weak self] hasMore in
             if hasMore {
                 self?.mjFooter.endRefreshing()
             } else {
                 self?.mjFooter.endRefreshingWithNoMoreData()
             }
         }).disposed(by: disposeBag)
-
-//        viewModel.output.hiddenMore
 
         viewModel.output.showError.subscribe(onNext: { message in
             // FIXME: - 接入 HUD / Toast / 什么都不做, 展示空白视图 ??

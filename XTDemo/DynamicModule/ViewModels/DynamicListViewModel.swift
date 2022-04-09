@@ -66,26 +66,15 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
 
     var output: DynamicListViewModelOutputs { self }
 
-    private let disposeBag = DisposeBag()
-
     init() {
-        self.refreshData = self.refreshDataSubject.asObserver()
-        self.moreData = self.moreDataSubject.asObserver()
         self.endRefresh = self.endRefreshDataSubject.asObserver()
         self.hasMoreData = self.hasMoreDataSubject.asObserver()
         self.showError = self.loadDataErrorSubject.asObserver()
-
-        self.initializedDataSubject()
     }
 
-    private func initializedDataSubject() {
-        let loadDataAction = loadDataSubject.compactMap { $0 }
 
-        initializedNewDateSubject(with: loadDataAction)
-        initializedMoreDataSubject(with: loadDataAction)
-    }
 
-    private func initializedNewDateSubject(with loadDataAction: Observable<String>) {
+    private func createNewDataSubject(with loadDataAction: Observable<String>) -> Observable<DynamicDisplayModel?> {
         let dynamycData = loadDataAction.filter { $0 == "0" }.map { cursor -> DynamicListParam in
             DynamicListParam(cursor: cursor)
         }.flatMap { param -> Observable<Result<XTListResultModel, Error>> in
@@ -115,14 +104,20 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
             return result.asObservable()
         }
 
-        let newDataSubject = Observable.zip(dynamycData, topicListData).map { (dynamicWrapped, topicListWrapped) -> Result<DynamicDisplayModel, Error> in
+        let newDataSubject = Observable.zip(dynamycData, topicListData).map { [weak self] (dynamicWrapped, topicListWrapped) -> DynamicDisplayModel? in
             var displayModel = DynamicDisplayModel()
 
             switch dynamicWrapped {
             case .success(let wrapped):
                 displayModel = DynamicDisplayModel.init(from: wrapped)
             case .failure(let error):
-                return .failure(error)
+                // TODO: - 处理错误
+                if let error = error as? MoyaError {
+                    self?.handleMoyaError(error, fromNewData: true)
+                } else {
+                    print(error)
+                }
+                return nil
             }
 
             switch topicListWrapped {
@@ -135,27 +130,17 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
                 print(error)
             }
 
-            return .success(displayModel)
+            self?.endRefreshDataSubject.onNext(())
+            // 清空当前请求的状态
+            self?.loadDataSubject.onNext(nil)
+
+            return displayModel
         }
 
-        newDataSubject.subscribe(onNext: { [weak self] wrappedRes in
-            switch wrappedRes {
-            case .success(let model):
-                self?.refreshDataSubject.onNext(model)
-                self?.endRefreshDataSubject.onNext(())
-                // 清空当前请求的状态
-                self?.loadDataSubject.onNext(nil)
-            case .failure(let error):
-                if let error = error as? MoyaError {
-                    self?.handleMoyaError(error, fromNewData: true)
-                } else {
-                    print(error)
-                }
-            }
-        }).disposed(by: disposeBag)
+        return newDataSubject
     }
 
-    private func initializedMoreDataSubject(with loadDataAction: Observable<String>) {
+    private func createMoreDataSubject(with loadDataAction: Observable<String>) -> Observable<DynamicDisplayModel?> {
         let dynamycData = loadDataAction.filter { $0 != "0" }.map { cursor -> DynamicListParam in
             DynamicListParam(cursor: cursor)
         }.flatMap { param -> Observable<Result<XTListResultModel, Error>> in
@@ -186,14 +171,19 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
             }
        }
 
-        let moreData = Observable.zip(dynamycData, hotData).map { listResult, hotResult -> Result<DynamicDisplayModel, Error> in
+        let moreDataSubject = Observable.zip(dynamycData, hotData).map { [weak self] (listResult, hotResult) -> DynamicDisplayModel? in
 
             var displayModel = DynamicDisplayModel()
             switch listResult {
             case .success(let wrapped):
                 displayModel = DynamicDisplayModel.init(from: wrapped)
             case .failure(let error):
-                return .failure(error)
+                if let error = error as? MoyaError {
+                    self?.handleMoyaError(error, fromNewData: false)
+                } else {
+                    print(error)
+                }
+                return nil
             }
 
             switch hotResult {
@@ -208,26 +198,15 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
                 break
             }
 
-            return .success(displayModel)
-        }
-
-        moreData.subscribe(onNext: { [weak self] result in
-            switch result {
-            case .success(let model):
-                // FIXED: - 数据完整性校验,在 dataSource 中, loadDataSubject 不能保证数据的正确
-                // if let cursor = try? self?.loadDataSubject.value(), cursor == "0" { return }
-                self?.moreDataSubject.onNext(model)
-                self?.hasMoreDataSubject.onNext(model.hasMore)
+            defer {
+                self?.hasMoreDataSubject.onNext(displayModel.hasMore)
                 // 清空当前请求的状态
                 self?.loadDataSubject.onNext(nil)
-            case .failure(let error):
-                if let error = error as? MoyaError {
-                    self?.handleMoyaError(error, fromNewData: false)
-                } else {
-                    print(error)
-                }
             }
-        }).disposed(by: disposeBag)
+            return displayModel
+        }
+
+        return moreDataSubject
     }
 
     // 增加数据请求
@@ -238,13 +217,11 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
         loadFirstPageData()
     }
 
-    // private let startRefreshDataSubject = PublishSubject<Void>()
     private let endRefreshDataSubject = PublishSubject<Void>()
     func refreshDate() {
         // nil 状态表示 没有在刷新,也没有在加载更多. 可以刷新数据
         guard let value = try? loadDataSubject.value() else {
             loadFirstPageData()
-            // startRefreshDataSubject.onNext(())
             return
         }
 
@@ -285,11 +262,23 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
     func diggUserClick() {
     }
 
-    private let refreshDataSubject = PublishSubject<DynamicDisplayModel>()
-    let refreshData: Observable<DynamicDisplayModel>
+    private lazy var newDataObservable: Observable<DynamicDisplayModel> = {
+        let loadDataAction = loadDataSubject.compactMap { $0 }
+        let newData = self.createNewDataSubject(with: loadDataAction)
+        return newData.compactMap { $0 }
+    }()
+    var refreshData: Observable<DynamicDisplayModel> {
+        return self.newDataObservable
+    }
 
-    private let moreDataSubject = PublishSubject<DynamicDisplayModel>()
-    let moreData: Observable<DynamicDisplayModel>
+    private lazy var moreDataObservable: Observable<DynamicDisplayModel> = {
+        let loadDataAction = loadDataSubject.compactMap { $0 }
+        let moreData = createMoreDataSubject(with: loadDataAction)
+        return moreData.compactMap { $0 }
+    }()
+    var moreData: Observable<DynamicDisplayModel> {
+        return self.moreDataObservable
+    }
 
     private let loadDataErrorSubject = PublishSubject<String>()
     let showError: Observable<String>
