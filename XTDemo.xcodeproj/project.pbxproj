@@ -44,6 +44,7 @@
 		BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */; };
 		BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */; };
 		BC61925027EB432E009A3335 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924F27EB432E009A3335 /* DateUtil.swift */; };
+		BC7DB5F02800616300C221D7 /* DynamicListCombineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7DB5EF2800616300C221D7 /* DynamicListCombineViewModel.swift */; };
 		BC898FBA27F32E34002A69FC /* DynamicDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */; };
 		BC898FBC27F4316D002A69FC /* EmojeShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC898FBB27F4316D002A69FC /* EmojeShowView.swift */; };
 		BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0364F27EB11FF00D15E0F /* AppDelegate.swift */; };
@@ -98,6 +99,7 @@
 		BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicNetworkService.swift; sourceTree = "<group>"; };
 		BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDK+XT_Ext.swift"; sourceTree = "<group>"; };
 		BC61924F27EB432E009A3335 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		BC7DB5EF2800616300C221D7 /* DynamicListCombineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCombineViewModel.swift; sourceTree = "<group>"; };
 		BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDisplayModel.swift; sourceTree = "<group>"; };
 		BC898FBB27F4316D002A69FC /* EmojeShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojeShowView.swift; sourceTree = "<group>"; };
 		BCA0364C27EB11FF00D15E0F /* XTDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */,
+				BC7DB5EF2800616300C221D7 /* DynamicListCombineViewModel.swift */,
 				BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */,
 			);
 			path = ViewModels;
@@ -466,6 +469,7 @@
 				BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */,
 				BC61924827EB3E67009A3335 /* DynamicListModel.swift in Sources */,
 				BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */,
+				BC7DB5F02800616300C221D7 /* DynamicListCombineViewModel.swift in Sources */,
 				BCA0365427EB11FF00D15E0F /* ViewController.swift in Sources */,
 				BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */,
 				BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */,
