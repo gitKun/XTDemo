@@ -17,6 +17,7 @@ import Foundation
 import AsyncDisplayKit
 import RxSwift
 import Moya
+import Combine
 
 class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
@@ -28,6 +29,8 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
     private let testSubject = PublishSubject<Void>()
     private var shouldShowError = false
+
+    private var cancellable: Set<AnyCancellable> = []
 
 // MARK: - 生命周期 & override
 
@@ -104,18 +107,18 @@ extension TextureDemoViewController {
     }
 
     func testQueryNetwork() {
-        DynamicNetworkService.topicListRecommend
-            //.memoryCacheIn(seconds: 60 * 3)
-            .onStorage(TopicListModel.self, onDisk: { listModel in
-                print(listModel)
-            })
-            .request()
-            .map(TopicListModel.self)
-            .subscribe(onSuccess: { wrappedModel in
-                print(wrappedModel.data?.count ?? 0)
-            }, onFailure: { error in
-                print(error)
-            }).disposed(by: self.disposeBag)
+//        DynamicNetworkService.topicListRecommend
+//            //.memoryCacheIn(seconds: 60 * 3)
+//            .onStorage(TopicListModel.self, onDisk: { listModel in
+//                print(listModel)
+//            })
+//            .request()
+//            .map(TopicListModel.self)
+//            .subscribe(onSuccess: { wrappedModel in
+//                print(wrappedModel.data?.count ?? 0)
+//            }, onFailure: { error in
+//                print(error)
+//            }).disposed(by: self.disposeBag)
     }
 
     func testZipLocalDatasourc() {

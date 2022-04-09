@@ -15,17 +15,21 @@
 
 import UIKit
 import AsyncDisplayKit
-import RxSwift
 import MJRefresh
+//import RxSwift
+import Combine
 
 
 class DynamicListViewController: ASDKViewController<ASDisplayNode> {
 
 // MARK: - 成员变量
 
-    private let disposeBag = DisposeBag()
+    //private let disposeBag = DisposeBag()
+    private var cancellable: Set<AnyCancellable> = []
 
-    private let viewModel: DynamicListViewModelType = DynamicListViewModel()
+    // private let viewModel: DynamicListViewModelType = DynamicListViewModel()
+
+    private let viewModel: DynamicListCombineViewModelType = DynamicListCombineViewModel()
     private let dataSource = DynamicListDataSource()
 
 // MARK: - 生命周期 & override
@@ -94,6 +98,14 @@ extension DynamicListViewController {
 extension DynamicListViewController {
 
     func bindViewModel() {
+        viewModel.output.newData.sink { [weak self] wrappedModel in
+            self?.dataSource.newData(from: wrappedModel)
+            self?.tableNode.reloadData()
+        }.store(in: &cancellable)
+    }
+
+    #if false
+    func bindViewModel() {
 
         viewModel.output.refreshData.subscribe(onNext: { [weak self] wrappedModel in
             self?.dataSource.newData(from: wrappedModel)
@@ -125,6 +137,7 @@ extension DynamicListViewController {
             print(message)
         }).disposed(by: disposeBag)
     }
+    #endif
 }
 
 // MARK: - ASTableDelegate

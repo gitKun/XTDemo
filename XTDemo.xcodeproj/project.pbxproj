@@ -59,6 +59,8 @@
 		BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366927EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift */; };
 		BCA0366F27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0366A27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift */; };
 		BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0367027EB14D700D15E0F /* DrButton.swift */; };
+		BCAE84FB280132EA00272124 /* XTCombineNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */; };
+		BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +118,8 @@
 		BCA0366927EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarTransitionDelegate.swift; sourceTree = "<group>"; };
 		BCA0366A27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrAnimationTabScrollStyle.swift; sourceTree = "<group>"; };
 		BCA0367027EB14D700D15E0F /* DrButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrButton.swift; sourceTree = "<group>"; };
+		BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTCombineNetworkService.swift; sourceTree = "<group>"; };
+		BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+XTCache.swift"; sourceTree = "<group>"; };
 		D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XTDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -181,6 +185,7 @@
 				BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */,
 				BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */,
 				BC61924F27EB432E009A3335 /* DateUtil.swift */,
+				BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */,
 			);
 			path = Ext;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			children = (
 				BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */,
 				BC14171A27EF645D00B83D45 /* XTNetworkCacheExtension.swift */,
+				BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */,
 			);
 			path = Serivces;
 			sourceTree = "<group>";
@@ -466,6 +472,7 @@
 				BCA0366C27EB148D00D15E0F /* HomeTabBarView.swift in Sources */,
 				BCA0366D27EB148D00D15E0F /* UIViewController+DrIndex.swift in Sources */,
 				BC36049C27FF285E003395E3 /* ASDK+Nuke.swift in Sources */,
+				BCAE84FB280132EA00272124 /* XTCombineNetworkService.swift in Sources */,
 				BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */,
 				BC61924827EB3E67009A3335 /* DynamicListModel.swift in Sources */,
 				BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */,
@@ -502,6 +509,7 @@
 				BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */,
 				BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */,
 				BC14171B27EF645D00B83D45 /* XTNetworkCacheExtension.swift in Sources */,
+				BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */,
 				BC61924A27EB3E7D009A3335 /* DynamicListParam.swift in Sources */,
 				BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */,
 				BCA0366F27EB148D00D15E0F /* DrAnimationTabScrollStyle.swift in Sources */,
