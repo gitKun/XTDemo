@@ -15,7 +15,6 @@
 
 import Foundation
 import AsyncDisplayKit
-import RxSwift
 import Moya
 import Combine
 
@@ -24,11 +23,6 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 // MARK: - 成员变量
 
     private var modelList: [DynamicDisplayType] = []
-
-    private let disposeBag = DisposeBag()
-
-    private let testSubject = PublishSubject<Void>()
-    private var shouldShowError = false
 
     private var cancellable: Set<AnyCancellable> = []
 
@@ -62,8 +56,9 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        testSubject.onNext(())
         super.touchesBegan(touches, with: event)
+
+        // testZipLocalDatasourc()
     }
 
 // MARK: - UI 属性
@@ -107,105 +102,74 @@ extension TextureDemoViewController {
     }
 
     func testQueryNetwork() {
-//        DynamicNetworkService.topicListRecommend
-//            //.memoryCacheIn(seconds: 60 * 3)
-//            .onStorage(TopicListModel.self, onDisk: { listModel in
-//                print(listModel)
-//            })
-//            .request()
-//            .map(TopicListModel.self)
-//            .subscribe(onSuccess: { wrappedModel in
-//                print(wrappedModel.data?.count ?? 0)
-//            }, onFailure: { error in
-//                print(error)
-//            }).disposed(by: self.disposeBag)
+        DynamicNetworkService.topicListRecommend
+            .memoryCacheIn()
+            .request()
+            .map(TopicListModel.self)
+            .sink { complete in
+                switch complete {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    break
+                }
+            } receiveValue: { topicWrapped in
+                print(topicWrapped.data?.count ?? 0)
+            }.store(in: &cancellable)
     }
 
     func testZipLocalDatasourc() {
 
-        let dynamicSubject = Single<XTListResultModel>.create { single in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                if let dynamicFileUrl = Bundle.main.url(forResource: "xt_dynamic_list_0", withExtension: "json") {
-                    do {
-                        let jsonData = try Data(contentsOf: dynamicFileUrl)
-                        let wrappedModel = try JSONDecoder().decode(XTListResultModel.self, from: jsonData)
-                        single(.success(wrappedModel))
-                        //single(.failure(TestError.justFailure))
-                    } catch let error {
-                        single(.failure(error))
+        let dynamicPath = Bundle.main.path(forResource: "xt_dynamic_list_0.json", ofType: nil)
+        let dynamicPublisher = JsonDataPublisher<XTListResultModel>(filePaht: dynamicPath)
+            .map { Result<XTListResultModel, JsonDataError>.success($0) }
+            .eraseToAnyPublisher()
+            .catch { Just<Result<XTListResultModel, JsonDataError>>(.failure($0)).eraseToAnyPublisher() }
+            .eraseToAnyPublisher()
+
+        let topicPath = Bundle.main.path(forResource: "xt_topic_recommend_list.json", ofType: nil)
+        let topicPublisher = JsonDataPublisher<TopicListModel>(filePaht: topicPath)
+            .map { Result<TopicListModel, JsonDataError>.success($0) }
+            .eraseToAnyPublisher()
+            .catch { Just<Result<TopicListModel, JsonDataError>>(.failure($0)) }
+            .eraseToAnyPublisher()
+
+        let showSubject = Publishers.Zip(dynamicPublisher, topicPublisher)
+            .map { (dynamicResult, topicResult) -> [DynamicDisplayType] in
+                var resultArray: [DynamicDisplayType] = []
+                switch topicResult {
+                case .success(let wrappedModel):
+                    if let list = wrappedModel.data, !list.isEmpty {
+                        resultArray.append(.topicList(list))
                     }
-                } else {
-                    single(.failure(TestError.jsonData("Dynamic file url error!")))
+                case .failure(let error):
+                    print(error)
                 }
-            }
 
-            return Disposables.create {
-                print("Read dynamic file dispose! ____#")
-            }
-        }.asObservable()
-
-        let dynamicResult = dynamicSubject.flatMap { model -> Observable<Result<XTListResultModel, Error>> in
-            return .just(Result.success(model))
-        }.catch { .just(.failure($0)) }
-
-
-        let topicSubject = Single<TopicListModel>.create { sig in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                if let topicFileUrl = Bundle.main.url(forResource: "xt_topic_recommend_list", withExtension: "json") {
-                    do {
-                        let jsonData = try Data(contentsOf: topicFileUrl)
-                        let wrappedModel = try JSONDecoder().decode(TopicListModel.self, from: jsonData)
-                        sig(.success(wrappedModel))
-                    } catch let error {
-                        sig(.failure(error))
+                switch dynamicResult {
+                case .success(let wrappedModel):
+                    if let list = wrappedModel.data {
+                        resultArray.append(contentsOf: list.map { .dynamic($0) })
                     }
-                } else {
-                    sig(.failure(TestError.jsonData("TopicList file url error!")))
+                case .failure(let error):
+                    print("\(error)")
                 }
+
+                return resultArray
             }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
 
-            return Disposables.create {
-                print("Read topicList file dispose! ____#")
+        // FIXED: - receive(on: .main) 和 subscribe(on: .main) 的
+        // 区别见: https://trycombine.com/posts/subscribe-on-receive-on/
+
+        showSubject
+            //.receive(on: RunLoop.main)
+            .sink { [weak self] list in
+                self?.modelList = list
+                self?.tableNode.reloadData()
             }
-        }
-
-        let topicResult = topicSubject.flatMap { wrappedModel -> Single<Result<TopicListModel, Error>> in
-            return .just(.success(wrappedModel))
-        }.catch { .just(.failure($0)) }
-
-        let showSubject = Observable.zip(dynamicResult, topicResult.asObservable()).flatMap { (dynamicResult, topicResult) -> Observable<[DynamicDisplayType]> in
-
-            var resultArray: [DynamicDisplayType] = []
-            switch topicResult {
-            case .success(let wrappedModel):
-                if let list = wrappedModel.data, !list.isEmpty {
-                    resultArray.append(.topicList(list))
-                }
-            case .failure(let error):
-                print(error)
-            }
-
-            switch dynamicResult {
-            case .success(let wrappedModel):
-                if let list = wrappedModel.data {
-                    resultArray.append(contentsOf: list.map { .dynamic($0) })
-                }
-            case .failure(let error):
-                print("\(error)")
-            }
-
-            return .just(resultArray)
-        }
-
-        showSubject.subscribe(onNext: { [weak self] list in
-            self?.modelList = list
-            self?.tableNode.reloadData()
-        }, onError: { error in
-            if let _ = error as? TestError {
-                print("TestError! ____#")
-            }
-            print(error)
-        }).disposed(by: disposeBag)
+            .store(in: &cancellable)
     }
 }
 
@@ -283,5 +247,99 @@ extension TextureDemoViewController {
         self.tableNode.delegate = self
         self.tableNode.dataSource = self
         self.tableNode.contentInset = .init(top: 0, left: 0, bottom: k_dr_BottomSafeHeight + 10, right: 0)
+    }
+}
+
+
+// MARK: - 创建自己的 Publisher
+
+fileprivate enum JsonDataError: Error {
+    case noFile
+    case noData
+    case noValidateData
+    case modelMapping
+}
+
+fileprivate class JsonDataPublisher<Output: Decodable>: Publisher {
+
+    typealias Failure = JsonDataError
+
+    private let filePath: String?
+
+    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        let subscription = JsonDataSubscription(filePath: filePath, subscriber: subscriber)
+        subscriber.receive(subscription: subscription)
+    }
+
+    init(filePaht: String?) {
+        self.filePath = filePaht
+    }
+}
+
+
+fileprivate final class JsonDataSubscription<S: Subscriber>: Combine.Subscription where S.Input: Decodable, S.Failure == JsonDataError {
+
+    private let filePath: String?
+    private let subscriber: S?
+    private var task: DispatchWorkItem?
+
+    init(filePath: String?, subscriber: S?) {
+        self.filePath = filePath
+        self.subscriber = subscriber
+    }
+
+    func request(_ demand: Subscribers.Demand) {
+        guard demand > 0 else { return }
+        guard let subscriber = subscriber else { return }
+
+        guard let filePath = filePath, FileManager.default.fileExists(atPath: filePath) else {
+            subscriber.receive(completion: .failure(.noFile))
+            return
+        }
+
+        let topicFileUrl = URL(fileURLWithPath: filePath)
+
+        task = DispatchWorkItem {
+            guard let jsonData = try? Data(contentsOf: topicFileUrl) else {
+                subscriber.receive(completion: .failure(.noData))
+                return
+            }
+
+            do {
+                let wrappedModel = try JSONDecoder().decode(S.Input.self, from: jsonData)
+                _ = subscriber.receive(wrappedModel)
+                subscriber.receive(completion: .finished)
+            } catch let error {
+                debugPrint(error)
+                // TODO: - 根据 error 区分 noValidateData 和 modelMapping
+                subscriber.receive(completion: .failure(.modelMapping))
+            }
+        }
+
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1), execute: task!)
+    }
+
+    func cancel() {
+        task?.cancel()
+        task = nil
+    }
+}
+
+
+
+fileprivate extension Publishers {
+
+    /// 十分简单的一次模仿, 无实际使用价值
+    struct IsMainThreed: Publisher {
+        typealias Output = Bool
+        typealias Failure = Never
+
+        func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+            subscriber.receive(subscription: Subscriptions.empty)
+            let inMain = Thread.isMainThread
+            DispatchQueue.main.async {
+                _ = subscriber.receive(inMain)
+            }
+        }
     }
 }
