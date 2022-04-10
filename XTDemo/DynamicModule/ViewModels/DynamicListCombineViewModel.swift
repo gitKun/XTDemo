@@ -28,6 +28,7 @@ protocol DynamicListCombineViewModelOutputs {
 
     // TODO: - 需要实现 RxSwift 的 Single, 这很容易实现.
     var newData: AnyPublisher<DynamicDisplayModel, Never> { get }
+    var moreData: AnyPublisher<DynamicDisplayModel, Never> { get }
     var endRefresh: AnyPublisher<Void, Never> { get }
     var hasMoreData: AnyPublisher<Bool, Never> { get }
     var showError: AnyPublisher<String, Never> { get }
@@ -73,6 +74,16 @@ final class DynamicListCombineViewModel: DynamicListCombineViewModelType, Dynami
         return self.newDataSubject
     }
 
+    private lazy var moreDataSubject: AnyPublisher<DynamicDisplayModel, Never> = {
+        return self.createMoreDataSubject()
+            .compactMap { $0 }
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }()
+    var moreData: AnyPublisher<DynamicDisplayModel, Never> {
+        return self.moreDataSubject
+    }
+
     private let loadDataSubject: CurrentValueSubject<String?, Never> = CurrentValueSubject(nil)
     private let topicDataSubject: PassthroughSubject<Void, Never> = PassthroughSubject()
     func viewDidLoad() {
@@ -113,7 +124,6 @@ final class DynamicListCombineViewModel: DynamicListCombineViewModelType, Dynami
 fileprivate extension DynamicListCombineViewModel {
 
     func loadFirstPageData() {
-        //loadDataSubject.send(subscription: Subscriptions.empty)
         loadDataSubject.send("0")
         topicDataSubject.send(())
     }
@@ -183,6 +193,42 @@ fileprivate extension DynamicListCombineViewModel {
         return newData
     }
 
+    func createMoreDataSubject() -> AnyPublisher<DynamicDisplayModel?, Never> {
+        let dynamicSubject = loadDataSubject.compactMap { $0 }
+            .filter { $0 != "0" }
+            .map { DynamicListParam(cursor: $0) }
+            .flatMap { param -> AnyPublisher<Result<XTListResultModel, Error>, Never> in
+                DynamicNetworkService.list(param: param.toJsonDict())
+                    .request()
+                    .map(XTListResultModel.self)
+                    .map { model -> Result<XTListResultModel, Error> in
+                        return .success(model)
+                    }
+                    .catch { Just(.failure($0)).eraseToAnyPublisher() }
+                    .eraseToAnyPublisher()
+            }.map { [weak self] dynamicResult -> DynamicDisplayModel? in
+                switch dynamicResult {
+                case .success(let wrapped):
+                    let displayModel = DynamicDisplayModel.init(from: wrapped)
+                    defer {
+                        self?.hasMoreDataSubject.send(displayModel.hasMore)
+                        self?.loadDataSubject.send(nil)
+                    }
+                    return displayModel
+                case .failure(let error):
+                    if let error = error as? MoyaError {
+                        self?.handleMoyaError(error, fromNewData: false)
+                    } else {
+                        print(error)
+                    }
+                    return nil
+                }
+            }
+            .eraseToAnyPublisher()
+
+        return dynamicSubject
+    }
+
     func handleMoyaError(_ error: MoyaError, fromNewData: Bool) {
         // 清空请求的状态
         defer { loadDataSubject.send(nil) }
@@ -200,8 +246,6 @@ fileprivate extension DynamicListCombineViewModel {
             print(error)
             break
         case .encodableMapping(_ ):
-            // fatalError("找服务端小哥吧")
-            //
             break
         case .statusCode(_):
             // FIXME: - 处理 301, 503

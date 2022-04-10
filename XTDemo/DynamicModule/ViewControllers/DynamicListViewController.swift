@@ -16,7 +16,6 @@
 import UIKit
 import AsyncDisplayKit
 import MJRefresh
-//import RxSwift
 import Combine
 
 
@@ -24,10 +23,7 @@ class DynamicListViewController: ASDKViewController<ASDisplayNode> {
 
 // MARK: - 成员变量
 
-    //private let disposeBag = DisposeBag()
     private var cancellable: Set<AnyCancellable> = []
-
-    // private let viewModel: DynamicListViewModelType = DynamicListViewModel()
 
     private let viewModel: DynamicListCombineViewModelType = DynamicListCombineViewModel()
     private let dataSource = DynamicListDataSource()
@@ -102,42 +98,32 @@ extension DynamicListViewController {
             self?.dataSource.newData(from: wrappedModel)
             self?.tableNode.reloadData()
         }.store(in: &cancellable)
-    }
 
-    #if false
-    func bindViewModel() {
-
-        viewModel.output.refreshData.subscribe(onNext: { [weak self] wrappedModel in
-            self?.dataSource.newData(from: wrappedModel)
-            self?.tableNode.reloadData()
-        }).disposed(by: disposeBag)
-
-        viewModel.output.moreData.subscribe(onNext: { [weak self] wrappedModel in
+        viewModel.output.moreData.sink { [weak self] wrappedModel in
             if let insertIndexPath = self?.dataSource.moreData(from: wrappedModel), !insertIndexPath.isEmpty {
                 self?.tableNode.insertRows(at: insertIndexPath, with: UITableView.RowAnimation.automatic)
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellable)
 
-        viewModel.output.endRefresh.subscribe(onNext: { [weak self] _ in
+        viewModel.output.endRefresh.sink { [weak self] _ in
             self?.mjHeader.endRefreshing()
             self?.mjFooter.endRefreshing()
             self?.mjFooter.isHidden = false
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellable)
 
-        viewModel.output.hasMoreData.subscribe(on: MainScheduler.instance).subscribe(onNext: { [weak self] hasMore in
+        viewModel.output.hasMoreData.sink { [weak self] hasMore in
             if hasMore {
                 self?.mjFooter.endRefreshing()
             } else {
                 self?.mjFooter.endRefreshingWithNoMoreData()
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellable)
 
-        viewModel.output.showError.subscribe(onNext: { message in
+        viewModel.output.showError.sink {  message in
             // FIXME: - 接入 HUD / Toast / 什么都不做, 展示空白视图 ??
             print(message)
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellable)
     }
-    #endif
 }
 
 // MARK: - ASTableDelegate

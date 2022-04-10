@@ -12,7 +12,6 @@
 		BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */; };
 		BC14171727EECE5400B83D45 /* xt_topic_recommend_list.json in Resources */ = {isa = PBXBuildFile; fileRef = BC14171627EECE5400B83D45 /* xt_topic_recommend_list.json */; };
 		BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171827EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift */; };
-		BC14171B27EF645D00B83D45 /* XTNetworkCacheExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171A27EF645D00B83D45 /* XTNetworkCacheExtension.swift */; };
 		BC14171D27F07CE400B83D45 /* TopicListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171C27F07CE400B83D45 /* TopicListModel.swift */; };
 		BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */; };
 		BC2AA7D127EC925E00078A7E /* emoji in Resources */ = {isa = PBXBuildFile; fileRef = BC2AA7D027EC925E00078A7E /* emoji */; };
@@ -28,7 +27,6 @@
 		BC61922427EB1DED009A3335 /* UIColor_Prelude.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61922327EB1DED009A3335 /* UIColor_Prelude.swift */; };
 		BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61922627EB38DB009A3335 /* DynamicListViewController.swift */; };
 		BC61922927EB393E009A3335 /* LayoutFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61922827EB393E009A3335 /* LayoutFit.swift */; };
-		BC61923227EB3AF7009A3335 /* DynamicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */; };
 		BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923327EB3B3E009A3335 /* UIViewController+Lantern.swift */; };
 		BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */; };
 		BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */; };
@@ -61,6 +59,7 @@
 		BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0367027EB14D700D15E0F /* DrButton.swift */; };
 		BCAE84FB280132EA00272124 /* XTCombineNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */; };
 		BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */; };
+		BCAE850028026D8400272124 /* NetworkReachabilitySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,7 +69,6 @@
 		BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewModel.swift; sourceTree = "<group>"; };
 		BC14171627EECE5400B83D45 /* xt_topic_recommend_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_topic_recommend_list.json; sourceTree = "<group>"; };
 		BC14171827EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopicWrapperCellNode.swift; sourceTree = "<group>"; };
-		BC14171A27EF645D00B83D45 /* XTNetworkCacheExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTNetworkCacheExtension.swift; sourceTree = "<group>"; };
 		BC14171C27F07CE400B83D45 /* TopicListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListModel.swift; sourceTree = "<group>"; };
 		BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRegxViewController.swift; sourceTree = "<group>"; };
 		BC2AA7D027EC925E00078A7E /* emoji */ = {isa = PBXFileReference; lastKnownFileType = folder; path = emoji; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 		BC61922327EB1DED009A3335 /* UIColor_Prelude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor_Prelude.swift; sourceTree = "<group>"; };
 		BC61922627EB38DB009A3335 /* DynamicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListViewController.swift; sourceTree = "<group>"; };
 		BC61922827EB393E009A3335 /* LayoutFit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutFit.swift; sourceTree = "<group>"; };
-		BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListViewModel.swift; sourceTree = "<group>"; };
 		BC61923327EB3B3E009A3335 /* UIViewController+Lantern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Lantern.swift"; sourceTree = "<group>"; };
 		BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastProtocol.swift; sourceTree = "<group>"; };
 		BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListDataSource.swift; sourceTree = "<group>"; };
@@ -120,6 +117,7 @@
 		BCA0367027EB14D700D15E0F /* DrButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrButton.swift; sourceTree = "<group>"; };
 		BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTCombineNetworkService.swift; sourceTree = "<group>"; };
 		BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+XTCache.swift"; sourceTree = "<group>"; };
+		BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilitySubject.swift; sourceTree = "<group>"; };
 		D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XTDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -234,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */,
-				BC14171A27EF645D00B83D45 /* XTNetworkCacheExtension.swift */,
 				BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */,
 			);
 			path = Serivces;
@@ -257,7 +254,6 @@
 		BC61922F27EB3A7E009A3335 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				BC61923127EB3AF7009A3335 /* DynamicListViewModel.swift */,
 				BC7DB5EF2800616300C221D7 /* DynamicListCombineViewModel.swift */,
 				BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */,
 			);
@@ -294,6 +290,7 @@
 		BCA0364E27EB11FF00D15E0F /* XTDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BCAE84FE28026D4E00272124 /* NetworkConfigs */,
 				BC61922227EB1DD2009A3335 /* Ext */,
 				BCA0366527EB146300D15E0F /* TabBar */,
 				BC61922527EB3847009A3335 /* DynamicModule */,
@@ -332,6 +329,14 @@
 				BCA0367027EB14D700D15E0F /* DrButton.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		BCAE84FE28026D4E00272124 /* NetworkConfigs */ = {
+			isa = PBXGroup;
+			children = (
+				BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */,
+			);
+			path = NetworkConfigs;
 			sourceTree = "<group>";
 		};
 		D85D68BD54B0923BC9128BAC /* Pods */ = {
@@ -480,10 +485,10 @@
 				BCA0365427EB11FF00D15E0F /* ViewController.swift in Sources */,
 				BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */,
 				BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */,
-				BC61923227EB3AF7009A3335 /* DynamicListViewModel.swift in Sources */,
 				BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */,
 				BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */,
 				BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */,
+				BCAE850028026D8400272124 /* NetworkReachabilitySubject.swift in Sources */,
 				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,
 				BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */,
 				BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */,
@@ -508,7 +513,6 @@
 				BC61924427EB3D53009A3335 /* DynamicHotCommentNode.swift in Sources */,
 				BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */,
 				BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */,
-				BC14171B27EF645D00B83D45 /* XTNetworkCacheExtension.swift in Sources */,
 				BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */,
 				BC61924A27EB3E7D009A3335 /* DynamicListParam.swift in Sources */,
 				BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */,
