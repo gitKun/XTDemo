@@ -25,7 +25,7 @@ class DynamicListViewController: ASDKViewController<ASDisplayNode> {
 
     private var cancellable: Set<AnyCancellable> = []
 
-    private let viewModel: DynamicListCombineViewModelType = DynamicListCombineViewModel()
+    private let viewModel: DynamicListViewModelType = DynamicListViewModel()
     private let dataSource = DynamicListDataSource()
 
 // MARK: - 生命周期 & override

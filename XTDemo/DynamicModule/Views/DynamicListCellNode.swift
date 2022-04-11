@@ -338,8 +338,7 @@ extension DynamicListCellNode {
 extension DynamicListCellNode {
 
     func eventListen() {
-        // FIXED: - 方法监听中尽量舍弃 rx
-        //showOrHiddenNode.rx.tap.asDriver().throttle(.seconds(1), latest: false).drive(onNext: { _ in }).disposed(by: disposeBag)
+        // FIXED: - 方法监听中尽量 rx combine
         showOrHiddenNode.addTarget(self, action: #selector(self.showOrHiddenButtonClicked(_:)), forControlEvents: .touchUpInside)
 
         likeNode.addTarget(self, action: #selector(self.likeButtonClicked(_:)), forControlEvents: .touchUpInside)

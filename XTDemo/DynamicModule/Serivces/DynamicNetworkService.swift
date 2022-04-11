@@ -15,7 +15,6 @@
 
 import Foundation
 import Moya
-import RxSwift
 
 typealias JJNetworkParam = [String: Any]
 

@@ -80,4 +80,14 @@ public struct DateUtil {
         difference /= 12
         return "\(lrint(floor(difference)))年前"
     }
+
+// MARK: - Private
+
+    private static let dateFormat: DateFormatter = {
+        let format = DateFormatter()
+        // iOS 7 开始建议开发者设置 locale, iOS 15.4 未设置会出现 crash
+        // 详情见: [iOS 15.4 时间格式转换崩溃](https://juejin.cn/post/7077493937383948295)
+        format.locale = Locale.init(identifier: "zh_CN")
+        return format
+    }()
 }

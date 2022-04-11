@@ -2,7 +2,7 @@
 /*
 * ****************************************************************
 *
-* 文件名称 : DynamicListCombineViewModel
+* 文件名称 : DynamicListViewModel
 * 作   者 : Created by 坤
 * 创建时间 : 2022/4/8 20:26
 * 文件描述 : 
@@ -17,16 +17,16 @@ import Foundation
 import Combine
 import Moya
 
-protocol DynamicListCombineViewModelInputs {
+protocol DynamicListViewModelInputs {
 
     func viewDidLoad()
     func refreshDate()
     func moreData(with cursor: String, needHot: Bool)
 }
 
-protocol DynamicListCombineViewModelOutputs {
+protocol DynamicListViewModelOutputs {
 
-    // TODO: - 需要实现 RxSwift 的 Single, 这很容易实现.
+    // TODO: - 想要实现 RxSwift 的 Single
     var newData: AnyPublisher<DynamicDisplayModel, Never> { get }
     var moreData: AnyPublisher<DynamicDisplayModel, Never> { get }
     var endRefresh: AnyPublisher<Void, Never> { get }
@@ -34,15 +34,15 @@ protocol DynamicListCombineViewModelOutputs {
     var showError: AnyPublisher<String, Never> { get }
 }
 
-protocol DynamicListCombineViewModelType {
-    var input: DynamicListCombineViewModelInputs { get }
-    var output: DynamicListCombineViewModelOutputs { get }
+protocol DynamicListViewModelType {
+    var input: DynamicListViewModelInputs { get }
+    var output: DynamicListViewModelOutputs { get }
 }
 
-final class DynamicListCombineViewModel: DynamicListCombineViewModelType, DynamicListCombineViewModelInputs, DynamicListCombineViewModelOutputs {
+final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModelInputs, DynamicListViewModelOutputs {
 
-    var input: DynamicListCombineViewModelInputs { self }
-    var output: DynamicListCombineViewModelOutputs { self }
+    var input: DynamicListViewModelInputs { self }
+    var output: DynamicListViewModelOutputs { self }
 
     init() {
         self.endRefresh = self.endRefreshSubject.subscribe(on: RunLoop.main).eraseToAnyPublisher()
@@ -121,7 +121,7 @@ final class DynamicListCombineViewModel: DynamicListCombineViewModelType, Dynami
 }
 
 
-fileprivate extension DynamicListCombineViewModel {
+fileprivate extension DynamicListViewModel {
 
     func loadFirstPageData() {
         loadDataSubject.send("0")
