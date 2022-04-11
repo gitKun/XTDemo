@@ -27,8 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         UIWindow.setupLayoutFitInfo()
 
-        //let rootVC = HomeTabBarController()
-        let rootVC = UINavigationController(rootViewController: SimpleRegxViewController())
+        let rootVC = HomeTabBarController()
+        //let rootVC = UINavigationController(rootViewController: SimpleRegxViewController())
         //let rootVC = UINavigationController(rootViewController: TextureDemoViewController())
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()

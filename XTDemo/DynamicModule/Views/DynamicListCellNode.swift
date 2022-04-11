@@ -462,7 +462,7 @@ fileprivate extension DynamicListCellNode {
     }
 
     @objc func likeButtonClicked(_ button: ASButtonNode) {
-        //viewModel.input.likeButtonAction(isLike: button.isSelected)
+        viewModel.input.likeButtonAction(isLike: button.isSelected)
     }
 
     @objc func showDiggView() {

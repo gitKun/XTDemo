@@ -251,7 +251,12 @@ fileprivate extension DynamicListViewModel {
             // FIXME: - 处理 301, 503
             break
         case .underlying(let error, _):
-            errorMsg = (error as NSError).localizedDescription
+            //errorMsg = (error as NSError).localizedDescription
+            print(error)
+            if let afError = error.asAFError, case let .sessionTaskFailed(error: sError) = afError {
+                print(sError)
+            }
+            break
         case .requestMapping(_):
             // fatalError("这里只能出现在debug阶段!")
             break
