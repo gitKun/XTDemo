@@ -26,7 +26,7 @@ protocol DynamicListViewModelInputs {
 
 protocol DynamicListViewModelOutputs {
 
-    // TODO: - 想要实现 RxSwift 的 Single
+    // TODO: - 想要使用 Deferred + Future 实现 RxSwift 的 Single.
     var newData: AnyPublisher<DynamicDisplayModel, Never> { get }
     var moreData: AnyPublisher<DynamicDisplayModel, Never> { get }
     var endRefresh: AnyPublisher<Void, Never> { get }
@@ -45,9 +45,9 @@ final class DynamicListViewModel: DynamicListViewModelType, DynamicListViewModel
     var output: DynamicListViewModelOutputs { self }
 
     init() {
-        self.endRefresh = self.endRefreshSubject.subscribe(on: RunLoop.main).eraseToAnyPublisher()
-        self.hasMoreData = self.hasMoreDataSubject.subscribe(on: DispatchQueue.main).eraseToAnyPublisher()
-        self.showError = self.showErrorSubject.subscribe(on: RunLoop.main).eraseToAnyPublisher()
+        self.endRefresh = self.endRefreshSubject.receive(on: RunLoop.main).eraseToAnyPublisher()
+        self.hasMoreData = self.hasMoreDataSubject.receive(on: DispatchQueue.main).eraseToAnyPublisher()
+        self.showError = self.showErrorSubject.receive(on: RunLoop.main).eraseToAnyPublisher()
     }
 
 // MARK: - output

@@ -22,10 +22,10 @@ target 'XTDemo' do
   # pod 'Then'
 
   # 数据绑定 '6.5.0'
-  pod 'RxCocoa'
+  # pod 'RxCocoa'
 
   # 网络层 '15.0.0'
-  pod 'Moya/RxSwift'
+  # pod 'Moya/RxSwift'
 
   # '15.0.0'
   pod 'Moya/Combine'

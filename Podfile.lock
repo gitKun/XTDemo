@@ -7,9 +7,6 @@ PODS:
     - Moya/Core
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
-  - Moya/RxSwift (15.0.0):
-    - Moya/Core
-    - RxSwift (~> 6.0)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -25,12 +22,6 @@ PODS:
   - PINRemoteImage/PINCache (3.0.3):
     - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
   - SnapKit (5.0.1)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
@@ -59,8 +50,6 @@ DEPENDENCIES:
   - Lantern
   - MJRefresh
   - Moya/Combine
-  - Moya/RxSwift
-  - RxCocoa
   - SnapKit
   - Texture
   - Toast-Swift
@@ -75,9 +64,6 @@ SPEC REPOS:
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - RxCocoa
-    - RxRelay
-    - RxSwift
     - SnapKit
     - Texture
     - Toast-Swift
@@ -91,13 +77,10 @@ SPEC CHECKSUMS:
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: e28e0e20961ef4d735752532985ce2d5422c17d7
+PODFILE CHECKSUM: a2ceec81b066ecfadf3723d0de1f578b5dde4a18
 
 COCOAPODS: 1.11.3

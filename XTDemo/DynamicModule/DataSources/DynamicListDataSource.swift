@@ -67,7 +67,7 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
     }
 
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return commendList.count// == 0 ? 0 : 1
+        return commendList.count// == 0 ? 0 : 2
     }
 
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {

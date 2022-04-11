@@ -31,7 +31,6 @@
 		BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */; };
 		BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */; };
 		BC61923A27EB3BE4009A3335 /* DynamicListCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923927EB3BE4009A3335 /* DynamicListCellNode.swift */; };
-		BC61923C27EB3C2F009A3335 /* DynamicListCellNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */; };
 		BC61923E27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923D27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift */; };
 		BC61924027EB3C98009A3335 /* XTOnlyImageCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61923F27EB3C98009A3335 /* XTOnlyImageCollectionNode.swift */; };
 		BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924127EB3CEC009A3335 /* XTExtension.swift */; };
@@ -60,6 +59,7 @@
 		BCAE84FB280132EA00272124 /* XTCombineNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */; };
 		BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */; };
 		BCAE850028026D8400272124 /* NetworkReachabilitySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */; };
+		BCAE85022803F2CC00272124 /* DynamicListCellNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE85012803F2CC00272124 /* DynamicListCellNodeModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,7 +87,6 @@
 		BC61923527EB3B64009A3335 /* ShowToastProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastProtocol.swift; sourceTree = "<group>"; };
 		BC61923727EB3B9D009A3335 /* DynamicListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListDataSource.swift; sourceTree = "<group>"; };
 		BC61923927EB3BE4009A3335 /* DynamicListCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNode.swift; sourceTree = "<group>"; };
-		BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNodeModel.swift; sourceTree = "<group>"; };
 		BC61923D27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNodeDataSource.swift; sourceTree = "<group>"; };
 		BC61923F27EB3C98009A3335 /* XTOnlyImageCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTOnlyImageCollectionNode.swift; sourceTree = "<group>"; };
 		BC61924127EB3CEC009A3335 /* XTExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTExtension.swift; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTCombineNetworkService.swift; sourceTree = "<group>"; };
 		BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+XTCache.swift"; sourceTree = "<group>"; };
 		BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilitySubject.swift; sourceTree = "<group>"; };
+		BCAE85012803F2CC00272124 /* DynamicListCellNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNodeModel.swift; sourceTree = "<group>"; };
 		D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XTDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -255,7 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				BC7DB5EF2800616300C221D7 /* DynamicListViewModel.swift */,
-				BC61923B27EB3C2F009A3335 /* DynamicListCellNodeModel.swift */,
+				BCAE85012803F2CC00272124 /* DynamicListCellNodeModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -490,6 +490,7 @@
 				BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */,
 				BCAE850028026D8400272124 /* NetworkReachabilitySubject.swift in Sources */,
 				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,
+				BCAE85022803F2CC00272124 /* DynamicListCellNodeModel.swift in Sources */,
 				BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */,
 				BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */,
 				BC61925027EB432E009A3335 /* DateUtil.swift in Sources */,
@@ -499,7 +500,6 @@
 				BC61922927EB393E009A3335 /* LayoutFit.swift in Sources */,
 				BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */,
 				BC61923E27EB3C63009A3335 /* DynamicListCellNodeDataSource.swift in Sources */,
-				BC61923C27EB3C2F009A3335 /* DynamicListCellNodeModel.swift in Sources */,
 				BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */,
 				BC61924027EB3C98009A3335 /* XTOnlyImageCollectionNode.swift in Sources */,
 				BC14171D27F07CE400B83D45 /* TopicListModel.swift in Sources */,
