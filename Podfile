@@ -13,7 +13,7 @@ target 'XTDemo' do
   pod 'Texture'
 
   # '5.0.1'
-  pod 'SnapKit'
+  # pod 'SnapKit'
 
   # '7.2.0'
   # pod 'Kingfisher'

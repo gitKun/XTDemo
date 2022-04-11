@@ -15,7 +15,7 @@
 
 import Foundation
 import UIKit
-import SnapKit
+
 
 fileprivate let testString = #"""
  谁推的夜的命名术，看上瘾了，赔钱![黑脸]. 钱不太到位，[吐舌]工资分两次发[不看]. 你们买零食大礼包吗，买哪家的 多少钱[不失礼貌的微笑],只是不买大礼包，大礼包搭配的不一定都是爱吃的呀[白眼的狗]。一般都是去超市或者便利店或者零食店，或者李佳琦直播间买。比如近俩月入了佳琦推荐的黑枸杞，桂圆干，鱿鱼条，鱼皮花生豆，西梅干，脆皮热狗肠，哈尔滨红肠，满*饱米线，柳州螺蛳粉，藤*鸭舌，腰果，松子，蛋黄酥，鸡蛋酥。然后逛超市会买些巧克力，软糖，罐头，逛零食店会买散装的小包辣条，鸡爪，鸭掌，面筋，麻辣肉，火鸡面啥的。哈哈哈哈哈我不是给佳琦打广告可是真的很实惠啊，而且他叫我美眉诶[泣不成声]
@@ -96,27 +96,35 @@ extension SimpleRegxViewController {
         view.backgroundColor = .white
         navigationItem.title = "简单使用正则"
 
+        scrollView.alwaysBounceVertical = true
         view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { (make) in
-            make.trailing.leading.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.bottom.equalToSuperview()
-        }
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
 
         scrollView.addSubview(infoBGView)
-        infoBGView.snp.makeConstraints { (make) in
-            make.leading.top.trailing.bottom.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
+        infoBGView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoBGView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            infoBGView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            infoBGView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            infoBGView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            infoBGView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+        ])
 
         infoLabel.numberOfLines = 0
         infoBGView.addSubview(infoLabel)
-        infoLabel.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview()
-        }
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoLabel.leadingAnchor.constraint(equalTo: infoBGView.leadingAnchor, constant: 16),
+            infoLabel.trailingAnchor.constraint(equalTo: infoBGView.trailingAnchor, constant: -16),
+            infoLabel.topAnchor.constraint(equalTo: infoBGView.topAnchor, constant: 8),
+            infoLabel.bottomAnchor.constraint(equalTo: infoBGView.bottomAnchor, constant: 0)
+        ])
     }
 }
 

@@ -159,9 +159,9 @@ extension DynamicListViewController: UINavigationControllerDelegate {
     // 判断 navBar 的隐藏显示
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         // FIXME: - 这里直接隐藏了 tabbar
-        if let tabBarController = self.tabBarController as? HomeTabBarController {
-            tabBarController.setTabBarHidden(true, animated: true, animationTime: 0.25)
-        }
+//        if let tabBarController = self.tabBarController as? HomeTabBarController {
+//            tabBarController.setTabBarHidden(true, animated: true, animationTime: 0.25)
+//        }
     }
 }
 

@@ -15,7 +15,6 @@
 
 import Foundation
 import UIKit
-import SnapKit
 
 protocol HomeTabbarViewDelegate: NSObject {
 
@@ -193,12 +192,7 @@ private extension HomeTabBarView {
         button.spacingBetweenImageAndTitle = 5
 
         addSubview(button)
-        button.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(5)
-        }*/
+        需要布局代码*/
 
         let count = tabTitles.count
         btnArray.removeAll()
@@ -216,16 +210,14 @@ private extension HomeTabBarView {
             }
 
             addSubview(button)
-            button.snp.makeConstraints { make in
-                if let preBtn = previousButton {
-                    make.left.equalTo(preBtn.snp.right)
-                } else {
-                    make.left.equalToSuperview()
-                }
-                make.top.equalToSuperview()
-                make.bottom.equalToSuperview()
-                make.width.equalToSuperview().dividedBy(CGFloat(count))
-            }
+            button.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                button.leftAnchor.constraint(equalTo: previousButton?.rightAnchor ?? self.leftAnchor),
+                button.topAnchor.constraint(equalTo: self.topAnchor),
+                button.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                button.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/CGFloat(count))
+            ])
 
             previousButton = button
 
