@@ -138,8 +138,42 @@ public struct TargetOnDiskStorage<T: Codable> {
     }
 }
 
-
 /*
+private func cachedResponse(for key: String) -> Response? {
+
+    do {
+        let cacheData = try kMemoryStroage.object(forKey: key)
+        if let response = cacheData as? Response {
+            return response
+        } else {
+            return nil
+        }
+    } catch {
+        return nil
+    }
+}
+
+// 类似上篇中的封装方式
+extension AnyPublisher {
+
+    func request() -> AnyPublisher<Response, MoyaError> where Output == (TargetType, TimeInterval), Failure == MoyaError {
+        flatMap { tuple -> AnyPublisher<Response, MoyaError> in
+            let target = tuple.0
+            let cacheKey = target.cacheKey
+            if let response = cachedResponse(for: cacheKey) {
+                return CurrentValueSubject(response).eraseToAnyPublisher()
+            }
+
+            return target.request().map { response -> Response in
+                 kMemoryStroage.setObject(response, forKey: cacheKey, expiry: .seconds(seconds))
+                 return response
+            }
+            .eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+}
+ 
 extension CurrentValueSubject {
 
     func request() -> AnyPublisher<Response, MoyaError> where Output == CacheTimeTargetTuple, Failure == MoyaError {

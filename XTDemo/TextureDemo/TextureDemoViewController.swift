@@ -260,7 +260,7 @@ fileprivate enum JsonDataError: Error {
     case modelMapping
 }
 
-fileprivate class JsonDataPublisher<Output: Decodable>: Publisher {
+fileprivate final class JsonDataPublisher<Output: Decodable>: Publisher {
 
     typealias Failure = JsonDataError
 
