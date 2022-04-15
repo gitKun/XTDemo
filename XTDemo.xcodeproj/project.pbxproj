@@ -21,6 +21,10 @@
 		BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */; };
 		BC36049A27FF2790003395E3 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = BC36049927FF2790003395E3 /* Nuke */; };
 		BC36049C27FF285E003395E3 /* ASDK+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */; };
+		BC3AEFED2807FF4B00B9E273 /* Combine+XT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFEC2807FF4B00B9E273 /* Combine+XT.swift */; };
+		BC3AEFEF2807FFBA00B9E273 /* MJRefresh+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */; };
+		BC3AEFF12808181C00B9E273 /* BundleJsonDataPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */; };
+		BC3AEFF328090A7B00B9E273 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFF228090A7B00B9E273 /* UIControl+Combine.swift */; };
 		BC4CFDBC27ED5D18007C79CF /* xt_dynamic_list_0.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */; };
 		BC4CFDBD27ED5D18007C79CF /* xt_dynamic_list_1.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */; };
 		BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */; };
@@ -58,7 +62,6 @@
 		BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0367027EB14D700D15E0F /* DrButton.swift */; };
 		BCAE84FB280132EA00272124 /* XTCombineNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */; };
 		BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */; };
-		BCAE850028026D8400272124 /* NetworkReachabilitySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */; };
 		BCAE85022803F2CC00272124 /* DynamicListCellNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE85012803F2CC00272124 /* DynamicListCellNodeModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +80,10 @@
 		BC36048527FAB9F1003395E3 /* DrCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrCornerView.swift; sourceTree = "<group>"; };
 		BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopicCollectionNode.swift; sourceTree = "<group>"; };
 		BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDK+Nuke.swift"; sourceTree = "<group>"; };
+		BC3AEFEC2807FF4B00B9E273 /* Combine+XT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+XT.swift"; sourceTree = "<group>"; };
+		BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MJRefresh+Combine.swift"; sourceTree = "<group>"; };
+		BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleJsonDataPublisher.swift; sourceTree = "<group>"; };
+		BC3AEFF228090A7B00B9E273 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_0.json; sourceTree = "<group>"; };
 		BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_1.json; sourceTree = "<group>"; };
 		BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewController.swift; sourceTree = "<group>"; };
@@ -116,7 +123,6 @@
 		BCA0367027EB14D700D15E0F /* DrButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrButton.swift; sourceTree = "<group>"; };
 		BCAE84FA280132EA00272124 /* XTCombineNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTCombineNetworkService.swift; sourceTree = "<group>"; };
 		BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+XTCache.swift"; sourceTree = "<group>"; };
-		BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilitySubject.swift; sourceTree = "<group>"; };
 		BCAE85012803F2CC00272124 /* DynamicListCellNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListCellNodeModel.swift; sourceTree = "<group>"; };
 		D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XTDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -166,6 +172,7 @@
 				BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */,
 				BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */,
 				BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */,
+				BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */,
 			);
 			path = TextureDemo;
 			sourceTree = "<group>";
@@ -184,6 +191,9 @@
 				BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */,
 				BC61924F27EB432E009A3335 /* DateUtil.swift */,
 				BCAE84FC2801D0C900272124 /* Moya+XTCache.swift */,
+				BC3AEFEC2807FF4B00B9E273 /* Combine+XT.swift */,
+				BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */,
+				BC3AEFF228090A7B00B9E273 /* UIControl+Combine.swift */,
 			);
 			path = Ext;
 			sourceTree = "<group>";
@@ -334,7 +344,6 @@
 		BCAE84FE28026D4E00272124 /* NetworkConfigs */ = {
 			isa = PBXGroup;
 			children = (
-				BCAE84FF28026D8400272124 /* NetworkReachabilitySubject.swift */,
 			);
 			path = NetworkConfigs;
 			sourceTree = "<group>";
@@ -482,13 +491,14 @@
 				BC61924827EB3E67009A3335 /* DynamicListModel.swift in Sources */,
 				BC61923827EB3B9D009A3335 /* DynamicListDataSource.swift in Sources */,
 				BC7DB5F02800616300C221D7 /* DynamicListViewModel.swift in Sources */,
+				BC3AEFEF2807FFBA00B9E273 /* MJRefresh+Combine.swift in Sources */,
 				BCA0365427EB11FF00D15E0F /* ViewController.swift in Sources */,
 				BCA0365027EB11FF00D15E0F /* AppDelegate.swift in Sources */,
 				BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */,
 				BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */,
 				BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */,
 				BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */,
-				BCAE850028026D8400272124 /* NetworkReachabilitySubject.swift in Sources */,
+				BC3AEFF12808181C00B9E273 /* BundleJsonDataPublisher.swift in Sources */,
 				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,
 				BCAE85022803F2CC00272124 /* DynamicListCellNodeModel.swift in Sources */,
 				BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */,
@@ -503,8 +513,10 @@
 				BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */,
 				BC61924027EB3C98009A3335 /* XTOnlyImageCollectionNode.swift in Sources */,
 				BC14171D27F07CE400B83D45 /* TopicListModel.swift in Sources */,
+				BC3AEFF328090A7B00B9E273 /* UIControl+Combine.swift in Sources */,
 				BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */,
 				BC14171327EEC85E00B83D45 /* TextureDemoViewDataSource.swift in Sources */,
+				BC3AEFED2807FF4B00B9E273 /* Combine+XT.swift in Sources */,
 				BCA0366B27EB148D00D15E0F /* HomeTabBarController.swift in Sources */,
 				BC898FBA27F32E34002A69FC /* DynamicDisplayModel.swift in Sources */,
 				BC898FBC27F4316D002A69FC /* EmojeShowView.swift in Sources */,

@@ -140,7 +140,7 @@ fileprivate extension DynamicListViewModel {
                     .map { model -> Result<XTListResultModel, Error> in
                         return .success(model)
                     }
-                    .catch { Just(.failure($0)).eraseToAnyPublisher() }
+                    .catch { Just(.failure($0)) }
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
@@ -151,7 +151,7 @@ fileprivate extension DynamicListViewModel {
                 .request()
                 .map(TopicListModel.self)
                 .map { Result<TopicListModel, Error>.success($0) }
-                .catch { Just(.failure($0)).eraseToAnyPublisher() }
+                .catch { Just(.failure($0)) }
                 .eraseToAnyPublisher()
         }
 
@@ -233,7 +233,7 @@ fileprivate extension DynamicListViewModel {
         // 清空请求的状态
         defer { loadDataSubject.send(nil) }
 
-        var errorMsg = ">_< 数据丢失了,请稍后再试."
+        let errorMsg = ">_< 数据丢失了,请稍后再试."
 
         switch error {
         case .imageMapping(_):

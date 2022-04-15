@@ -17,6 +17,7 @@ import Foundation
 import AsyncDisplayKit
 import Moya
 import Combine
+import MJRefresh
 
 class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
@@ -24,6 +25,7 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
     private var modelList: [DynamicDisplayType] = []
 
+    private let viewModel: TextureDemoViewModelType = TextureDemoViewModel()
     private var cancellable: Set<AnyCancellable> = []
 
 // MARK: - 生命周期 & override
@@ -49,17 +51,29 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
         initializeUI()
         eventListen()
         bindViewModel()
+
+        // FIXED: - 使用 Just 替换 mjHeader.beginRefreshing()
+        Just<Void>(()).receive(subscriber: viewModel.input.viewDidLoadSubscriber)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
+// MARK: - 懒加载 & 计算属性
 
-        // testZipLocalDatasourc()
-    }
+    // NOTE: - 这里使用(lazy)存储属性 和 计算属性没有太大区别.
+    private lazy var dataSourceSubscriber: AnySubscriber<[DynamicDisplayType], Never> = {
+        let sinkSubscriber = Subscribers.Sink<[DynamicDisplayType], Never> { _ in
+            // nothing
+        } receiveValue: { [weak self] list in
+            self?.modelList = list
+            print(list[1])
+            self?.tableNode.reloadData()
+            self?.mjFooter.isHidden = false
+        }
+        return .init(sinkSubscriber)
+    }()
 
 // MARK: - UI 属性
 
@@ -70,13 +84,28 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
         node.view.separatorStyle = .none
         return node
     }()
+
+    private var mjHeader: MJRefreshHeader!
+    private var mjFooter: MJRefreshFooter!
 }
 
 // MARK: - 事件处理
 
-extension TextureDemoViewController {
+private extension TextureDemoViewController {
 
     func eventListen() {
+
+        mjHeader.publisherRefreshing
+            .map { _ in }
+            .receive(subscriber: viewModel.input.refreshSubscriber)
+
+        mjFooter.publisherRefreshing
+            .map { _ in }
+            .receive(subscriber: viewModel.input.moreDataSubcriber)
+    }
+
+    func insertData(with list: [DynamicDisplayType]) {
+        
     }
 }
 
@@ -85,101 +114,36 @@ extension TextureDemoViewController {
 extension TextureDemoViewController {
 
     func bindViewModel() {
-        testZipLocalDatasourc()
-    }
 
-    func testDecoderTopicList() {
-        guard let dataUrl = Bundle.main.url(forResource: "xt_topic_recommend_list", withExtension: "json") else { return }
-        do {
-            let jsonData = try Data(contentsOf: dataUrl)
-            let jsonDict = (try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)) as? [String: Any]
-            print(jsonDict ?? [:])
-            let wrappedModel = try JSONDecoder().decode(TopicListModel.self, from: jsonData)
-            print(wrappedModel)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
+        viewModel.output.newDataPublisher
+            .receive(subscriber: dataSourceSubscriber)
 
-    func testQueryNetwork() {
-        DynamicNetworkService.topicListRecommend
-            .memoryCacheIn()
-            .request()
-            .map(TopicListModel.self)
-            .sink { complete in
-                switch complete {
-                case .failure(let error):
-                    print(error)
-                case .finished:
-                    break
-                }
-            } receiveValue: { topicWrapped in
-                print(topicWrapped.data?.count ?? 0)
-            }.store(in: &cancellable)
-    }
-
-    func testZipLocalDatasourc() {
-
-        let dynamicPath = Bundle.main.path(forResource: "xt_dynamic_list_0.json", ofType: nil)
-        let dynamicPublisher = JsonDataPublisher<XTListResultModel>(filePaht: dynamicPath)
-            .map { Result<XTListResultModel, JsonDataError>.success($0) }
-            .eraseToAnyPublisher()
-            .catch { Just<Result<XTListResultModel, JsonDataError>>(.failure($0)).eraseToAnyPublisher() }
-            .eraseToAnyPublisher()
-
-        let topicPath = Bundle.main.path(forResource: "xt_topic_recommend_list.json", ofType: nil)
-        let topicPublisher = JsonDataPublisher<TopicListModel>(filePaht: topicPath)
-            .map { Result<TopicListModel, JsonDataError>.success($0) }
-            .eraseToAnyPublisher()
-            .catch { Just<Result<TopicListModel, JsonDataError>>(.failure($0)) }
-            .eraseToAnyPublisher()
-
-        let showSubject = Publishers.Zip(dynamicPublisher, topicPublisher)
-            .map { (dynamicResult, topicResult) -> [DynamicDisplayType] in
-                var resultArray: [DynamicDisplayType] = []
-                switch topicResult {
-                case .success(let wrappedModel):
-                    if let list = wrappedModel.data, !list.isEmpty {
-                        resultArray.append(.topicList(list))
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-
-                switch dynamicResult {
-                case .success(let wrappedModel):
-                    if let list = wrappedModel.data {
-                        resultArray.append(contentsOf: list.map { .dynamic($0) })
-                    }
-                case .failure(let error):
-                    print("\(error)")
-                }
-
-                return resultArray
+        // 测试多次订阅,
+        /*viewModel.output.newDataPublisher
+            .sink { list in
+                print(list[1])
             }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+            .store(in: &cancellable)*/
 
-        // FIXED: - receive(on: .main) 和 subscribe(on: .main) 的
-        // 区别见: https://trycombine.com/posts/subscribe-on-receive-on/
+        viewModel.output.endRefreshPublisher
+            .receive(subscriber: mjHeader.subscriber())
 
-        showSubject
-            //.receive(on: RunLoop.main)
+        viewModel.output.moreDataPublisher
             .sink { [weak self] list in
-                self?.modelList = list
-                self?.tableNode.reloadData()
+                self?.insertData(with: list)
+            }
+            .store(in: &cancellable)
+
+        viewModel.output.endMoreRefreshPublisher
+            .receive(subscriber: mjFooter.subscriber())
+
+        viewModel.output.toastPublisher
+            .sink { [weak self] msg in
+                self?.toast.showCenter(message: msg)
             }
             .store(in: &cancellable)
     }
 }
-
-fileprivate enum TestError: Swift.Error {
-    case jsonData(String)
-    case dynamicListNoData(String)
-    case topicList(String)
-    case justFailure
-}
-
 
 // MARK: - ASTableDelegate
 
@@ -247,99 +211,20 @@ extension TextureDemoViewController {
         self.tableNode.delegate = self
         self.tableNode.dataSource = self
         self.tableNode.contentInset = .init(top: 0, left: 0, bottom: k_dr_BottomSafeHeight + 10, right: 0)
-    }
-}
 
+        // 设置 mj_header
+        let header = MJRefreshNormalHeader()
+        header.setTitle("下拉即可刷新", for: .idle)
+        header.setTitle("松开即可更新", for: .pulling)
+        header.setTitle("数据加载中", for: .refreshing)
+        header.lastUpdatedTimeLabel?.isHidden = true
+        tableNode.view.mj_header = header
+        mjHeader = header
 
-// MARK: - 创建自己的 Publisher
-
-fileprivate enum JsonDataError: Error {
-    case noFile
-    case noData
-    case noValidateData
-    case modelMapping
-}
-
-fileprivate final class JsonDataPublisher<Output: Decodable>: Publisher {
-
-    typealias Failure = JsonDataError
-
-    private let filePath: String?
-
-    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-        let subscription = JsonDataSubscription(filePath: filePath, subscriber: subscriber)
-        subscriber.receive(subscription: subscription)
-    }
-
-    init(filePaht: String?) {
-        self.filePath = filePaht
-    }
-}
-
-
-fileprivate final class JsonDataSubscription<S: Subscriber>: Combine.Subscription where S.Input: Decodable, S.Failure == JsonDataError {
-
-    private let filePath: String?
-    private let subscriber: S?
-    private var task: DispatchWorkItem?
-
-    init(filePath: String?, subscriber: S?) {
-        self.filePath = filePath
-        self.subscriber = subscriber
-    }
-
-    func request(_ demand: Subscribers.Demand) {
-        guard demand > 0 else { return }
-        guard let subscriber = subscriber else { return }
-
-        guard let filePath = filePath, FileManager.default.fileExists(atPath: filePath) else {
-            subscriber.receive(completion: .failure(.noFile))
-            return
-        }
-
-        let topicFileUrl = URL(fileURLWithPath: filePath)
-
-        task = DispatchWorkItem {
-            guard let jsonData = try? Data(contentsOf: topicFileUrl) else {
-                subscriber.receive(completion: .failure(.noData))
-                return
-            }
-
-            do {
-                let wrappedModel = try JSONDecoder().decode(S.Input.self, from: jsonData)
-                _ = subscriber.receive(wrappedModel)
-                subscriber.receive(completion: .finished)
-            } catch let error {
-                debugPrint(error)
-                // TODO: - 根据 error 区分 noValidateData 和 modelMapping
-                subscriber.receive(completion: .failure(.modelMapping))
-            }
-        }
-
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1), execute: task!)
-    }
-
-    func cancel() {
-        task?.cancel()
-        task = nil
-    }
-}
-
-
-
-fileprivate extension Publishers {
-
-    /// 十分简单的一次模仿, 无实际使用价值
-    struct IsMainThreed: Publisher {
-        typealias Output = Bool
-        typealias Failure = Never
-
-        func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-            subscriber.receive(subscription: Subscriptions.empty)
-            let inMain = Thread.isMainThread
-            DispatchQueue.main.async {
-                _ = subscriber.receive(inMain)
-            }
-        }
+        // 设置 mj_footer
+        let footer = MJRefreshBackNormalFooter()
+        self.tableNode.view.mj_footer = footer
+        self.mjFooter = footer
+        self.mjFooter.isHidden = true
     }
 }
