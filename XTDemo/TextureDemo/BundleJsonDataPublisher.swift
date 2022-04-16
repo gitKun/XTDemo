@@ -35,9 +35,7 @@ final class BundleJsonDataPublisher<Output: Decodable>: Publisher {
         self.filePath = filePaht
     }
 
-    deinit {
-        Swift.print("\(type(of: self)) deinit! ____#")
-    }
+    // deinit { Swift.print("\(type(of: self)) deinit! ____#") }
 
     func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
         let subscription = BundleJsonDataSubscription(filePath: filePath, subscriber: subscriber)
@@ -57,9 +55,7 @@ fileprivate final class BundleJsonDataSubscription<S: Subscriber>: Combine.Subsc
         self.subscriber = subscriber
     }
 
-    deinit {
-        print("\(type(of: self)) deinit! ____#")
-    }
+    // deinit { print("\(type(of: self)) deinit! ____#") }
 
     func request(_ demand: Subscribers.Demand) {
         guard demand > 0 else { return }
@@ -73,6 +69,7 @@ fileprivate final class BundleJsonDataSubscription<S: Subscriber>: Combine.Subsc
         let topicFileUrl = URL(fileURLWithPath: filePath)
 
         task = DispatchWorkItem {
+            
             guard let jsonData = try? Data(contentsOf: topicFileUrl) else {
                 subscriber.receive(completion: .failure(.noData))
                 return
@@ -89,7 +86,7 @@ fileprivate final class BundleJsonDataSubscription<S: Subscriber>: Combine.Subsc
             }
         }
 
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1), execute: task!)
+        DispatchQueue.global().asyncAfter(deadline: .now() + TimeInterval(0.5), execute: task!)
     }
 
     func cancel() {

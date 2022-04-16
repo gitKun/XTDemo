@@ -48,6 +48,16 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     }
 
     deinit {
+
+        // 通知 外部的 subscriber 事件已经结束
+        refreshSubject.send(completion: .finished)
+        topicSubject.send(completion: .finished)
+        // moreDataSubcriber 中包含了 moreDataSubject 因此不 send finished 也会释放.
+        moreDataSubject.send(completion: .finished)
+
+        // 确保自己的 subscriber 得到释放
+        refreshSubscriber.receive(completion: .finished)
+        moreDataSubcriber.receive(completion: .finished)
         print("\(type(of: self)) deinit! ____#")
     }
 
@@ -56,25 +66,27 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     fileprivate let refreshSubject = PassthroughSubject<Void, Never>()
     fileprivate let topicSubject = PassthroughSubject<Void, Never>()
 
-    // FIXED: - 不需要使用存储属性, 交由外部保证只添加一次到 publisher
-    var refreshSubscriber: AnySubscriber<Void, Never> {
+    // FIXED: - 自己创建的 subscriber 应该在 deinit 中释放资源
+    // FIXED: - subsecriber 可以多次接收 Completed 事件, 只会相应第一次接收
+    lazy private(set) var refreshSubscriber: AnySubscriber<Void, Never> = {
         let sinkSubscriber = Subscribers.Sink<Void, Never>.init { _ in
-            print("finished! 内存释放! viewModel 销毁后后执行! ____#")
+            print("refresh Sink finished! ____&")
         } receiveValue: { [weak self] _ in
             kDynamicFileIndex = 0
             self?.queryNewData()
         }
 
         return .init(sinkSubscriber)
-    }
+    }()
     // FIXED: - 使用 lazy 会造成对 Just 的第一次订阅无效.
     /*lazy private(set) var refreshSubscriber: AnySubscriber<Void, Never> = {
         self.viewDidLoadSubscriber
     }()*/
 
+    // Just 传入的不需要手动释放
     var viewDidLoadSubscriber: AnySubscriber<Void, Never> {
         let sinkSubscriber = Subscribers.Sink<Void, Never>.init { _ in
-            print("finished! ____#")
+            print("viewDidLoad Sink finished! ____&")
         } receiveValue: { [weak self] _ in
             self?.queryNewData()
         }
@@ -83,9 +95,9 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     }
 
     fileprivate let moreDataSubject = PassthroughSubject<Void, Never>()
-    var moreDataSubcriber: AnySubscriber<Void, Never> {
+    lazy private(set) var moreDataSubcriber: AnySubscriber<Void, Never> = {
         self.moreDataSubject.asAnySubscriber()
-    }
+    }()
 
 // MARK: - Outputs
 
@@ -117,7 +129,7 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
             .onMainScheduler()
     }
 
-    fileprivate lazy var moreDataResultPublisher: AnyPublisher<[DynamicDisplayType]?, Never> = {
+    private lazy var moreDataResultPublisher: AnyPublisher<[DynamicDisplayType]?, Never> = {
         self.createMoreDataPublisher()
             .share()
             .eraseToAnyPublisher()
@@ -129,7 +141,6 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
             .onMainScheduler()
     }
 
-    //fileprivate let endMoreRefreshSubject = PassthroughSubject<Bool, Never>()
     var endMoreRefreshPublisher: AnyPublisher<Bool, Never> {
         self.moreDataResultPublisher
             .map { _ in kDynamicFileIndex < 5 }
@@ -156,6 +167,7 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
 private extension TextureDemoViewModel {
 
     func queryNewData() {
+        kDynamicFileIndex = 0
         self.refreshSubject.send()
         self.topicSubject.send()
     }

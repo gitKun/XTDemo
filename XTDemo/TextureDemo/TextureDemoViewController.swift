@@ -110,7 +110,6 @@ extension TextureDemoViewController {
 
     func bindViewModel() {
 
-
         viewModel.output.newDataPublisher
             .sink { [weak self] list in
                 self?.reloadData(with: list)
@@ -212,7 +211,7 @@ extension TextureDemoViewController {
         self.tableNode.contentInset = .init(top: 0, left: 0, bottom: k_dr_BottomSafeHeight + 10, right: 0)
 
         // 设置 mj_header
-        let header = MJRefreshNormalHeader()
+        let header = DrRefreshNormalHeader()
         header.setTitle("下拉即可刷新", for: .idle)
         header.setTitle("松开即可更新", for: .pulling)
         header.setTitle("数据加载中", for: .refreshing)

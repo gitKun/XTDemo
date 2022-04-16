@@ -46,6 +46,7 @@
 		BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */; };
 		BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */; };
 		BC61925027EB432E009A3335 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC61924F27EB432E009A3335 /* DateUtil.swift */; };
+		BC78C4E6280A56F200443A01 /* DrRefreshNormalHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78C4E5280A56F200443A01 /* DrRefreshNormalHeader.swift */; };
 		BC7DB5F02800616300C221D7 /* DynamicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7DB5EF2800616300C221D7 /* DynamicListViewModel.swift */; };
 		BC898FBA27F32E34002A69FC /* DynamicDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */; };
 		BC898FBC27F4316D002A69FC /* EmojeShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC898FBB27F4316D002A69FC /* EmojeShowView.swift */; };
@@ -106,6 +107,7 @@
 		BC61924B27EB402D009A3335 /* DynamicNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicNetworkService.swift; sourceTree = "<group>"; };
 		BC61924D27EB4313009A3335 /* ASDK+XT_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDK+XT_Ext.swift"; sourceTree = "<group>"; };
 		BC61924F27EB432E009A3335 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		BC78C4E5280A56F200443A01 /* DrRefreshNormalHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrRefreshNormalHeader.swift; sourceTree = "<group>"; };
 		BC7DB5EF2800616300C221D7 /* DynamicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicListViewModel.swift; sourceTree = "<group>"; };
 		BC898FB927F32E34002A69FC /* DynamicDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDisplayModel.swift; sourceTree = "<group>"; };
 		BC898FBB27F4316D002A69FC /* EmojeShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojeShowView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */,
 				BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */,
 				BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */,
+				BC78C4E5280A56F200443A01 /* DrRefreshNormalHeader.swift */,
 			);
 			path = TextureDemo;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				BC898FBC27F4316D002A69FC /* EmojeShowView.swift in Sources */,
 				BCA0365227EB11FF00D15E0F /* SceneDelegate.swift in Sources */,
 				BC2AA7D327EC95CF00078A7E /* EmojiAttributedProvider.swift in Sources */,
+				BC78C4E6280A56F200443A01 /* DrRefreshNormalHeader.swift in Sources */,
 				BC61924427EB3D53009A3335 /* DynamicHotCommentNode.swift in Sources */,
 				BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */,
 				BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */,
