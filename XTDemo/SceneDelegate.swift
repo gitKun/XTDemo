@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         //let rootVC = HomeTabBarController()
         //let rootVC = UINavigationController(rootViewController: SimpleRegxViewController())
-        let rootVC = UINavigationController(rootViewController: TextureDemoViewController())
+        let rootVC = UINavigationController(rootViewController: TextureDemoRootViewController())
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
     }

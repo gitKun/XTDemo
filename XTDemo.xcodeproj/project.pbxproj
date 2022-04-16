@@ -25,6 +25,7 @@
 		BC3AEFEF2807FFBA00B9E273 /* MJRefresh+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */; };
 		BC3AEFF12808181C00B9E273 /* BundleJsonDataPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */; };
 		BC3AEFF328090A7B00B9E273 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFF228090A7B00B9E273 /* UIControl+Combine.swift */; };
+		BC3AEFF528098B8F00B9E273 /* TextureDemoRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFF428098B8F00B9E273 /* TextureDemoRootViewController.swift */; };
 		BC4CFDBC27ED5D18007C79CF /* xt_dynamic_list_0.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */; };
 		BC4CFDBD27ED5D18007C79CF /* xt_dynamic_list_1.json in Resources */ = {isa = PBXBuildFile; fileRef = BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */; };
 		BC4CFDC027ED6914007C79CF /* TextureDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */; };
@@ -84,6 +85,7 @@
 		BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MJRefresh+Combine.swift"; sourceTree = "<group>"; };
 		BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleJsonDataPublisher.swift; sourceTree = "<group>"; };
 		BC3AEFF228090A7B00B9E273 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
+		BC3AEFF428098B8F00B9E273 /* TextureDemoRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoRootViewController.swift; sourceTree = "<group>"; };
 		BC4CFDBA27ED5D18007C79CF /* xt_dynamic_list_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_0.json; sourceTree = "<group>"; };
 		BC4CFDBB27ED5D18007C79CF /* xt_dynamic_list_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_dynamic_list_1.json; sourceTree = "<group>"; };
 		BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		BC4CFDBE27ED68DD007C79CF /* TextureDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BC3AEFF428098B8F00B9E273 /* TextureDemoRootViewController.swift */,
 				BC4CFDBF27ED6914007C79CF /* TextureDemoViewController.swift */,
 				BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */,
 				BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */,
@@ -497,6 +500,7 @@
 				BC61924E27EB4313009A3335 /* ASDK+XT_Ext.swift in Sources */,
 				BC61924C27EB402D009A3335 /* DynamicNetworkService.swift in Sources */,
 				BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */,
+				BC3AEFF528098B8F00B9E273 /* TextureDemoRootViewController.swift in Sources */,
 				BC14171927EECF3A00B83D45 /* DynamicTopicWrapperCellNode.swift in Sources */,
 				BC3AEFF12808181C00B9E273 /* BundleJsonDataPublisher.swift in Sources */,
 				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,

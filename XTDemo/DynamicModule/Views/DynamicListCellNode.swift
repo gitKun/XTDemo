@@ -20,7 +20,7 @@ import Combine
 
 
 /// cell node subnode 事件处理
-protocol DynamicListCellNodeDelegate {
+protocol DynamicListCellNodeDelegate: AnyObject {
 
     func listCellNode(_ cellNodel: DynamicListCellNode, selectedView: UIView, selectedImage at: Int, allImages: [String])
 
@@ -41,7 +41,7 @@ final class DynamicListCellNode: ASCellNode {
 
 // MARK: - 属性
 
-    internal var delegate: DynamicListCellNodeDelegate?
+    internal weak var delegate: DynamicListCellNodeDelegate?
 
     private let viewModel: DynamicListCellNodeModelType = DynamicListCellNodeModel()
     private var cancellable: Set<AnyCancellable> = []

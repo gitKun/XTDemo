@@ -31,13 +31,17 @@ final class BundleJsonDataPublisher<Output: Decodable>: Publisher {
 
     private let filePath: String?
 
+    init(filePaht: String?) {
+        self.filePath = filePaht
+    }
+
+    deinit {
+        Swift.print("\(type(of: self)) deinit! ____#")
+    }
+
     func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
         let subscription = BundleJsonDataSubscription(filePath: filePath, subscriber: subscriber)
         subscriber.receive(subscription: subscription)
-    }
-
-    init(filePaht: String?) {
-        self.filePath = filePaht
     }
 }
 
@@ -45,12 +49,16 @@ final class BundleJsonDataPublisher<Output: Decodable>: Publisher {
 fileprivate final class BundleJsonDataSubscription<S: Subscriber>: Combine.Subscription where S.Input: Decodable, S.Failure == BundleJsonDataError {
 
     private let filePath: String?
-    private let subscriber: S?
+    private var subscriber: S?
     private var task: DispatchWorkItem?
 
     init(filePath: String?, subscriber: S?) {
         self.filePath = filePath
         self.subscriber = subscriber
+    }
+
+    deinit {
+        print("\(type(of: self)) deinit! ____#")
     }
 
     func request(_ demand: Subscribers.Demand) {

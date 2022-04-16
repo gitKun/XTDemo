@@ -47,6 +47,10 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     init() {
     }
 
+    deinit {
+        print("\(type(of: self)) deinit! ____#")
+    }
+
 // MARK: - Inputs
 
     fileprivate let refreshSubject = PassthroughSubject<Void, Never>()
@@ -55,7 +59,7 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     // FIXED: - 不需要使用存储属性, 交由外部保证只添加一次到 publisher
     var refreshSubscriber: AnySubscriber<Void, Never> {
         let sinkSubscriber = Subscribers.Sink<Void, Never>.init { _ in
-            print("finished! 内存释放! viewModel deinit 后执行!")
+            print("finished! 内存释放! viewModel 销毁后后执行! ____#")
         } receiveValue: { [weak self] _ in
             kDynamicFileIndex = 0
             self?.queryNewData()
@@ -70,7 +74,7 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
 
     var viewDidLoadSubscriber: AnySubscriber<Void, Never> {
         let sinkSubscriber = Subscribers.Sink<Void, Never>.init { _ in
-            print("finished!")
+            print("finished! ____#")
         } receiveValue: { [weak self] _ in
             self?.queryNewData()
         }

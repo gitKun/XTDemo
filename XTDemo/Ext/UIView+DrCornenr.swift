@@ -50,10 +50,10 @@ public struct DrCornerLocation {
     }
 }
 
-extension UIView {
+extension UIBezierPath {
 
     /// 获取圆角 path
-    public func cornerPath(from cornerRect: CGRect, with cornerLocation: DrCornerLocation) -> UIBezierPath {
+    public static func cornerPath(from cornerRect: CGRect, with cornerLocation: DrCornerLocation) -> UIBezierPath {
 
         let width = cornerRect.width
         let height = cornerRect.height

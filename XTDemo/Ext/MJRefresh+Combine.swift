@@ -60,6 +60,10 @@ fileprivate final class MJRefreshingPublisher<Control: MJRefreshComponent>: Publ
         self.control = control
     }
 
+    deinit {
+        Swift.print("\(type(of: self)) deinit! ____#")
+    }
+
     func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Control == S.Input {
         let subscription = MJRefreshingSubscription(subscriber: subscriber, control: control)
         subscriber.receive(subscription: subscription)
@@ -67,13 +71,22 @@ fileprivate final class MJRefreshingPublisher<Control: MJRefreshComponent>: Publ
 }
 
 fileprivate final class MJRefreshingSubscription<S: Subscriber, Control: MJRefreshComponent>: Subscription where S.Input == Control {
+
     private var subscriber: S?
-    private var control: Control?
+    private var control: Control
+
+    var combineIdentifier: CombineIdentifier {
+        .init(self.control)
+    }
 
     init(subscriber: S, control: Control) {
         self.subscriber = subscriber
         self.control = control
         control.setRefreshingTarget(self, refreshingAction: #selector(refreshing))
+//        control.refreshingBlock = {
+//            let count = subscriber.receive(control)
+//            print(count)
+//        }
     }
 
     deinit {
@@ -85,22 +98,15 @@ fileprivate final class MJRefreshingSubscription<S: Subscriber, Control: MJRefre
     }
 
     func cancel() {
-        subscriber = nil
-        control = nil
+        subscriber?.receive(completion: .finished)
     }
 
     @objc private func refreshing() {
-        _ = subscriber?.receive(control!)
+        let count = subscriber?.receive(control)
+        if let count = count {
+            print(count)
+        }
+        //subscriber?.receive(completion: .finished)
     }
 }
-
-/*
-// TODO: - 拓展 button 的 点击, 长按 等功能
-extension UIButton {
-
-    public func publiser(action forState: UIControl.State) -> AnyPublisher<UIButton, Never> {
-
-    }
-}
-*/
 

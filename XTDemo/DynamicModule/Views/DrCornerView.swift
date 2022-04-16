@@ -100,7 +100,7 @@ private extension DrCornerView {
             cornerBounds = cornerBounds.inset(by: .all(offsetLineWidth * 0.5))
         }
 
-        let cornerPath = cornerPath(from: cornerBounds, with: cornerLocation)
+        let cornerPath = UIBezierPath.cornerPath(from: cornerBounds, with: cornerLocation)
         let fillPath = UIBezierPath.init(rect: bounds)
         fillPath.append(cornerPath)
 

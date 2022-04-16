@@ -33,10 +33,10 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
     override init() {
         let node = ASDisplayNode.init()
         node.backgroundColor = .white
+        node.addSubnode(self.tableNode)
         super.init(node: node)
 
-        self.node.addSubnode(self.tableNode)
-        self.node.layoutSpecBlock = { [unowned self] node, constrainedSize in
+        node.layoutSpecBlock = { [unowned self] node, constrainedSize in
             return ASInsetLayoutSpec(insets: .zero, child: self.tableNode)
         }
     }
@@ -56,24 +56,13 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
         Just<Void>(()).receive(subscriber: viewModel.input.viewDidLoadSubscriber)
     }
 
+    deinit {
+        print("\(type(of: self)) deinit! ____#")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-// MARK: - 懒加载 & 计算属性
-
-    // NOTE: - 这里使用(lazy)存储属性 和 计算属性没有太大区别.
-    private lazy var dataSourceSubscriber: AnySubscriber<[DynamicDisplayType], Never> = {
-        let sinkSubscriber = Subscribers.Sink<[DynamicDisplayType], Never> { _ in
-            // nothing
-        } receiveValue: { [weak self] list in
-            self?.modelList = list
-            print(list[1])
-            self?.tableNode.reloadData()
-            self?.mjFooter.isHidden = false
-        }
-        return .init(sinkSubscriber)
-    }()
 
 // MARK: - UI 属性
 
@@ -107,6 +96,12 @@ private extension TextureDemoViewController {
     func insertData(with list: [DynamicDisplayType]) {
         
     }
+
+    func reloadData(with list: [DynamicDisplayType]) {
+        self.mjFooter.isHidden = false
+        self.modelList = list
+        self.tableNode.reloadData()
+    }
 }
 
 // MARK: - 绑定 viewModel
@@ -115,8 +110,12 @@ extension TextureDemoViewController {
 
     func bindViewModel() {
 
+
         viewModel.output.newDataPublisher
-            .receive(subscriber: dataSourceSubscriber)
+            .sink { [weak self] list in
+                self?.reloadData(with: list)
+            }
+            .store(in: &cancellable)
 
         // 测试多次订阅,
         /*viewModel.output.newDataPublisher
@@ -225,6 +224,6 @@ extension TextureDemoViewController {
         let footer = MJRefreshBackNormalFooter()
         self.tableNode.view.mj_footer = footer
         self.mjFooter = footer
-        self.mjFooter.isHidden = true
+        footer.isHidden = true
     }
 }
