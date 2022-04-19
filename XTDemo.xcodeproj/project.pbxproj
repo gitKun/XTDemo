@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		97F60E01B19CAD0ACCD790A0 /* Pods_XTDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D29D529B3C942D952EF56627 /* Pods_XTDemo.framework */; };
+		BC018990280ACEB100F2707F /* TestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01898F280ACEB100F2707F /* TestButton.swift */; };
 		BC14171327EEC85E00B83D45 /* TextureDemoViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */; };
 		BC14171527EEC86900B83D45 /* TextureDemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */; };
 		BC14171727EECE5400B83D45 /* xt_topic_recommend_list.json in Resources */ = {isa = PBXBuildFile; fileRef = BC14171627EECE5400B83D45 /* xt_topic_recommend_list.json */; };
@@ -16,6 +17,7 @@
 		BC2AA7CD27EC902200078A7E /* SimpleRegxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */; };
 		BC2AA7D127EC925E00078A7E /* emoji in Resources */ = {isa = PBXBuildFile; fileRef = BC2AA7D027EC925E00078A7E /* emoji */; };
 		BC2AA7D327EC95CF00078A7E /* EmojiAttributedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */; };
+		BC2B9B5B280E676A008B2AF4 /* UIControlEvent+ActionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2B9B5A280E676A008B2AF4 /* UIControlEvent+ActionKey.swift */; };
 		BC36048427FAAADE003395E3 /* UIView+DrCornenr.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */; };
 		BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048527FAB9F1003395E3 /* DrCornerView.swift */; };
 		BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */; };
@@ -70,6 +72,7 @@
 /* Begin PBXFileReference section */
 		42D8CDABC0D70F842995EF39 /* Pods-XTDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XTDemo.release.xcconfig"; path = "Target Support Files/Pods-XTDemo/Pods-XTDemo.release.xcconfig"; sourceTree = "<group>"; };
 		5480E6AB756ACC806F2551C8 /* Pods-XTDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XTDemo.debug.xcconfig"; path = "Target Support Files/Pods-XTDemo/Pods-XTDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BC01898F280ACEB100F2707F /* TestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestButton.swift; sourceTree = "<group>"; };
 		BC14171227EEC85E00B83D45 /* TextureDemoViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewDataSource.swift; sourceTree = "<group>"; };
 		BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureDemoViewModel.swift; sourceTree = "<group>"; };
 		BC14171627EECE5400B83D45 /* xt_topic_recommend_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = xt_topic_recommend_list.json; sourceTree = "<group>"; };
@@ -78,6 +81,7 @@
 		BC2AA7CC27EC902200078A7E /* SimpleRegxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRegxViewController.swift; sourceTree = "<group>"; };
 		BC2AA7D027EC925E00078A7E /* emoji */ = {isa = PBXFileReference; lastKnownFileType = folder; path = emoji; sourceTree = "<group>"; };
 		BC2AA7D227EC95CF00078A7E /* EmojiAttributedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAttributedProvider.swift; sourceTree = "<group>"; };
+		BC2B9B5A280E676A008B2AF4 /* UIControlEvent+ActionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControlEvent+ActionKey.swift"; sourceTree = "<group>"; };
 		BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DrCornenr.swift"; sourceTree = "<group>"; };
 		BC36048527FAB9F1003395E3 /* DrCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrCornerView.swift; sourceTree = "<group>"; };
 		BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopicCollectionNode.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				BC14171427EEC86900B83D45 /* TextureDemoViewModel.swift */,
 				BC3AEFF02808181C00B9E273 /* BundleJsonDataPublisher.swift */,
 				BC78C4E5280A56F200443A01 /* DrRefreshNormalHeader.swift */,
+				BC01898F280ACEB100F2707F /* TestButton.swift */,
 			);
 			path = TextureDemo;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				BC3AEFEC2807FF4B00B9E273 /* Combine+XT.swift */,
 				BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */,
 				BC3AEFF228090A7B00B9E273 /* UIControl+Combine.swift */,
+				BC2B9B5A280E676A008B2AF4 /* UIControlEvent+ActionKey.swift */,
 			);
 			path = Ext;
 			sourceTree = "<group>";
@@ -509,6 +515,7 @@
 				BC61924227EB3CEC009A3335 /* XTExtension.swift in Sources */,
 				BCAE85022803F2CC00272124 /* DynamicListCellNodeModel.swift in Sources */,
 				BC61922727EB38DB009A3335 /* DynamicListViewController.swift in Sources */,
+				BC2B9B5B280E676A008B2AF4 /* UIControlEvent+ActionKey.swift in Sources */,
 				BCA0366E27EB148D00D15E0F /* HomeTabBarTransitionDelegate.swift in Sources */,
 				BC61925027EB432E009A3335 /* DateUtil.swift in Sources */,
 				BC36048427FAAADE003395E3 /* UIView+DrCornenr.swift in Sources */,
@@ -533,6 +540,7 @@
 				BC61924427EB3D53009A3335 /* DynamicHotCommentNode.swift in Sources */,
 				BC61923427EB3B3E009A3335 /* UIViewController+Lantern.swift in Sources */,
 				BCA0367127EB14D700D15E0F /* DrButton.swift in Sources */,
+				BC018990280ACEB100F2707F /* TestButton.swift in Sources */,
 				BCAE84FD2801D0C900272124 /* Moya+XTCache.swift in Sources */,
 				BC61924A27EB3E7D009A3335 /* DynamicListParam.swift in Sources */,
 				BC61923627EB3B64009A3335 /* ShowToastProtocol.swift in Sources */,

@@ -20,27 +20,26 @@ import Combine
 extension MJRefreshHeader {
 
     // @NOTE: - 可以是 方法, 也可以是 计算属性, 都不支持多次加入到 发布者 中
-    func subscriber() -> AnySubscriber<Void, Never> {
-        let sinkSubscriber = Subscribers.Sink<Void, Never>.init { _ in
+    // @NOTE: - 更应该使用 func 方式, 提醒调用者重复获取的并不是同一个订阅者
+    func subscriber() -> Subscribers.Sink<Void, Never> {
+        .init { _ in
             // FIXED: - self 必定为 nil
             print("MJRefreshHeader subscriber finished! ____&")
         } receiveValue: { [weak self] _ in
             self?.endRefreshing()
         }
-        return .init(sinkSubscriber)
     }
 }
 
 extension MJRefreshFooter {
 
-    func subscriber() -> AnySubscriber<Bool, Never> {
-        let sinkSubscriber = Subscribers.Sink<Bool, Never>.init { _ in
+    func subscriber() -> Subscribers.Sink<Bool, Never> {
+        .init { _ in
             // FIXED: - self 必定已经释放
             print("MJRefreshFooter subscriber finished! ____&")
         } receiveValue: { [weak self] hasMore in
             (hasMore ? { self?.endRefreshing() } : { self?.endRefreshingWithNoMoreData() })()
         }
-        return .init(sinkSubscriber)
     }
 }
 
@@ -56,7 +55,7 @@ fileprivate final class MJRefreshingPublisher<Control: MJRefreshComponent>: Publ
     typealias Output = Control
     typealias Failure = Never
 
-    let control: Control
+    private weak var control: Control?
 
     init(control: Control) {
         self.control = control
@@ -74,17 +73,19 @@ fileprivate final class MJRefreshingPublisher<Control: MJRefreshComponent>: Publ
 
 fileprivate final class MJRefreshingSubscription<S: Subscriber, Control: MJRefreshComponent>: Subscription where S.Input == Control {
 
-    private var subscriber: S
-    private let control: Control
+    private var subscriber: S?
+    private weak var control: Control?
 
-    init(subscriber: S, control: Control) {
+    init(subscriber: S, control: Control?) {
         self.subscriber = subscriber
         self.control = control
         //control.setRefreshingTarget(self, refreshingAction: #selector(refreshing))
         // FIXDE: - 注意循环引用: control -> refreshingBlock -> control
-        control.refreshingBlock = { [weak control] in
-            if let ctr = control {
-                _ = subscriber.receive(ctr)
+        if let ctr = control {
+            ctr.refreshingBlock = { [weak ctr] in
+                if let ctr = ctr {
+                    _ = subscriber.receive(ctr)
+                }
             }
         }
     }
@@ -94,14 +95,17 @@ fileprivate final class MJRefreshingSubscription<S: Subscriber, Control: MJRefre
     }
 
     func request(_ demand: Subscribers.Demand) {
-        guard demand > 0 else { return subscriber.receive(completion: .finished) }
+
+        guard demand > 0 else {
+            subscriber?.receive(completion: .finished)
+            return
+        }
         // 不作任何处理, 已经在 refreshing() 中通知 subscriber 接收 control
     }
 
     func cancel() {
         //print("MJRefreshingSubscription<\(type(of: control))> cancel! ____&")
-        // FIXED: - 必须通知 sbuscriber 事件完成, 停止订阅. 否则内存泄漏.
-        subscriber.receive(completion: .finished)
+        subscriber = nil
     }
 }
 

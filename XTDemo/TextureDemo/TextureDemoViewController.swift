@@ -123,8 +123,10 @@ extension TextureDemoViewController {
             }
             .store(in: &cancellable)*/
 
+        let headerSubscriber = mjHeader.subscriber()
+        headerSubscriber.store(in: &cancellable)
         viewModel.output.endRefreshPublisher
-            .receive(subscriber: mjHeader.subscriber())
+            .receive(subscriber: headerSubscriber)
 
         viewModel.output.moreDataPublisher
             .sink { [weak self] list in
@@ -132,8 +134,10 @@ extension TextureDemoViewController {
             }
             .store(in: &cancellable)
 
+        let footerSubscriber = mjFooter.subscriber()
+        footerSubscriber.store(in: &cancellable)
         viewModel.output.endMoreRefreshPublisher
-            .receive(subscriber: mjFooter.subscriber())
+            .receive(subscriber: footerSubscriber)
 
         viewModel.output.toastPublisher
             .sink { [weak self] msg in

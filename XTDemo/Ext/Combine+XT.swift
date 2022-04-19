@@ -16,27 +16,14 @@
 import Foundation
 import Combine
 
-extension Subject {
+extension Combine.Subject {
 
     public func asAnySubscriber() -> AnySubscriber<Self.Output, Self.Failure> {
         .init(self)
     }
-
-    /*
-    public func asAnySubscriber() -> AnySubscriber<Self.Output, Self.Failure> {
-
-        let skinSubscriber = Subscribers.Sink<Output, Failure>.init { [weak self] com in
-            self?.send(completion: com)
-        } receiveValue: { [weak self]  value in
-            self?.send(value)
-        }
-
-        return AnySubscriber(skinSubscriber)
-    }
-     */
 }
 
-extension Publisher {
+extension Combine.Publisher {
 
     public func onMainScheduler() -> AnyPublisher<Self.Output, Self.Failure> {
         receive(on: RunLoop.main).eraseToAnyPublisher()
@@ -46,3 +33,14 @@ extension Publisher {
         map { _ in }
     }
 }
+
+// FIXED: - receive(completion: .finished) 并不等效于 cancel
+// - cancel 中才是释放内存的地方, completion: 仅仅标记结束订阅不再处理事件
+// - 所以不应当对 `AnySubscriber` 追加的 `Cancellable`
+// - 使用 `receive(completion:)` 作为 `cancel()` 的实现
+/*extension AnySubscriber: Combine.Cancellable where Failure == Never {
+
+    public func cancel() {
+        receive(completion: .finished)
+    }
+}*/

@@ -56,8 +56,8 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
         moreDataSubject.send(completion: .finished)
 
         // 确保自己的 subscriber 得到释放
-        refreshSubscriber.receive(completion: .finished)
-        moreDataSubcriber.receive(completion: .finished)
+        refreshSink.cancel()
+        moreDataSink.cancel()
         print("\(type(of: self)) deinit! ____#")
     }
 
@@ -67,17 +67,18 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     fileprivate let topicSubject = PassthroughSubject<Void, Never>()
 
     // FIXED: - 自己创建的 subscriber 应该在 deinit 中释放资源
-    // FIXED: - subsecriber 可以多次接收 Completed 事件, 只会相应第一次接收
-    lazy private(set) var refreshSubscriber: AnySubscriber<Void, Never> = {
-        let sinkSubscriber = Subscribers.Sink<Void, Never>.init { _ in
+    fileprivate lazy var refreshSink: Subscribers.Sink<Void, Never> = {
+        Subscribers.Sink<Void, Never>.init { _ in
             print("refresh Sink finished! ____&")
         } receiveValue: { [weak self] _ in
             kDynamicFileIndex = 0
             self?.queryNewData()
         }
-
-        return .init(sinkSubscriber)
     }()
+    // FIXED: - subsecriber 可以多次接收 Completed 事件, 只会相应第一次接收
+     var refreshSubscriber: AnySubscriber<Void, Never> {
+         return .init(self.refreshSink)
+    }
     // FIXED: - 使用 lazy 会造成对 Just 的第一次订阅无效.
     /*lazy private(set) var refreshSubscriber: AnySubscriber<Void, Never> = {
         self.viewDidLoadSubscriber
@@ -95,9 +96,15 @@ final class TextureDemoViewModel: TextureDemoViewModelType, TextureDemoViewModel
     }
 
     fileprivate let moreDataSubject = PassthroughSubject<Void, Never>()
-    lazy private(set) var moreDataSubcriber: AnySubscriber<Void, Never> = {
-        self.moreDataSubject.asAnySubscriber()
+    fileprivate lazy var moreDataSink: Subscribers.Sink<Void, Never> = {
+        .init { _ in
+        } receiveValue: { [weak self] _ in
+            self?.moreDataSubject.send(())
+        }
     }()
+    var moreDataSubcriber: AnySubscriber<Void, Never> {
+        .init(self.moreDataSink)
+    }
 
 // MARK: - Outputs
 
