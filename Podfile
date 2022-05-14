@@ -27,4 +27,7 @@ target 'XTDemo' do
   # 1.1.2
   pod 'Lantern'
 
+  # 10.7.1
+  pod 'Nuke'
+
 end

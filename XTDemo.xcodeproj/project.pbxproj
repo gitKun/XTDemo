@@ -21,7 +21,6 @@
 		BC36048427FAAADE003395E3 /* UIView+DrCornenr.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048327FAAADE003395E3 /* UIView+DrCornenr.swift */; };
 		BC36048627FAB9F1003395E3 /* DrCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048527FAB9F1003395E3 /* DrCornerView.swift */; };
 		BC36048827FADBB8003395E3 /* DynamicTopicCollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36048727FADBB8003395E3 /* DynamicTopicCollectionNode.swift */; };
-		BC36049A27FF2790003395E3 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = BC36049927FF2790003395E3 /* Nuke */; };
 		BC36049C27FF285E003395E3 /* ASDK+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36049B27FF285E003395E3 /* ASDK+Nuke.swift */; };
 		BC3AEFED2807FF4B00B9E273 /* Combine+XT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFEC2807FF4B00B9E273 /* Combine+XT.swift */; };
 		BC3AEFEF2807FFBA00B9E273 /* MJRefresh+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3AEFEE2807FFBA00B9E273 /* MJRefresh+Combine.swift */; };
@@ -141,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				97F60E01B19CAD0ACCD790A0 /* Pods_XTDemo.framework in Frameworks */,
-				BC36049A27FF2790003395E3 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +386,6 @@
 			);
 			name = XTDemo;
 			packageProductDependencies = (
-				BC36049927FF2790003395E3 /* Nuke */,
 			);
 			productName = XTDemo;
 			productReference = BCA0364C27EB11FF00D15E0F /* XTDemo.app */;
@@ -419,7 +416,6 @@
 			);
 			mainGroup = BCA0364327EB11FF00D15E0F;
 			packageReferences = (
-				BC36049827FF2790003395E3 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = BCA0364D27EB11FF00D15E0F /* Products */;
 			projectDirPath = "";
@@ -774,25 +770,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		BC36049827FF2790003395E3 /* XCRemoteSwiftPackageReference "Nuke" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.7.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BC36049927FF2790003395E3 /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BC36049827FF2790003395E3 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCA0364427EB11FF00D15E0F /* Project object */;
 }
