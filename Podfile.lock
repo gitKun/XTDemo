@@ -1,13 +1,13 @@
 PODS:
   - Alamofire (5.5.0)
-  - Kingfisher (7.2.0)
+  - Cache (6.0.0)
   - Lantern (1.1.2)
   - MJRefresh (3.7.5)
+  - Moya/Combine (15.0.0):
+    - Moya/Core
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
-  - Moya/RxSwift (15.0.0):
-    - Moya/Core
-    - RxSwift (~> 6.0)
+  - Nuke (10.7.1)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -23,13 +23,6 @@ PODS:
   - PINRemoteImage/PINCache (3.0.3):
     - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - SnapKit (5.0.1)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
     - Texture/Core (= 3.1.0)
@@ -53,48 +46,41 @@ PODS:
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
-  - Kingfisher
+  - Cache
   - Lantern
   - MJRefresh
-  - Moya/RxSwift
-  - RxCocoa
-  - SnapKit
+  - Moya/Combine
+  - Nuke
   - Texture
   - Toast-Swift
 
 SPEC REPOS:
   trunk:
     - Alamofire
-    - Kingfisher
+    - Cache
     - Lantern
     - MJRefresh
     - Moya
+    - Nuke
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - RxCocoa
-    - RxRelay
-    - RxSwift
-    - SnapKit
     - Texture
     - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
   Lantern: ed012be9a7c989ff5b94c080129a4734b45304b6
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 5edf53cbc9562a88a0fb4a9a8fd43778743e7738
+PODFILE CHECKSUM: 48b3133b29f224e5b718b762805e5d0ba9850f09
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

@@ -15,10 +15,6 @@
 
 import Foundation
 import UIKit
-import RxSwift
-import RxCocoa
-// import SnapKit
-// import class DrBase.UIViewController
 
 public class HomeTabBarController: UITabBarController {
 
@@ -37,8 +33,6 @@ public class HomeTabBarController: UITabBarController {
             // customTabBar.reloadApperance()
         }
     }
-
-    private let disposeBag = DisposeBag()
 
     private let animatedDelegate = HomeTabBarTransitionDelegate()
 

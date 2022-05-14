@@ -13,41 +13,11 @@
 * ****************************************************************
 */
 
+/*
 import Foundation
 import UIKit
-import RxSwift
-import RxCocoa
-import Kingfisher
+
 import AsyncDisplayKit
-
-
-extension ASImageNode: KingfisherCompatible {}
-
-public extension KingfisherWrapper where Base: ASImageNode {
-
-    func setImage(
-        with source: Resource?,
-        placeholder: UIImage? = nil,
-        failureImage: UIImage? = nil,
-        options: KingfisherOptionsInfo? = nil,
-        progressBlock: DownloadProgressBlock? = nil)
-    {
-        guard let source = source else {
-            self.base.image = placeholder ?? failureImage
-            return
-        }
-
-        KingfisherManager.shared.retrieveImage(with: source, options: options, progressBlock: progressBlock, downloadTaskUpdated: nil) { result in
-            switch result {
-            case .success(let retrieveResult):
-                self.base.image = retrieveResult.image
-            case .failure(_):
-                self.base.image = failureImage ?? placeholder
-            }
-        }
-    }
-
-}
 
 extension Reactive where Base: ASTextNode {
     
@@ -212,3 +182,63 @@ final fileprivate class ASGestureTarget<Control: ASControlNode>: _RXKVOObserver,
         self.callback = nil
     }
 }
+*/
+
+// MARK: - Deprecated
+
+/*
+import Kingfisher
+extension Array where Element == KingfisherOptionsInfoItem {
+
+    /// default size: (111, 111)
+    static func jjListImageOptions(with size: CGSize) -> KingfisherOptionsInfo {
+        let downsamplingProcessor = DownsamplingImageProcessor(size: size)
+        return [
+            .backgroundDecode,
+            .cacheOriginalImage,
+            .processor(downsamplingProcessor),
+            .scaleFactor(UIScreen.main.scale)
+        ]
+    }
+
+    /// default width: 40
+    static func jjListAvatarOptions(with targetWithd: CGFloat) -> KingfisherOptionsInfo {
+        let cornerProcessor = RoundCornerImageProcessor(cornerRadius: targetWithd / 2, targetSize: CGSize(width: targetWithd, height: targetWithd), roundingCorners: .all)
+        return [
+            .backgroundDecode,
+            .cacheOriginalImage,
+            .processor(cornerProcessor),
+            .scaleFactor(UIScreen.main.scale)
+        ]
+    }
+}
+
+
+extension ASImageNode: KingfisherCompatible {}
+
+public extension KingfisherWrapper where Base: ASImageNode {
+
+    func setImage(
+        with source: Resource?,
+        placeholder: UIImage? = nil,
+        failureImage: UIImage? = nil,
+        options: KingfisherOptionsInfo? = nil,
+        progressBlock: DownloadProgressBlock? = nil)
+    {
+        guard let source = source else {
+            self.base.image = placeholder ?? failureImage
+            return
+        }
+
+        KingfisherManager.shared.retrieveImage(with: source, options: options, progressBlock: progressBlock, downloadTaskUpdated: nil) { result in
+            switch result {
+            case .success(let retrieveResult):
+                self.base.image = retrieveResult.image
+            case .failure(_):
+                self.base.image = failureImage ?? placeholder
+            }
+        }
+    }
+
+}
+*/

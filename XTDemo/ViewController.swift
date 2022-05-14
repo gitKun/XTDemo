@@ -14,11 +14,18 @@
 */
 
 import UIKit
+import Moya
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if #available(iOS 15.0, *) {
+            self.view.keyboardLayoutGuide.followsUndockedKeyboard = true
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 

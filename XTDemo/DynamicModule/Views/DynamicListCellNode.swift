@@ -16,12 +16,11 @@
 import UIKit
 import Foundation
 import AsyncDisplayKit
-import RxSwift
-import Kingfisher
+import Combine
 
 
 /// cell node subnode 事件处理
-protocol DynamicListCellNodeDelegate {
+protocol DynamicListCellNodeDelegate: AnyObject {
 
     func listCellNode(_ cellNodel: DynamicListCellNode, selectedView: UIView, selectedImage at: Int, allImages: [String])
 
@@ -30,14 +29,23 @@ protocol DynamicListCellNodeDelegate {
     // TODO: - 需要点击头像, 分享 的时间传递
 }
 
+
+/**
+ * 可优化点:
+ *      1. 把 3 行显示的文本和 展开/隐藏 按钮,封装为一个控件, 内部重写 `override func layout()` 来提升新能.
+ *      2. addSubnode 的判断!
+ */
+
+
 final class DynamicListCellNode: ASCellNode {
 
 // MARK: - 属性
 
-    internal var delegate: DynamicListCellNodeDelegate?
+    internal weak var delegate: DynamicListCellNodeDelegate?
 
     private let viewModel: DynamicListCellNodeModelType = DynamicListCellNodeModel()
-    private let disposeBag = DisposeBag()
+    private var cancellable: Set<AnyCancellable> = []
+
     private let dataSource = DynamicListCellNodeDataSource()
 
 // MARK: - 生命周期
@@ -331,8 +339,7 @@ extension DynamicListCellNode {
 extension DynamicListCellNode {
 
     func eventListen() {
-        // FIXED: - 方法监听中尽量舍弃 rx
-        //showOrHiddenNode.rx.tap.asDriver().throttle(.seconds(1), latest: false).drive(onNext: { _ in }).disposed(by: disposeBag)
+        // FIXED: - 方法监听中尽量 rx combine
         showOrHiddenNode.addTarget(self, action: #selector(self.showOrHiddenButtonClicked(_:)), forControlEvents: .touchUpInside)
 
         likeNode.addTarget(self, action: #selector(self.likeButtonClicked(_:)), forControlEvents: .touchUpInside)
@@ -342,93 +349,107 @@ extension DynamicListCellNode {
 
     func bindViewModel() {
 
-        viewModel.output.avatarUrl.subscribe(onNext: { [weak self] url in
-            if  let url = url, let imgNode = self?.avatarNode {
-                imgNode.kf.setImage(with: url, placeholder: nil, options: Array.jjListAvatarOptions(with: 40))
-            } else {
-                self?.avatarNode.backgroundColor = .randomWithoutAlpha
-            }
-        }).disposed(by: disposeBag)
+        viewModel.output.avatarUrl.sink { [weak self] url in
+            self?.avatarNode.setImage(with: .jjListAvatarImageRequest(with: url, width: 40))
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.nickname.subscribe(onNext: { [weak self] attrString in
+        viewModel.output.nickname.sink { [weak self] attrString in
             self?.nicknameNode.attributedText = attrString
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.position.subscribe(onNext: { [weak self] attrString in
+        viewModel.output.position.sink { [weak self] attrString in
             self?.positionNode.attributedText = attrString
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.recommendContent.subscribe(onNext: { [weak self] attrString in
+        viewModel.output.recommendContent.sink { [weak self] attrString in
             self?.shortContentNode.attributedText = attrString
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.imageList.subscribe(onNext: { [weak self] list in
+        viewModel.output.imageList.sink { [weak self] list in
             self?.imgCollectionNode.reloadData()
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.hiddenImageList.subscribe(onNext: { [weak self] _ in
+        viewModel.output.hiddenImageList.sink { [weak self] _ in
             self?.imgCollectionNode.isHidden = true
             self?.setNeedsLayout()
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.hotComment.subscribe(onNext: { [weak self] hotModel in
+        viewModel.output.hotComment.sink { [weak self] hotModel in
             self?.hotShortNode.configure(with: hotModel)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.hiddenHotComment.subscribe(onNext: { [weak self] _ in
+        viewModel.output.hiddenHotComment.sink { [weak self] _ in
             self?.hotShortNode.isHidden = true
             self?.setNeedsLayout()
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.topicTitle.subscribe(onNext: { [weak self] title in
+        viewModel.output.topicTitle.sink { [weak self] title in
             self?.circleTagNode.setTitle(title, with: .systemFont(ofSize: 12, weight: .regular), with: .XiTu.circleTagTitle, for: .normal)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.hiddenTopic.subscribe(onNext: { [weak self] _ in
+        viewModel.output.hiddenTopic.sink { [weak self] _ in
             self?.circleTagNode.isHidden = true
             self?.setNeedsLayout()
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.commentCount.subscribe(onNext: { [weak self] title in
+        viewModel.output.commentCount.sink { [weak self] title in
             self?.commentNode.setTitle(title, with: .systemFont(ofSize: 12, weight: .regular), with: .XiTu.commentCount, for: .normal)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.digUsers.subscribe(onNext: { [weak self] users in
+        viewModel.output.digUsers.sink { [weak self] users in
             self?.diggInfoNode.isHidden = false
             self?.diggInfoNode.configure(with: users)
             self?.setNeedsLayout()
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.hiddenDigUsers.subscribe(onNext: { [weak self] _ in
+        viewModel.output.hiddenDigUsers.sink { [weak self] _ in
             self?.diggInfoNode.isHidden = true
             self?.setNeedsLayout()
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.likeButton.subscribe(onNext: { [weak self] tuple in
+        viewModel.output.likeButton.sink { [weak self] tuple in
             self?.likeNode.setTitle(tuple.0, with: .systemFont(ofSize: 12, weight: .regular), with: .XiTu.commentCount, for: .normal)
             self?.likeNode.setImage(tuple.1, for: .normal)
             self?.likeNode.setImage(tuple.2, for: .selected)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.changeLikeStatus.subscribe(onNext: { [weak self] isSelected in
+        viewModel.output.changeLikeStatus.sink { [weak self] isSelected in
             self?.likeNode.isSelected = isSelected
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.digged.subscribe(onNext: { [weak self] user in
+        viewModel.output.digged.sink { [weak self] user in
             self?.dataSource.diggRecomment(with: user)
             self?.viewModel.input.reloadDiggUesrs(self?.dataSource.diggUser ?? [])
             self?.viewModel.input.reloadLikeCount(self?.dataSource.diggCount ?? 0)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.unDigged.subscribe(onNext: { [weak self] user in
+        viewModel.output.unDigged.sink { [weak self] user in
             self?.dataSource.unDiggRecomment()
             self?.viewModel.input.reloadDiggUesrs(self?.dataSource.diggUser ?? [])
             self?.viewModel.input.reloadLikeCount(self?.dataSource.diggCount ?? 0)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
 
-        viewModel.output.reloadDiggCount.subscribe(onNext: { [weak self] count in
+        viewModel.output.reloadDiggCount.sink { [weak self] count in
             self?.likeNode.setTitle(count, with: .systemFont(ofSize: 12, weight: .regular), with: .XiTu.commentCount, for: .normal)
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellable)
     }
 }
 

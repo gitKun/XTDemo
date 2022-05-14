@@ -2,22 +2,20 @@
 /*
 * ****************************************************************
 *
-* 文件名称 : DynamicListCellNodeModel
+* 文件名称 : DynamicListCellCombineNodeModel
 * 作   者 : Created by 坤
-* 创建时间 : 2022/3/23 7:29 PM
+* 创建时间 : 2022/4/11 13:23
 * 文件描述 : 
 * 注意事项 : 
 * 版权声明 : 
-* 修改历史 : 2022/3/23 初始版本
+* 修改历史 : 2022/4/11 初始版本
 *
 * ****************************************************************
 */
 
 import Foundation
 import UIKit
-import RxSwift
-import Kingfisher
-
+import Combine
 
 protocol DynamicListCellNodeModelInputs {
 
@@ -32,25 +30,25 @@ protocol DynamicListCellNodeModelInputs {
 
 protocol DynamicListCellNodeModelOutputs {
 
-    var avatarUrl: Observable<URL?> { get }
-    var nickname: Observable<NSAttributedString> { get }
-    var position: Observable<NSAttributedString> { get }
-    var recommendContent: Observable<NSAttributedString> { get }
-    var imageList: Observable<[String]> { get }
-    var hiddenImageList: Observable<Void> { get }
-    var hotComment: Observable<HotComment> { get }
-    var hiddenHotComment: Observable<Void> { get }
-    var topicTitle: Observable<String> { get }
-    var hiddenTopic: Observable<Void> { get }
-    var digUsers: Observable<[AuthorUserInfo]> { get }
-    var hiddenDigUsers: Observable<Void> { get }
-    var commentCount: Observable<String> { get }
-    var likeButton: Observable<(String, UIImage?, UIImage?)> { get }
+    var avatarUrl: AnyPublisher<URL?, Never> { get }
+    var nickname: AnyPublisher<NSAttributedString, Never> { get }
+    var position: AnyPublisher<NSAttributedString, Never> { get }
+    var recommendContent: AnyPublisher<NSAttributedString, Never> { get }
+    var imageList: AnyPublisher<[String], Never> { get }
+    var hiddenImageList: AnyPublisher<Void, Never> { get }
+    var hotComment: AnyPublisher<HotComment, Never> { get }
+    var hiddenHotComment: AnyPublisher<Void, Never> { get }
+    var topicTitle: AnyPublisher<String, Never> { get }
+    var hiddenTopic: AnyPublisher<Void, Never> { get }
+    var digUsers: AnyPublisher<[AuthorUserInfo], Never> { get }
+    var hiddenDigUsers: AnyPublisher<Void, Never> { get }
+    var commentCount: AnyPublisher<String, Never> { get }
+    var likeButton: AnyPublisher<(String, UIImage?, UIImage?), Never> { get }
 
-    var changeLikeStatus: Observable<Bool> { get }
-    var digged: Observable<AuthorUserInfo> { get }
-    var unDigged: Observable<Void> { get }
-    var reloadDiggCount: Observable<String> { get }
+    var changeLikeStatus: AnyPublisher<Bool, Never> { get }
+    var digged: AnyPublisher<AuthorUserInfo, Never> { get }
+    var unDigged: AnyPublisher<Void, Never> { get }
+    var reloadDiggCount: AnyPublisher<String, Never> { get }
 }
 
 protocol DynamicListCellNodeModelType {
@@ -58,135 +56,124 @@ protocol DynamicListCellNodeModelType {
     var output: DynamicListCellNodeModelOutputs { get }
 }
 
+
 final class DynamicListCellNodeModel: DynamicListCellNodeModelType, DynamicListCellNodeModelInputs, DynamicListCellNodeModelOutputs {
 
-// MARK: - 属性
-
-    private let disposeBag = DisposeBag()
-    private let avatarImageSubject = PublishSubject<URL?>()
-    private let nicknameSubject = PublishSubject<NSAttributedString>()
-    private let positionSubject = PublishSubject<NSAttributedString>()
-    private let recommendContentSubject = PublishSubject<NSAttributedString>()
-    private let imageListSubject = PublishSubject<[String]>()
-    private let hotShortSubject = PublishSubject<HotComment?>()
-    private let circleTagSubject = PublishSubject<String?>()
-    private let digUesrSubject = PublishSubject<[AuthorUserInfo]>()
-    private let commentCountSubject = PublishSubject<String>()
-    private let likeInfoSubject = PublishSubject<(String, UIImage?, UIImage?)>()
-
-// MARK: - 生命周期
+    // @Published var avatarImageUrl: URL? = nil
+    private let avatarImageSubject = PassthroughSubject<URL?, Never>()
+    private let nicknameSubject = PassthroughSubject<NSAttributedString, Never>()
+    private let positionSubject = PassthroughSubject<NSAttributedString, Never>()
+    private let recommendContentSubject = PassthroughSubject<NSAttributedString, Never>()
+    private let imageListSubject = PassthroughSubject<[String], Never>()
+    private let hotShortSubject = PassthroughSubject<HotComment?, Never>()
+    private let circleTagSubject = PassthroughSubject<String?, Never>()
+    private let digUesrSubject = PassthroughSubject<[AuthorUserInfo], Never>()
+    private let commentCountSubject = PassthroughSubject<String, Never>()
+    private let likeInfoSubject = PassthroughSubject<(String, UIImage?, UIImage?), Never>()
 
     init() {
+        self.avatarUrl = self.avatarImageSubject.eraseToAnyPublisher()
+        self.nickname = self.nicknameSubject.eraseToAnyPublisher()
+        self.position = self.positionSubject.eraseToAnyPublisher()
+        self.recommendContent = self.recommendContentSubject.eraseToAnyPublisher()
+        self.imageList = self.imageListSubject.filter { !$0.isEmpty }.eraseToAnyPublisher()
+        self.hiddenImageList = self.imageListSubject.filter { $0.isEmpty }.map { _ in () }.eraseToAnyPublisher()
+        self.hotComment = self.hotShortSubject.filter { $0 != nil && $0!.commentInfo != nil }.map { $0! }.eraseToAnyPublisher()
+        self.hiddenHotComment = self.hotShortSubject.filter { $0 == nil || $0!.commentInfo == nil }.map { _ in () }.eraseToAnyPublisher()
+        self.topicTitle = self.circleTagSubject.filter { $0 != nil && !$0!.isEmpty }.map { $0! }.eraseToAnyPublisher()
+        self.hiddenTopic = self.circleTagSubject.filter { $0 == nil || $0!.isEmpty  }.map { _ in () }.eraseToAnyPublisher()
+        self.digUsers = self.digUesrSubject.filter { !$0.isEmpty }.eraseToAnyPublisher()
+        self.hiddenDigUsers = self.digUesrSubject.filter { $0.isEmpty }.map { _ in () }.eraseToAnyPublisher()
+        self.commentCount = self.commentCountSubject.eraseToAnyPublisher()
+        self.likeButton = self.likeInfoSubject.eraseToAnyPublisher()
 
-        self.avatarUrl = self.avatarImageSubject.asObserver()
-        self.nickname = self.nicknameSubject.asObserver()
-        self.position = self.positionSubject.asObserver()
-        self.recommendContent = self.recommendContentSubject.asObserver()
-        self.imageList = self.imageListSubject.filter { !$0.isEmpty }
-        self.hiddenImageList = self.imageListSubject.filter { $0.isEmpty }.map { _ in () }
-        self.hotComment = self.hotShortSubject.filter { $0 != nil && $0!.commentInfo != nil }.map { $0! }
-        self.hiddenHotComment = self.hotShortSubject.filter { $0 == nil || $0!.commentInfo == nil }.map { _ in () }
-        self.topicTitle = self.circleTagSubject.filter { $0 != nil && !$0!.isEmpty }.map { $0! }
-        self.hiddenTopic = self.circleTagSubject.filter { $0 == nil || $0!.isEmpty  }.map { _ in () }
-        self.digUsers = self.digUesrSubject.filter { !$0.isEmpty }
-        self.hiddenDigUsers = self.digUesrSubject.filter { $0.isEmpty }.map { _ in () }
-        self.commentCount = self.commentCountSubject.asObserver()
-        self.likeButton = self.likeInfoSubject.asObserver()
-
-        self.changeLikeStatus = self.changeLikeStatusSubject.asObserver()
-        self.digged = self.diggSubject.asObservable()
-        self.unDigged = self.unDiggSubject.asObserver()
-        self.reloadDiggCount = self.reloadLikeCountSubject.asObserver()
+        self.changeLikeStatus = self.changeLikeStatusSubject.eraseToAnyPublisher()
+        self.digged = self.diggSubject.eraseToAnyPublisher()
+        self.unDigged = self.unDiggSubject.eraseToAnyPublisher()
+        self.reloadDiggCount = self.reloadLikeCountSubject.eraseToAnyPublisher()
     }
 
-// MARK: - input
+// MARK: - inputs
 
     func configure(with model: DynamicListModel) {
         if let remote = model.authorUserInfo?.avatarLarge {
-            avatarImageSubject.onNext(URL(string: remote))
+            avatarImageSubject.send(URL(string: remote))
         } else {
-            avatarImageSubject.onNext(nil)
+            avatarImageSubject.send(nil)
         }
 
         showNickname(model.authorUserInfo?.userName ?? "")
         showSubTitle(with: model.authorUserInfo?.jobTitle, time: model.msgInfo?.ctime)
         showComment(content: model.msgInfo?.content)
 
-        imageListSubject.onNext(model.wrappedPictureList)
+        imageListSubject.send(model.wrappedPictureList)
 
-        hotShortSubject.onNext(model.hotComment)
+        hotShortSubject.send(model.hotComment)
 
-        circleTagSubject.onNext(model.topic?.title)
+        circleTagSubject.send(model.topic?.title)
 
-        digUesrSubject.onNext(model.diggUser ?? [])
+        digUesrSubject.send(model.diggUser ?? [])
 
         let commentCount = model.msgInfo?.commentCount.jjStringValue ?? ""
-        commentCountSubject.onNext(commentCount)
+        commentCountSubject.send(commentCount)
 
         let likeButtonType = LikeButtonType(rawValue: model.topic?.topicId.jjStringValue ?? "like") ?? .like
         let likeCount = model.msgInfo?.diggCount.jjStringValue ?? ""
-        likeInfoSubject.onNext((likeCount, likeButtonType.normalImage, likeButtonType.selectedImage))
-
+        likeInfoSubject.send((likeCount, likeButtonType.normalImage, likeButtonType.selectedImage))
     }
 
-    private let changeLikeStatusSubject = PublishSubject<Bool>()
-    private let diggSubject = PublishSubject<AuthorUserInfo>()
-    private let unDiggSubject = PublishSubject<Void>()
+    private let changeLikeStatusSubject = PassthroughSubject<Bool, Never>()
+    private let diggSubject = PassthroughSubject<AuthorUserInfo, Never>()
+    private let unDiggSubject = PassthroughSubject<Void, Never>()
     func likeButtonAction(isLike: Bool) {
-        // Note: - 这里要根据产品设计进行交互; 例如这里直接修改点赞状态在发送到网络
-        // DONE: - 不再拆分成点赞后 inputs,直接返回
-        // FIXED: - 拆分出了 DataSource, VM 中只做数据包装不做 model 的存储
-        changeLikeStatusSubject.onNext(!isLike)
+        changeLikeStatusSubject.send(!isLike)
         if isLike {
-            unDiggSubject.onNext(())
+            unDiggSubject.send(())
         } else {
             let user = AuthorUserInfo(avatar: "https://p6-passport.byteacctimg.com/img/user-avatar/ff972697d827eaa236f21985670fe0fa~300x300.image")
-            diggSubject.onNext(user)
+            diggSubject.send(user)
         }
-
-        // 这里模仿网络请求
-        Observable<Void>.just(()).delay(.milliseconds(500), scheduler: MainScheduler.asyncInstance).subscribe(onNext: { _ in
-            //  点赞成功. 失败不作处理!
-        }).disposed(by: disposeBag)
     }
 
     func reloadDiggUesrs(_ users: [AuthorUserInfo]) {
-        digUesrSubject.onNext(users)
+        digUesrSubject.send(users)
     }
 
-    private let reloadLikeCountSubject = PublishSubject<String>()
+    private let reloadLikeCountSubject = PassthroughSubject<String, Never>()
     func reloadLikeCount(_ count: Int) {
         let countStr = count > 0 ? "\(count)" : ""
-        reloadLikeCountSubject.onNext(countStr)
+        reloadLikeCountSubject.send(countStr)
     }
 
 // MARK: - Outputs
 
-    let avatarUrl: Observable<URL?>
-    let nickname: Observable<NSAttributedString>
-    let position: Observable<NSAttributedString>
-    let recommendContent: Observable<NSAttributedString>
-    let hotComment: Observable<HotComment>
-    let hiddenHotComment: Observable<Void>
-    let imageList: Observable<[String]>
-    let hiddenImageList: Observable<Void>
-    let topicTitle: Observable<String>
-    let hiddenTopic: Observable<Void>
-    let digUsers: Observable<[AuthorUserInfo]>
-    let hiddenDigUsers: Observable<Void>
-    let commentCount: Observable<String>
-    let likeButton: Observable<(String, UIImage?, UIImage?)>
+    let avatarUrl: AnyPublisher<URL?, Never>
+    let nickname: AnyPublisher<NSAttributedString, Never>
+    let position: AnyPublisher<NSAttributedString, Never>
+    let recommendContent: AnyPublisher<NSAttributedString, Never>
+    let hotComment: AnyPublisher<HotComment, Never>
+    let hiddenHotComment: AnyPublisher<Void, Never>
+    let imageList: AnyPublisher<[String], Never>
+    let hiddenImageList: AnyPublisher<Void, Never>
+    let topicTitle: AnyPublisher<String, Never>
+    let hiddenTopic: AnyPublisher<Void, Never>
+    let digUsers: AnyPublisher<[AuthorUserInfo], Never>
+    let hiddenDigUsers: AnyPublisher<Void, Never>
+    let commentCount: AnyPublisher<String, Never>
+    let likeButton: AnyPublisher<(String, UIImage?, UIImage?), Never>
 
-    let changeLikeStatus: Observable<Bool>
-    let digged: Observable<AuthorUserInfo>
-    let unDigged: Observable<Void>
-    let reloadDiggCount: Observable<String>
+    let changeLikeStatus: AnyPublisher<Bool, Never>
+    let digged: AnyPublisher<AuthorUserInfo, Never>
+    let unDigged: AnyPublisher<Void, Never>
+    let reloadDiggCount: AnyPublisher<String, Never>
 
 // MARK: - DynamicListCellNodeModelType
 
     var input: DynamicListCellNodeModelInputs { self }
     var output: DynamicListCellNodeModelOutputs { self }
+
 }
+
 
 // MARK: - 数据组装
 
@@ -198,7 +185,7 @@ fileprivate extension DynamicListCellNodeModel {
             .font: UIFont.systemFont(ofSize: 15, weight: .medium) //UIFont.lfSystemMediumFont(size: 15)
         ]
         let attStr = NSAttributedString(string: name, attributes: nicknameAttr)
-        nicknameSubject.onNext(attStr)
+        nicknameSubject.send(attStr)
     }
 
     func showSubTitle(with jobTitle: String?, time: String?) {
@@ -217,18 +204,14 @@ fileprivate extension DynamicListCellNodeModel {
             .font: UIFont.systemFont(ofSize: 11, weight: .regular)//UIFont.lfSystemFont(size: 11)
         ]
         let attStr = NSAttributedString(string: value, attributes: positionAttr)
-        positionSubject.onNext(attStr)
+        positionSubject.send(attStr)
     }
 
     func showComment(content: String?) {
         guard let content = content else {
-            return recommendContentSubject.onNext(NSAttributedString(string: ""))
+            recommendContentSubject.send(NSAttributedString(string: ""))
+            return
         }
-
-        /*
-        // FIXED: - 已经抽取到 EmojiAttributedProvider 中
-        let resultAttStr = NSMutableAttributedString(string: contnent, attributes: attr)
-        */
 
         DispatchQueue.global(qos: .default).async {
             let font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -254,7 +237,7 @@ fileprivate extension DynamicListCellNodeModel {
             // FIXME: - 对于使用 UITableViewCell 的情况, 请在 model 中添加缓存, 避免重复计算!!!
             let resultAttStr = EmojiAttributedProvider.shared.generateEmojiAttributedString(from: content, attributed: attr, imageHeihg: font.lineHeight)
 
-            self.recommendContentSubject.onNext(resultAttStr)
+            self.recommendContentSubject.send(resultAttStr)
         }
     }
 }

@@ -23,7 +23,7 @@ struct XTListResultModel: Codable {
     let data : [DynamicListModel]?
     let errMsg : String?
     let errNo : Int?
-    let hasMore : Bool?
+    let hasMore : Bool
 
     enum CodingKeys: String, CodingKey {
         case count = "count"
@@ -41,45 +41,47 @@ struct XTListResultModel: Codable {
         data = try values.decodeIfPresent([DynamicListModel].self, forKey: .data)
         errMsg = try values.decodeIfPresent(String.self, forKey: .errMsg)
         errNo = try values.decodeIfPresent(Int.self, forKey: .errNo)
-        hasMore = try values.decodeIfPresent(Bool.self, forKey: .hasMore)
+        hasMore = (try? values.decodeIfPresent(Bool.self, forKey: .hasMore)) ?? false
+    }
+
+    init() {
+        self.count = 0
+        self.cursor = nil
+        self.data = nil
+        self.errMsg = "No data!"
+        self.errNo = 404
+        self.hasMore = false
+    }
+}
+
+struct CurcosInfoModel: Codable {
+    let point: String?
+    var length: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case point = "v"
+        case length = "i"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        point = try values.decodeIfPresent(String.self, forKey: .point)
+        length = try values.decodeIfPresent(Int.self, forKey: .length)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(point, forKey: .point)
+        try container.encodeIfPresent(length, forKey: .length)
     }
 }
 
 extension XTListResultModel {
 
-    struct CurcosInfoModel: Codable {
-        let point: String?
-        var length: Int?
-
-        enum CodingKeys: String, CodingKey {
-            case point = "v"
-            case length = "i"
-        }
-
-        init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: CodingKeys.self)
-            point = try values.decodeIfPresent(String.self, forKey: .point)
-            length = try values.decodeIfPresent(Int.self, forKey: .length)
-        }
-
-        func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            try container.encodeIfPresent(point, forKey: .point)
-            try container.encodeIfPresent(length, forKey: .length)
-        }
-
-        /// 不要使用,仅用于测试
-        /*var stringValue: String {
-            guard let point = point, let length = length, length != 0 else { return "" }
-
-            return "{\"v\":\"\(point)\",\"i\":\(length)}"
-        }*/
-    }
-
     var cursorInfoSting: String {
         guard let cursor = cursor else { return "" }
 
-       guard let jsonData = Data(base64Encoded: cursor, options: .ignoreUnknownCharacters) else { return "" }
+        guard let jsonData = Data(base64Encoded: cursor, options: .ignoreUnknownCharacters) else { return "" }
         let jsonDecoder = JSONDecoder()
 
         guard var infoModel = try? jsonDecoder.decode(CurcosInfoModel.self, from: jsonData) else {
@@ -95,7 +97,7 @@ extension XTListResultModel {
     }
 }
 
-struct DynamicListModel : Codable {
+final class DynamicListModel : Codable {
 
     let authorUserInfo : AuthorUserInfo?
     var diggUser : [AuthorUserInfo]?
@@ -104,7 +106,6 @@ struct DynamicListModel : Codable {
     let msgId : String?
     let topic : Topic?
     var userInteract : UserInteractModel?
-
 
     var wrappedPictureList: [String] {
         return msgInfo?.picList ?? []
@@ -369,31 +370,31 @@ struct UserInteractModel : Codable {
 
 extension DynamicListModel {
 
-    mutating func appendDigger(with avatar: String) {
+    func appendDigger(with avatar: String) {
         let user = AuthorUserInfo(avatar: avatar)
         self.appendDigger(user)
     }
 
-    mutating func appendDigger(_ user: AuthorUserInfo) {
+    func appendDigger(_ user: AuthorUserInfo) {
         var users = self.diggUser ?? []
         users.append(user)
         self.diggUser = users
     }
 
-    mutating func popLastDigger() -> AuthorUserInfo? {
+    func popLastDigger() -> AuthorUserInfo? {
         guard var users = self.diggUser, !users.isEmpty else { return nil }
         let digger = users.popLast()
         self.diggUser = users
         return digger
     }
 
-    mutating func diggdynamic() {
+    func diggdynamic() {
         self.userInteract?.isDigg = true
         let count = self.msgInfo?.diggCount ?? 0
         self.msgInfo?.diggCount = count + 1
     }
 
-    mutating func unDiggdynamic() {
+    func unDiggdynamic() {
         self.userInteract?.isDigg = false
         let coun = self.msgInfo?.diggCount ?? 1
         self.msgInfo?.diggCount = coun - 1

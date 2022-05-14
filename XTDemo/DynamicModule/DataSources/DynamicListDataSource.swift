@@ -20,8 +20,8 @@ import AsyncDisplayKit
 
 final class DynamicListDataSource: NSObject, ASTableDataSource {
 
-    private var commendList: [DynamicListModel] = []
-    private var wrappedModel: XTListResultModel? = nil
+    private var commendList: [DynamicDisplayType] = []
+    private var wrappedModel: DynamicDisplayModel? = nil
 
 // MARK: - 数据操作
 
@@ -29,22 +29,27 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
         return wrappedModel?.cursor ?? "0"
     }
 
-    func newData(from wrapped: XTListResultModel) {
+    var needHotDynamic: Bool {
+        return (10..<30).contains(commendList.count)
+    }
+
+    func newData(from wrapped: DynamicDisplayModel) {
         wrappedModel = wrapped
         commendList.removeAll()
-        commendList.append(contentsOf: wrapped.data ?? [])
+        commendList.append(contentsOf: wrapped.displayModels)
     }
 
     // FIXED: - NO Callback
     // func moreData(from wrapped: XTListResultModel, callback: ([IndexPath]) -> Void) {
-    func moreData(from wrapped: XTListResultModel) -> [IndexPath] {
+    func moreData(from wrapped: DynamicDisplayModel) -> [IndexPath] {
         // FIXED: - 进行数据完整性验证!
         guard let cursor = wrappedModel?.cursorInfoSting else { return [] }
         guard cursor == wrapped.cursor else { return [] }
 
         wrappedModel = wrapped
+        let list = wrapped.displayModels
 
-        guard let list = wrapped.data else { return [] }
+        guard !list.isEmpty else { return [] }
 
         let startRow = commendList.count
         let endRow = startRow + list.count
@@ -62,13 +67,26 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
     }
 
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return commendList.count// == 0 ? 0 : 1
+        return commendList.count// == 0 ? 0 : 2
     }
 
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let cellNode = DynamicListCellNode()
-        cellNode.configure(with: commendList[indexPath.row])
-        return cellNode
+        let model = commendList[indexPath.row]
+
+        switch model {
+        case .dynamic(let dynModel):
+            let cellNode = DynamicListCellNode()
+            cellNode.configure(with: dynModel)
+            return cellNode
+        case .topicList(let topic):
+            let cellNoed = DynamicTopicWrapperCellNode()
+            cellNoed.configure(with: topic)
+            return cellNoed
+        case .hotList(let list):
+            let cellNode = DynamicListCellNode()
+            cellNode.configure(with: list[0])
+            return cellNode
+        }
     }
 }
 

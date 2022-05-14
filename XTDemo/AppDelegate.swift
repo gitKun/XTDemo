@@ -15,18 +15,19 @@
 
 import UIKit
 import AsyncDisplayKit
+import Nuke
 
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         debugPrint(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last ?? "Document path => Error! ____#")
 
         appearanceSetting()
+        Nuke.ImagePipeline.shared = Nuke.ImagePipeline(configuration: .withDataCache)
+        ASDisableLogging()
 
         return true
     }

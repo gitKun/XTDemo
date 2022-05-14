@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 import AsyncDisplayKit
-import Kingfisher
+
 
 final class XTOnlyImageCollectionNode: ASCellNode {
 
@@ -54,7 +54,7 @@ extension XTOnlyImageCollectionNode {
 
     func configure(with remotePath: String?) {
         if let remotePath = remotePath, let url = URL(string: remotePath) {
-            imageNode.kf.setImage(with: url, placeholder: nil, failureImage: nil)
+            imageNode.setImage(with: .jjListImageRequest(with: url, size: CGSize(width: 220, height: 220)))
         } else {
             // TODO: - 设置失败的图片
             imageNode.backgroundColor = .randomWithoutAlpha
