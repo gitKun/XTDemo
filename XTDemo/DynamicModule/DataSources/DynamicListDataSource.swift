@@ -14,11 +14,11 @@
 */
 
 import Foundation
-import AsyncDisplayKit
+import UIKit
 
-/// 为沸点列表 tableNode 提供数据, 遵守 ASTableDataSource 协议
 
-final class DynamicListDataSource: NSObject, ASTableDataSource {
+/// 为沸点列表 UITableView 提供数据, 遵守 UITableViewDataSource 协议
+final class DynamicListDataSource: NSObject, UITableViewDataSource {
 
     private var commendList: [DynamicDisplayType] = []
     private var wrappedModel: DynamicDisplayModel? = nil
@@ -39,7 +39,6 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
         commendList.append(contentsOf: wrapped.displayModels)
     }
 
-    // FIXED: - NO Callback
     // func moreData(from wrapped: XTListResultModel, callback: ([IndexPath]) -> Void) {
     func moreData(from wrapped: DynamicDisplayModel) -> [IndexPath] {
         // FIXED: - 进行数据完整性验证!
@@ -62,31 +61,28 @@ final class DynamicListDataSource: NSObject, ASTableDataSource {
 
 // MARK: - ASTableDataSource
 
-    func numberOfSections(in tableNode: ASTableNode) -> Int {
-        return 1
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
     }
 
-    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return commendList.count// == 0 ? 0 : 2
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        commendList.count// == 0 ? 0 : 2
     }
 
-    func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let model = commendList[indexPath.row]
 
         switch model {
         case .dynamic(let dynModel):
-            let cellNode = DynamicListCellNode()
-            cellNode.configure(with: dynModel)
-            return cellNode
+            print("\(dynModel.msgId ?? "")")
         case .topicList(let topic):
-            let cellNoed = DynamicTopicWrapperCellNode()
-            cellNoed.configure(with: topic)
-            return cellNoed
+            print("\(topic.count)")
         case .hotList(let list):
-            let cellNode = DynamicListCellNode()
-            cellNode.configure(with: list[0])
-            return cellNode
+            print("\(list.count)")
         }
+
+        return UITableViewCell.init(style: .default, reuseIdentifier: "")
     }
 }
 

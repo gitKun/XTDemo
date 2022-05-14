@@ -14,12 +14,12 @@
 */
 
 import Foundation
-import AsyncDisplayKit
 import Moya
 import Combine
 import MJRefresh
 
-class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
+
+class TextureDemoViewController: UIViewController {
 
 // MARK: - 成员变量
 
@@ -30,25 +30,11 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
 
 // MARK: - 生命周期 & override
 
-    override init() {
-        let node = ASDisplayNode.init()
-        node.backgroundColor = .white
-        node.addSubnode(self.tableNode)
-        super.init(node: node)
-
-        node.layoutSpecBlock = { [unowned self] node, constrainedSize in
-            return ASInsetLayoutSpec(insets: .zero, child: self.tableNode)
-        }
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initializeUI()
+        setupUI()
         eventListen()
         bindViewModel()
 
@@ -65,14 +51,6 @@ class TextureDemoViewController: ASDKViewController<ASDisplayNode> {
     }
 
 // MARK: - UI 属性
-
-    private let tableNode: ASTableNode = {
-        let node = ASTableNode.init()
-        node.backgroundColor = .clear
-        node.leadingScreensForBatching = 4
-        node.view.separatorStyle = .none
-        return node
-    }()
 
     private var mjHeader: MJRefreshHeader!
     private var mjFooter: MJRefreshFooter!
@@ -100,7 +78,7 @@ private extension TextureDemoViewController {
     func reloadData(with list: [DynamicDisplayType]) {
         self.mjFooter.isHidden = false
         self.modelList = list
-        self.tableNode.reloadData()
+        //self.tableView.reloadData()
     }
 }
 
@@ -115,13 +93,6 @@ extension TextureDemoViewController {
                 self?.reloadData(with: list)
             }
             .store(in: &cancellable)
-
-        // 测试多次订阅,
-        /*viewModel.output.newDataPublisher
-            .sink { list in
-                print(list[1])
-            }
-            .store(in: &cancellable)*/
 
         let headerSubscriber = mjHeader.subscriber()
         headerSubscriber.store(in: &cancellable)
@@ -147,72 +118,19 @@ extension TextureDemoViewController {
     }
 }
 
-// MARK: - ASTableDelegate
-
-extension TextureDemoViewController: ASTableDelegate {
-    
-}
-
-// MARK: - ASTableDataSource
-
-extension TextureDemoViewController: ASTableDataSource {
-
-    func numberOfSections(in tableNode: ASTableNode) -> Int { 1 }
-
-    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        modelList.count// == 0 ? 0 : 2
-    }
-
-    // 有个 block 版本的, 异步返回 cellNode 时使用, 非 block 版本默认在主线程创建 cellNode
-    func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let model = modelList[indexPath.row]
-
-        switch model {
-        case .dynamic(let dynModel):
-            let cellNode = DynamicListCellNode()
-            cellNode.configure(with: dynModel)
-            cellNode.delegate = self
-            return cellNode
-        case .topicList(let topic):
-            let cellNoed = DynamicTopicWrapperCellNode()
-            cellNoed.configure(with: topic)
-            return cellNoed
-        case .hotList(let list):
-            let cellNode = DynamicListCellNode()
-            cellNode.configure(with: list[0])
-            cellNode.delegate = self
-            return cellNode
-        }
-    }
-}
-
-// MARK: - DynamicListCellNodeDelegate
-
-extension TextureDemoViewController: DynamicListCellNodeDelegate {
-
-    func listCellNode(_ cellNodel: DynamicListCellNode, showDiggForMsg: String?) {
-        showToast("需要实现跳转到列表界面!")
-    }
-
-    func listCellNode(_ cellNodel: DynamicListCellNode, selectedView: UIView, selectedImage at: Int, allImages: [String]) {
-        let imgUrls: [URL] = allImages.compactMap { URL(string: $0) }
-        let idx = imgUrls.count > at ? at : 0
-        showXTPhotoBrowser(from: selectedView, imagesUrl: imgUrls, selsctIndex: idx)
-    }
-}
-
 // MARK: - 布局UI元素
 
 extension TextureDemoViewController {
 
-    func initializeUI() {
+    func setupUI() {
         navigationItem.title = "Texture 部分示例"
 
-        // 设置 tableNode
-        self.tableNode.view.separatorInset = .init(top: 0, left: 0, bottom: 20, right: 0)
-        self.tableNode.delegate = self
-        self.tableNode.dataSource = self
-        self.tableNode.contentInset = .init(top: 0, left: 0, bottom: k_dr_BottomSafeHeight + 10, right: 0)
+        #if false
+        // 设置 tableView
+        self.tableView.separatorInset = .init(top: 0, left: 0, bottom: 20, right: 0)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.contentInset = .init(top: 0, left: 0, bottom: k_dr_BottomSafeHeight + 10, right: 0)
 
         // 设置 mj_header
         let header = DrRefreshNormalHeader()
@@ -220,13 +138,14 @@ extension TextureDemoViewController {
         header.setTitle("松开即可更新", for: .pulling)
         header.setTitle("数据加载中", for: .refreshing)
         header.lastUpdatedTimeLabel?.isHidden = true
-        tableNode.view.mj_header = header
+        tableView.view.mj_header = header
         mjHeader = header
 
         // 设置 mj_footer
         let footer = MJRefreshBackNormalFooter()
-        self.tableNode.view.mj_footer = footer
-        self.mjFooter = footer
+        tableView.view.mj_footer = footer
+        mjFooter = footer
         footer.isHidden = true
+        #endif
     }
 }

@@ -2,7 +2,7 @@
 /*
 * ****************************************************************
 *
-* 文件名称 : DynamicListCellCombineNodeModel
+* 文件名称 : DynamicListCellModel
 * 作   者 : Created by 坤
 * 创建时间 : 2022/4/11 13:23
 * 文件描述 : 
@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 import Combine
 
-protocol DynamicListCellNodeModelInputs {
+protocol DynamicListCellModelInputs {
 
     func configure(with model: DynamicListModel)
 
@@ -28,7 +28,7 @@ protocol DynamicListCellNodeModelInputs {
     func reloadLikeCount(_ count: Int)
 }
 
-protocol DynamicListCellNodeModelOutputs {
+protocol DynamicListCellModelOutputs {
 
     var avatarUrl: AnyPublisher<URL?, Never> { get }
     var nickname: AnyPublisher<NSAttributedString, Never> { get }
@@ -51,13 +51,13 @@ protocol DynamicListCellNodeModelOutputs {
     var reloadDiggCount: AnyPublisher<String, Never> { get }
 }
 
-protocol DynamicListCellNodeModelType {
-    var input: DynamicListCellNodeModelInputs { get }
-    var output: DynamicListCellNodeModelOutputs { get }
+protocol DynamicListCellModelType {
+    var input: DynamicListCellModelInputs { get }
+    var output: DynamicListCellModelOutputs { get }
 }
 
 
-final class DynamicListCellNodeModel: DynamicListCellNodeModelType, DynamicListCellNodeModelInputs, DynamicListCellNodeModelOutputs {
+final class DynamicListCellModel: DynamicListCellModelType, DynamicListCellModelInputs, DynamicListCellModelOutputs {
 
     // @Published var avatarImageUrl: URL? = nil
     private let avatarImageSubject = PassthroughSubject<URL?, Never>()
@@ -167,17 +167,17 @@ final class DynamicListCellNodeModel: DynamicListCellNodeModelType, DynamicListC
     let unDigged: AnyPublisher<Void, Never>
     let reloadDiggCount: AnyPublisher<String, Never>
 
-// MARK: - DynamicListCellNodeModelType
+// MARK: - DynamicListCellModelType
 
-    var input: DynamicListCellNodeModelInputs { self }
-    var output: DynamicListCellNodeModelOutputs { self }
+    var input: DynamicListCellModelInputs { self }
+    var output: DynamicListCellModelOutputs { self }
 
 }
 
 
 // MARK: - 数据组装
 
-fileprivate extension DynamicListCellNodeModel {
+fileprivate extension DynamicListCellModel {
 
     func showNickname(_ name: String) {
         let nicknameAttr: [NSAttributedString.Key: Any] = [
@@ -222,8 +222,6 @@ fileprivate extension DynamicListCellNodeModel {
             paragraph.alignment = .justified
             // 首行缩进2字符
             // paragraph.firstLineHeadIndent = font.pointSize * 2
-            // FIXME: - 对于 ASTextNode 会覆盖 truncationMode, 对于 ASTestNode2 则不起作用
-            // paragraph.lineBreakMode = .byClipping
 
             let baselineOffset = (lineHeight  - font.lineHeight) / 4
 

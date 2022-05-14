@@ -2,7 +2,7 @@
 /*
 * ****************************************************************
 *
-* 文件名称 : DynamicListCellNodeDataSource
+* 文件名称 : DynamicListCellDataSource
 * 作   者 : Created by 坤
 * 创建时间 : 2022/3/23 7:30 PM
 * 文件描述 : 
@@ -14,9 +14,10 @@
 */
 
 import Foundation
-import AsyncDisplayKit
+import UIKit
 
-final class DynamicListCellNodeDataSource: NSObject, ASCollectionDataSource {
+
+final class DynamicListCellDataSource: NSObject, UICollectionViewDataSource {
 
 // MARK: - 属性
 
@@ -71,19 +72,18 @@ final class DynamicListCellNodeDataSource: NSObject, ASCollectionDataSource {
         model.unDiggdynamic()
     }
 
-// MARK: - ASCollectionDataSource
+// MARK: - UICollectionViewDataSource
 
-    func numberOfSections(in collectionNode: ASCollectionNode) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
 
-    func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         imageArray.count
     }
 
-    func collectionNode(_ collectionNode: ASCollectionNode, nodeForItemAt indexPath: IndexPath) -> ASCellNode {
-        let cellNode = XTOnlyImageCollectionNode()
-        cellNode.configure(with: imageArray[indexPath.row])
-        return cellNode
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell.init(frame: .zero)
+        // TODO: - 设置 cell
     }
 }

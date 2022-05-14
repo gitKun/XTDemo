@@ -15,6 +15,7 @@
 
 import Foundation
 import UIKit
+import Nuke
 
 extension String {
 
@@ -99,5 +100,31 @@ extension UIEdgeInsets {
 
     static func all(_ value: CGFloat) -> UIEdgeInsets {
         return .init(top: value, left: value, bottom: value, right: value)
+    }
+}
+
+// MARK: - NukeExt
+
+extension ImageRequest {
+
+    /// default size: (111, 111)
+    static func jjListImageRequest(with url: URL?, size: CGSize) -> ImageRequest {
+        let processors: [ImageProcessing] = [
+            ImageProcessors.Resize(size: size, unit: .points, contentMode: .aspectFit, crop: true, upscale: false)
+        ]
+        let request = ImageRequest(url: url, processors: processors, priority: .normal, userInfo: nil)
+
+        return request
+    }
+
+    /// default width: 40
+    static func jjListAvatarImageRequest(with url: URL?, width: CGFloat) -> ImageRequest {
+        let processors: [ImageProcessing] = [
+            ImageProcessors.Resize(size: CGSize(width: width, height: width), unit: .points, contentMode: .aspectFit, crop: true, upscale: false),
+            ImageProcessors.Circle(border: nil)
+        ]
+        let request = ImageRequest(url: url, processors: processors)
+
+        return request
     }
 }

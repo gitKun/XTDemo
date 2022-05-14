@@ -14,7 +14,6 @@
 */
 
 import UIKit
-import AsyncDisplayKit
 import Nuke
 
 
@@ -27,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         appearanceSetting()
         Nuke.ImagePipeline.shared = Nuke.ImagePipeline(configuration: .withDataCache)
-        ASDisableLogging()
 
         return true
     }

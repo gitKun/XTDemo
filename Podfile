@@ -9,9 +9,6 @@ target 'XTDemo' do
 
   # Pods for XTDemo
 
-  # '3.1.0'
-  pod 'Texture'
-
   # '15.0.0'
   pod 'Moya/Combine'
   
@@ -30,4 +27,12 @@ target 'XTDemo' do
   # 10.7.1
   pod 'Nuke'
 
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.1'
+    end
+  end
 end
