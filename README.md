@@ -9,3 +9,4 @@
 
 	* [Swift Package Manager](https://www.swift.org/package-manager/) 对弱网环境支持不太好，并且太占用存储空间
 	* `Texture` 有点重...
+	* 仍然保持了 `SUN` 和 `MOON` 分支上的 `Texture` 实现
