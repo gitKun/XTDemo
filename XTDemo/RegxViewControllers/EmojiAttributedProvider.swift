@@ -49,7 +49,7 @@ class EmojiAttributedProvider {
     private var themeRegx: NSRegularExpression!
 
     private init() {
-        self.initialzeRegularExpressions()
+        self.setupRegularExpressions()
         self.loadEmojiInfo()
     }
 }
@@ -58,7 +58,7 @@ class EmojiAttributedProvider {
 
 extension EmojiAttributedProvider {
 
-    private func initialzeRegularExpressions() {
+    private func setupRegularExpressions() {
         let regexOp = NSRegularExpression.Options.caseInsensitive
 
         do {

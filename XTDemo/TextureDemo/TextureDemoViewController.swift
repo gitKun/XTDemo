@@ -14,6 +14,7 @@
 */
 
 import Foundation
+import UIKit
 import Moya
 import Combine
 import MJRefresh
@@ -52,6 +53,7 @@ class TextureDemoViewController: UIViewController {
 
 // MARK: - UI 属性
 
+    private var tableView: UITableView!
     private var mjHeader: MJRefreshHeader!
     private var mjFooter: MJRefreshFooter!
 }
@@ -78,7 +80,7 @@ private extension TextureDemoViewController {
     func reloadData(with list: [DynamicDisplayType]) {
         self.mjFooter.isHidden = false
         self.modelList = list
-        //self.tableView.reloadData()
+        self.tableView.reloadData()
     }
 }
 
@@ -115,8 +117,36 @@ extension TextureDemoViewController {
                 self?.toast.showCenter(message: msg)
             }
             .store(in: &cancellable)
+   }
+}
+
+// MAKR: - UITableViewDatasource
+
+extension TextureDemoViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        15//modelList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DynamicListCell.reusIdentify, for: indexPath)
+        if let listCell = cell as? DynamicListCell {
+            listCell.testShow(row: indexPath.row)
+        }
+        return cell
     }
 }
+
+// MARK: - UITableViewDelegate
+
+extension TextureDemoViewController: UITableViewDelegate {
+
+}
+
 
 // MARK: - 布局UI元素
 
@@ -125,12 +155,22 @@ extension TextureDemoViewController {
     func setupUI() {
         navigationItem.title = "Texture 部分示例"
 
-        #if false
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
         // 设置 tableView
-        self.tableView.separatorInset = .init(top: 0, left: 0, bottom: 20, right: 0)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.contentInset = .init(top: 0, left: 0, bottom: k_dr_BottomSafeHeight + 10, right: 0)
+        tableView.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 10/*DrLayoutInfo.bottomSafeHeight + 10*/, right: 0)
+        tableView.register(DynamicListCell.self, forCellReuseIdentifier: DynamicListCell.reusIdentify)
 
         // 设置 mj_header
         let header = DrRefreshNormalHeader()
@@ -138,14 +178,13 @@ extension TextureDemoViewController {
         header.setTitle("松开即可更新", for: .pulling)
         header.setTitle("数据加载中", for: .refreshing)
         header.lastUpdatedTimeLabel?.isHidden = true
-        tableView.view.mj_header = header
+        tableView.mj_header = header
         mjHeader = header
 
         // 设置 mj_footer
         let footer = MJRefreshBackNormalFooter()
-        tableView.view.mj_footer = footer
+        tableView.mj_footer = footer
         mjFooter = footer
         footer.isHidden = true
-        #endif
     }
 }
