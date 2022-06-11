@@ -18,7 +18,9 @@ import UIKit
 
 
 fileprivate let testString = #"""
- 谁推的夜的命名术，看上瘾了，赔钱![黑脸]. 钱不太到位，[吐舌]工资分两次发[不看]. 你们买零食大礼包吗，买哪家的 多少钱[不失礼貌的微笑],只是不买大礼包，大礼包搭配的不一定都是爱吃的呀[白眼的狗]。一般都是去超市或者便利店或者零食店，或者李佳琦直播间买。比如近俩月入了佳琦推荐的黑枸杞，桂圆干，鱿鱼条，鱼皮花生豆，西梅干，脆皮热狗肠，哈尔滨红肠，满*饱米线，柳州螺蛳粉，藤*鸭舌，腰果，松子，蛋黄酥，鸡蛋酥。然后逛超市会买些巧克力，软糖，罐头，逛零食店会买散装的小包辣条，鸡爪，鸭掌，面筋，麻辣肉，火鸡面啥的。哈哈哈哈哈我不是给佳琦打广告可是真的很实惠啊，而且他叫我美眉诶[泣不成声]
+![黑脸].钱不太到位，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰][吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰][不看].  [吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰]，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] ，能把钱都拿回来吗？ [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，女方，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰]，凌晨两三点才能睡， [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，婚，不联系啥的[骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] 领证了，没有办酒席
+ 刚领证，最近一直吵架，离婚能把彩礼，和买房的首付三十多万，房子只写了女方的名字 ，能把钱都拿回来吗？ [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，女方，一直在说分手，不联系，离婚之类的话，而且大晚上吵，凌晨两三点才能睡， 烦的感觉快受不了了，想同意了她说的 离婚，不联系啥的[骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] 领证了，没有办酒席，也没在一[不失礼貌的微笑]起住.[吐舌][吐舌][吐舌][吐舌]![黑脸].钱不太到位，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰][吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰][不看].  [吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰]，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] ，能把钱都拿回来吗？ [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，女方，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰]，凌晨两三点才能睡， [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，婚，不联系啥的[骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] 领证了，没有办酒席
+ 刚领证，最近一直吵架，离婚能把彩礼，和买房的首付三十多万，房子只写了女方的名字 ，能把钱都拿回来吗？ [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，女方，一直在说分手，不联系，离婚之类的话，而且大晚上吵，凌晨两三点才能睡， 烦的感觉快受不了了，想同意了她说的 离婚，不联系啥的[骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] 领证了，没有办酒席，也没在一[不失礼貌的微笑]起住.[吐舌][吐舌][吐舌][吐舌]![黑脸].钱不太到位，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰][吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰][不看].  [吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰]，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] ，能把钱都拿回来吗？ [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，女方，[吐舌][骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰]，凌晨两三点才能睡， [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，婚，不联系啥的[骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] 领证了，没有办酒席
  刚领证，最近一直吵架，离婚能把彩礼，和买房的首付三十多万，房子只写了女方的名字 ，能把钱都拿回来吗？ [骷髅][骷髅][骷髅][衰][骷髅][衰] 最近一直吵架，女方，一直在说分手，不联系，离婚之类的话，而且大晚上吵，凌晨两三点才能睡， 烦的感觉快受不了了，想同意了她说的 离婚，不联系啥的[骷髅][衰][骷髅][衰][衰][骷髅][衰][骷髅][衰] 领证了，没有办酒席，也没在一[不失礼貌的微笑]起住.[吐舌][吐舌][吐舌][吐舌][70207195222222288819#一句话惹恼程序员#]
 """#
 
@@ -42,6 +44,81 @@ class SimpleRegxViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        guard let attributedString = infoLabel.attributedText else { return }
+
+        print("======= BEGAIN =======")
+        let framesetter = CTFramesetterCreateWithAttributedString(attributedString as CFAttributedString)
+        let limitSize = CGSize(width: infoLabel.bounds.width, height: 0xFFFFFF)
+        let fitsize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, attributedString.length), nil, limitSize, nil)
+        print("计算的 size = \(fitsize), 约束得到的 size = \(infoLabel.bounds.size)")
+        print("======= END =======")
+
+        calculateHeight1(for: attributedString, width: infoLabel.bounds.width)
+        calculateHeight2(for: attributedString, width: infoLabel.bounds.width)
+        calculateHeight3(for: attributedString, width: infoLabel.bounds.width)
+    }
+
+    func calculateHeight1(for attributedStirng: NSAttributedString, width: CGFloat) {
+        let framesetter = CTFramesetterCreateWithAttributedString(attributedStirng as CFAttributedString)
+        let height: CGFloat = 0xFFFFFF
+        let drawRact = CGRect(x: 0, y: 0, width: width, height: height)
+        let cgPath = CGMutablePath()
+        cgPath.addRect(drawRact)
+        let textFrame = CTFramesetterCreateFrame(framesetter, .init(location: 0, length: 0), cgPath, nil)
+        let lines = CTFrameGetLines(textFrame) as! [CTLine]
+        let lineCount = lines.count//CFArrayGetCount(lines)
+        var lineOrigins: [CGPoint] = Array(repeating: .zero, count: lineCount)
+
+        CTFrameGetLineOrigins(textFrame, .init(location: 0, length: 0), &lineOrigins)
+        //print(lineOrigins)
+
+        var heightValue: CGFloat = 0
+
+        /******************
+         * 最后一行原点y坐标加最后一行下行行高跟行距
+         ******************/
+        heightValue = 0;
+        let line_y = lineOrigins[lineCount - 1].y //最后一行line的原点y坐标
+        var lastAscent: CGFloat = 0 //上行行高
+        var lastDescent: CGFloat = 0;//下行行高
+        var lastLeading: CGFloat = 0;//行距
+        let lastLine = lines[lineCount - 1]
+        CTLineGetTypographicBounds(lastLine, &lastAscent, &lastDescent, &lastLeading);
+        // height - line_y为除去最后一行的字符原点以下的高度，descent + leading为最后一行不包括上行行高的字符高度
+        heightValue = height - line_y + abs(lastDescent) + lastLeading
+        heightValue = ceil(heightValue)
+
+        print(ceil(heightValue))
+    }
+
+    func calculateHeight2(for attributedStirng: NSAttributedString, width: CGFloat) {
+        let framesetter = CTFramesetterCreateWithAttributedString(attributedStirng as CFAttributedString)
+        var rangeToSize = CFRangeMake(0, attributedStirng.length)
+
+        let height: CGFloat = 0xFFFFFF
+        let drawRact = CGRect(x: 0, y: 0, width: width, height: height)
+        let cgPath = CGMutablePath()
+        cgPath.addRect(drawRact)
+        let textFrame = CTFramesetterCreateFrame(framesetter, .init(location: 0, length: 0), cgPath, nil)
+        let lines = CTFrameGetLines(textFrame) as! [CTLine]
+
+        if let lastVisibleLine = lines.last {
+            let rangeToLayout = CTLineGetStringRange(lastVisibleLine)
+            rangeToSize = CFRangeMake(0, rangeToLayout.location + rangeToLayout.length)
+        }
+
+        let suggestedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, rangeToSize, nil, drawRact.size, nil)
+        print(ceil(suggestedSize.height))
+    }
+
+    func calculateHeight3(for attributedStirng: NSAttributedString, width: CGFloat) {
+        let rect = attributedStirng.boundingRect(with: CGSize(width: width, height: 0xFFFFFF), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+        print(rect)
+    }
+
 // MARK: - UI 属性
 
     private let scrollView = UIScrollView(frame: .zero)
@@ -55,28 +132,25 @@ extension SimpleRegxViewController {
 
     func eventListen() {
 
-        let _ = EmojiAttributedProvider.shared
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let font = UIFont.systemFont(ofSize: 15, weight: .regular)
-            let lineHeight: CGFloat = 21
-            let paragraph = NSMutableParagraphStyle()
-            paragraph.maximumLineHeight = lineHeight
-            paragraph.minimumLineHeight = lineHeight
-            paragraph.alignment = .justified
+        let font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        let lineHeight: CGFloat = 21
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.maximumLineHeight = lineHeight
+        paragraph.minimumLineHeight = lineHeight
+        paragraph.alignment = .justified
 
-            let baselineOffset = (lineHeight  - font.lineHeight) / 4
+        let baselineOffset = (lineHeight  - font.lineHeight) / 4
 
-            let attr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.XiTu.shortContent,
-                .font: font,
-                .paragraphStyle: paragraph,
-                .baselineOffset: baselineOffset
-            ]
-            let attributedStr = EmojiAttributedProvider.shared.generateEmojiAttributedString(from: testString, attributed: attr, imageHeihg: font.lineHeight)
+        let attr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.XiTu.shortContent,
+            .font: font,
+            .paragraphStyle: paragraph,
+            .baselineOffset: baselineOffset
+        ]
+        let attributedStr = EmojiAttributedProvider.shared.generateEmojiAttributedString(from: testString, attributed: attr, imageHeihg: font.lineHeight)
+        //let attributedStr = NSAttributedString(string: testString, attributes: attr)
 
-            self.infoLabel.attributedText = attributedStr
-        }
-        
+        self.infoLabel.attributedText = attributedStr
     }
 }
 
@@ -120,8 +194,8 @@ extension SimpleRegxViewController {
         infoBGView.addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            infoLabel.leadingAnchor.constraint(equalTo: infoBGView.leadingAnchor, constant: 16),
-            infoLabel.trailingAnchor.constraint(equalTo: infoBGView.trailingAnchor, constant: -16),
+            infoLabel.leadingAnchor.constraint(equalTo: infoBGView.leadingAnchor, constant: 15),
+            infoLabel.trailingAnchor.constraint(equalTo: infoBGView.trailingAnchor, constant: -15),
             infoLabel.topAnchor.constraint(equalTo: infoBGView.topAnchor, constant: 8),
             infoLabel.bottomAnchor.constraint(equalTo: infoBGView.bottomAnchor, constant: 0)
         ])

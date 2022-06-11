@@ -297,7 +297,6 @@
 		BCA0364E27EB11FF00D15E0F /* XTDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BCAE84FE28026D4E00272124 /* NetworkConfigs */,
 				BC61922227EB1DD2009A3335 /* Ext */,
 				BCA0366527EB146300D15E0F /* TabBar */,
 				BC61922527EB3847009A3335 /* DynamicModule */,
@@ -336,13 +335,6 @@
 				BCA0367027EB14D700D15E0F /* DrButton.swift */,
 			);
 			path = TabBar;
-			sourceTree = "<group>";
-		};
-		BCAE84FE28026D4E00272124 /* NetworkConfigs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NetworkConfigs;
 			sourceTree = "<group>";
 		};
 		D85D68BD54B0923BC9128BAC /* Pods */ = {

@@ -51,13 +51,20 @@ final class DynamicListContnetTextView: UIView {
         fatalError("Dr 不支持!")
     }
 
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        if self.infoLabel.bounds.width.isLessThanOrEqualTo(.zero) {
-//            self.invalidateIntrinsicContentSize()
-//        }
-//    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        guard let attrConnet = infoLabel.attributedText else { return }
+
+        print("======= BEGAIN =======")
+        print(infoLabel.bounds)
+        let framesetter = CTFramesetterCreateWithAttributedString(attrConnet as CFAttributedString)
+        let limitSize = CGSize(width: bounds.width, height: 0xFFFFFF)
+        let fitsize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, attrConnet.length), nil, limitSize, nil)
+        print("计算的 size = \(fitsize), 约束得到的 size = \(infoLabel.bounds.size)")
+        print("======= END =======")
+    
+    }
 
     /// 约束的自定义布局大小
 //    override var intrinsicContentSize: CGSize {
